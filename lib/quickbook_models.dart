@@ -1668,6 +1668,1215 @@ class DeliveryInfo {
   Map<String, dynamic> toJson() => _$DeliveryInfoToJson(this);
 }
 
+/// An item is a thing that your company buys, sells, or re-sells,
+/// such as products and services. An item is shown as a line on an
+/// invoice or other sales form.
+@JsonSerializable(includeIfNull: false)
+class Item {
+
+  @JsonKey(name: "Id")
+  final String? id;
+
+  @JsonKey(name: "ItemCategoryType")
+  final String? itemCategoryType;
+
+  @JsonKey(name: "Name")
+  final String? name;
+
+  @JsonKey(name: "SyncToken")
+  final String? syncToken;
+
+  @JsonKey(name: "InvStartDate")
+  final Date? invStartDate;
+
+  @JsonKey(name: "Type")
+  final String? type;
+
+  @JsonKey(name: "QtyOnHand")
+  final double? qtyOnHand;
+
+  @JsonKey(name: "AssetAccountRef")
+  final ReferenceType? assetAccountRef;
+
+  @JsonKey(name: "Sku")
+  final String? sku;
+
+  @JsonKey(name: "SalesTaxIncluded")
+  final bool? salesTaxIncluded;
+
+  @JsonKey(name: "TrackQtyOnHand")
+  final bool? trackQtyOnHand;
+
+  @JsonKey(name: "SalesTaxCodeRef")
+  final ReferenceType? salesTaxCodeRef;
+
+  @JsonKey(name: "ClassRef")
+  final ReferenceType? classRef;
+
+  @JsonKey(name: "Source")
+  final String? source;
+
+  @JsonKey(name: "PurchaseTaxIncluded")
+  final bool? purchaseTaxIncluded;
+
+  @JsonKey(name: "Description")
+  final String? description;
+
+  @JsonKey(name: "AbatementRate")
+  final double? abatementRate;
+
+  @JsonKey(name: "SubItem")
+  final bool? subItem;
+
+  @JsonKey(name: "Taxable")
+  final bool? taxable;
+
+  @JsonKey(name: "UQCDisplayText")
+  final String? uQCDisplayText;
+
+  @JsonKey(name: "ReorderPoint")
+  final double? reorderPoint;
+
+  @JsonKey(name: "PurchaseDesc")
+  final String? purchaseDesc;
+
+  @JsonKey(name: "MetaData")
+  final ModificationMetaData? metaData;
+
+  @JsonKey(name: "PrefVendorRef")
+  final ReferenceType? prefVendorRef;
+
+  @JsonKey(name: "Active")
+  final bool? active;
+
+  @JsonKey(name: "UQCId")
+  final String? uQCId;
+
+  @JsonKey(name: "ReverseChargeRate")
+  final double? reverseChargeRate;
+
+  @JsonKey(name: "PurchaseTaxCodeRef")
+  final ReferenceType? purchaseTaxCodeRef;
+
+  @JsonKey(name: "ServiceType")
+  final String? serviceType;
+
+  @JsonKey(name: "PurchaseCost")
+  final double? purchaseCost;
+
+  @JsonKey(name: "ParentRef")
+  final ReferenceType? parentRef;
+
+  @JsonKey(name: "UnitPrice")
+  final double? unitPrice;
+
+  @JsonKey(name: "FullyQualifiedName")
+  final String? fullyQualifiedName;
+
+  @JsonKey(name: "ExpenseAccountRef")
+  final ReferenceType? expenseAccountRef;
+
+  @JsonKey(name: "Level")
+  final int? level;
+
+  @JsonKey(name: "IncomeAccountRef")
+  final ReferenceType? incomeAccountRef;
+
+  @JsonKey(name: "TaxClassificationRef")
+  final ReferenceType? taxClassificationRef;
+
+  Item({
+    this.syncToken, this.metaData, this.classRef, this.id,
+    this.description, this.taxClassificationRef, this.unitPrice,
+    this.type, this.name, this.active, this.taxable,
+    this.source, this.level, this.parentRef, this.fullyQualifiedName,
+    this.abatementRate, this.assetAccountRef, this.expenseAccountRef,
+    this.incomeAccountRef, this.invStartDate, this.itemCategoryType,
+    this.prefVendorRef, this.purchaseCost, this.purchaseDesc,
+    this.purchaseTaxCodeRef, this.purchaseTaxIncluded, this.qtyOnHand,
+    this.reorderPoint, this.reverseChargeRate, this.salesTaxCodeRef,
+    this.salesTaxIncluded, this.serviceType, this.sku,
+    this.subItem, this.trackQtyOnHand, this.uQCDisplayText,
+    this.uQCId
+  });
+
+  factory Item.fromJson(Map<String, dynamic> json) => _$ItemFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ItemToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class Date {
+
+  final String? date;
+
+  Date({
+    this.date
+  });
+  factory Date.fromJson(Map<String, dynamic> json) => _$DateFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DateToJson(this);
+}
+
+/// A Payment object records a payment in QuickBooks.
+/// The payment can be applied for a particular customer
+/// against multiple Invoices and Credit Memos. It can also
+/// be created without any Invoice or Credit Memo, by just
+/// specifying an amount.
+@JsonSerializable(includeIfNull: false)
+class Payment {
+
+  @JsonKey(name: "Id")
+  final String? id;
+
+  @JsonKey(name: "TotalAmt")
+  final double? totalAmt;
+
+  @JsonKey(name: "CustomerRef")
+  final ReferenceType? customerRef;
+
+  @JsonKey(name: "SyncToken")
+  final String? syncToken;
+
+  @JsonKey(name: "CurrencyRef")
+  final CurrencyRefType? currencyRef;
+
+  @JsonKey(name: "PrivateNote")
+  final String? privateNote;
+
+  @JsonKey(name: "PaymentMethodRef")
+  final ReferenceType? paymentMethodRef;
+
+  @JsonKey(name: "UnappliedAmt")
+  final double? unappliedAmt;
+
+  @JsonKey(name: "DepositToAccountRef")
+  final ReferenceType? depositToAccountRef;
+
+  @JsonKey(name: "ExchangeRate")
+  final double? exchangeRate;
+
+  // TODO Add
+  //@JsonKey(name: "Line")
+  //@_LineConverter()
+  //final List<Line>? line;
+
+  @JsonKey(name: "TxnSource")
+  final String? txnSource;
+
+  @JsonKey(name: "ARAccountRef")
+  final ReferenceType? aRAccountRef;
+
+  @JsonKey(name: "TxnDate")
+  final String? txnDate;
+
+  @JsonKey(name: "CreditCardPayment")
+  final CreditCardPayment? creditCardPayment;
+
+  @JsonKey(name: "TransactionLocationType")
+  final String? transactionLocationType;
+
+  @JsonKey(name: "MetaData")
+  final ModificationMetaData? metaData;
+
+  @JsonKey(name: "PaymentRefNum")
+  final String? paymentRefNum;
+
+  @JsonKey(name: "TaxExemptionRef")
+  final ReferenceType? taxExemptionRef;
+
+  Payment({
+    this.id, this.metaData, this.syncToken, this.txnSource,
+    this.depositToAccountRef, this.customerRef, this.transactionLocationType,
+    this.totalAmt, this.privateNote, this.exchangeRate,
+    this.txnDate, this.currencyRef, this.taxExemptionRef, this.paymentMethodRef,
+    this.aRAccountRef, this.creditCardPayment, this.paymentRefNum,
+    this.unappliedAmt
+  });
+  factory Payment.fromJson(Map<String, dynamic> json) => _$PaymentFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PaymentToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class CreditCardPayment {
+
+  @JsonKey(name: "CreditChargeResponse")
+  final CreditChargeResponse? creditChargeResponse;
+
+  @JsonKey(name: "CreditChargeInfo")
+  final CreditChargeInfo? creditChargeInfo;
+
+  CreditCardPayment({
+    this.creditChargeInfo, this.creditChargeResponse
+  });
+  factory CreditCardPayment.fromJson(Map<String, dynamic> json) => _$CreditCardPaymentFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CreditCardPaymentToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class CreditChargeResponse {
+
+  @JsonKey(name: "Status")
+  final CCPaymentStatusEnum? status;
+
+  @JsonKey(name: "AuthCode")
+  final String? authCode;
+
+  @JsonKey(name: "TxnAuthorizationTime")
+  final DateTime? txnAuthorizationTime;
+
+  @JsonKey(name: "CCTransId")
+  final String? cCTransId;
+
+  CreditChargeResponse({
+    this.authCode, this.cCTransId, this.status, this.txnAuthorizationTime
+  });
+  factory CreditChargeResponse.fromJson(Map<String, dynamic> json) => _$CreditChargeResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CreditChargeResponseToJson(this);
+
+}
+
+@JsonSerializable(includeIfNull: false)
+class CreditChargeInfo {
+
+  @JsonKey(name: "CcExpiryMonth")
+  final int? CcExpiryMonth;
+
+  @JsonKey(name: "ProcessPayment")
+  final bool? processPayment;
+
+  @JsonKey(name: "PostalCode")
+  final String? postalCode;
+
+  @JsonKey(name: "Amount")
+  final double? amount;
+
+  @JsonKey(name: "NameOnAcct")
+  final String? nameOnAcct;
+
+  @JsonKey(name: "CcExpiryYear")
+  final int? ccExpiryYear;
+
+  @JsonKey(name: "Type")
+  final String? type;
+
+  @JsonKey(name: "BillAddrStreet")
+  final String? billAddrStreet;
+
+  CreditChargeInfo({
+    this.type, this.amount, this.postalCode, this.billAddrStreet, this.CcExpiryMonth,
+    this.ccExpiryYear, this.nameOnAcct, this.processPayment
+  });
+  factory CreditChargeInfo.fromJson(Map<String, dynamic> json) => _$CreditChargeInfoFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CreditChargeInfoToJson(this);
+
+}
+
+/// The Preferences resource represents a set of company preferences
+/// that control application behavior in QuickBooks Online.
+/// They are mostly exposed as read-only through the Preferences
+/// endpoint with only a very small subset of them available as writable.
+/// Preferences are not necessarily honored when making requests via the
+/// QuickBooks API because a lot of them control UI behavior in the application
+/// and may not be applicable for apps.
+@JsonSerializable(includeIfNull: false)
+class Preferences {
+
+  @JsonKey(name: "Id")
+  final String? id;
+
+  @JsonKey(name: "SyncToken")
+  final String? syncToken;
+
+  @JsonKey(name: "MetaData")
+  final ModificationMetaData? metaData;
+
+  @JsonKey(name: "EmailMessagesPrefs")
+  final EmailMessagesPrefs? emailMessagesPrefs;
+
+  @JsonKey(name: "ProductAndServicesPrefs")
+  final ProductAndServicesPrefs? productAndServicesPrefs;
+
+  @JsonKey(name: "ReportPrefs")
+  final ReportPrefs? reportPrefs;
+
+  @JsonKey(name: "AccountingInfoPrefs")
+  final AccountingInfoPrefs? accountingInfoPrefs;
+
+  @JsonKey(name: "SalesFormsPrefs")
+  final SalesFormsPrefs? salesFormsPrefs;
+
+  @JsonKey(name: "VendorAndPurchasesPrefs")
+  final VendorAndPurchasesPrefs? vendorAndPurchasesPrefs;
+
+  @JsonKey (name: "TaxPrefs")
+  final TaxPrefs? taxPrefs;
+
+  @JsonKey(name: "OtherPrefs")
+  final OtherPrefs? otherPrefs;
+
+  @JsonKey(name: "TimeTrackingPrefs")
+  final TimeTrackingPrefs? timeTrackingPrefs;
+
+  @JsonKey(name: "CurrencyPrefs")
+  final CurrencyPrefs? currencyPrefs;
+
+  Preferences({
+  this.syncToken, this.metaData, this.id, this.accountingInfoPrefs,
+    this.currencyPrefs, this.emailMessagesPrefs, this.otherPrefs,
+    this.productAndServicesPrefs, this.reportPrefs, this.salesFormsPrefs,
+    this.taxPrefs, this.timeTrackingPrefs, this.vendorAndPurchasesPrefs
+  });
+  factory Preferences.fromJson(Map<String, dynamic> json) => _$PreferencesFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PreferencesToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class EmailMessagesPrefs {
+
+  // TODO Add fields
+  EmailMessagesPrefs();
+  factory EmailMessagesPrefs.fromJson(Map<String, dynamic> json) => _$EmailMessagesPrefsFromJson(json);
+
+  Map<String, dynamic> toJson() => _$EmailMessagesPrefsToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class ProductAndServicesPrefs {
+
+  // TODO Add fields
+  ProductAndServicesPrefs();
+  factory ProductAndServicesPrefs.fromJson(Map<String, dynamic> json) => _$ProductAndServicesPrefsFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ProductAndServicesPrefsToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class ReportPrefs {
+
+  // TODO Add fields
+  ReportPrefs();
+  factory ReportPrefs.fromJson(Map<String, dynamic> json) => _$ReportPrefsFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ReportPrefsToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class AccountingInfoPrefs {
+
+  // TODO Add fields
+  AccountingInfoPrefs();
+  factory AccountingInfoPrefs.fromJson(Map<String, dynamic> json) => _$AccountingInfoPrefsFromJson(json);
+
+  Map<String, dynamic> toJson() => _$AccountingInfoPrefsToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class SalesFormsPrefs {
+
+  // TODO Add fields
+  SalesFormsPrefs();
+  factory SalesFormsPrefs.fromJson(Map<String, dynamic> json) => _$SalesFormsPrefsFromJson(json);
+
+  Map<String, dynamic> toJson() => _$SalesFormsPrefsToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class VendorAndPurchasesPrefs {
+
+  // TODO Add fields
+  VendorAndPurchasesPrefs();
+  factory VendorAndPurchasesPrefs.fromJson(Map<String, dynamic> json) => _$VendorAndPurchasesPrefsFromJson(json);
+
+  Map<String, dynamic> toJson() => _$VendorAndPurchasesPrefsToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class TaxPrefs {
+
+  // TODO Add fields
+  TaxPrefs();
+  factory TaxPrefs.fromJson(Map<String, dynamic> json) => _$TaxPrefsFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TaxPrefsToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class OtherPrefs {
+
+  // TODO Add fields
+  OtherPrefs();
+  factory OtherPrefs.fromJson(Map<String, dynamic> json) => _$OtherPrefsFromJson(json);
+
+  Map<String, dynamic> toJson() => _$OtherPrefsToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class TimeTrackingPrefs {
+
+  // TODO Add fields
+  TimeTrackingPrefs();
+  factory TimeTrackingPrefs.fromJson(Map<String, dynamic> json) => _$TimeTrackingPrefsFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TimeTrackingPrefsToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class CurrencyPrefs {
+
+  @JsonKey(name: "HomeCurrency")
+  final ReferenceType? homeCurrency;
+
+  @JsonKey(name: "MultiCurrencyEnabled")
+  final bool? multiCurrencyEnabled;
+
+  CurrencyPrefs({
+    this.homeCurrency, this.multiCurrencyEnabled
+  });
+  factory CurrencyPrefs.fromJson(Map<String, dynamic> json) => _$CurrencyPrefsFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CurrencyPrefsToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class ProfitAndLoss {
+
+  @JsonKey(name: "Header")
+  final ProfitHeader? header;
+
+  @JsonKey(name: "Rows")
+  final List<ProfitRow>? rows;
+
+  @JsonKey(name: "Columns")
+  final List<ProfitColumn>? columns;
+
+  ProfitAndLoss({
+    this.columns, this.header, this.rows
+  });
+  factory ProfitAndLoss.fromJson(Map<String, dynamic> json) => _$ProfitAndLossFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ProfitAndLossToJson(this);
+
+}
+
+@JsonSerializable(includeIfNull: false)
+class ProfitHeader {
+
+  @JsonKey(name: "Customer")
+  final String? customer;
+
+  @JsonKey(name: "ReportName")
+  final String? reportName;
+  
+  @JsonKey(name: "Vendor")
+  final String? vendor;
+
+  @JsonKey(name: "Option")
+  final Option? option;
+
+  @JsonKey(name: "Item")
+  final String? item;
+
+  @JsonKey(name: "Employee")
+  final String? employee;
+
+  @JsonKey(name: "ReportBasis")
+  final String? reportBasis;
+
+  @JsonKey(name: "StartPeriod")
+  final String? startPeriod;
+
+  @JsonKey(name: "Class")
+  final String? className;
+
+  @JsonKey(name: "Currency")
+  final String? currency;
+
+  @JsonKey(name: "EndPeriod")
+  final String? endPeriod;
+
+  @JsonKey(name: "Time")
+  final String? time;
+
+  @JsonKey(name: "Department")
+  final String? department;
+
+  @JsonKey(name: "SummarizeColumnsBy")
+  final String? summarizeColumnsBy;
+
+  ProfitHeader({
+    this.className, this.currency, this.customer, this.department,
+    this.employee, this.endPeriod, this.item, this.option,
+    this.reportBasis, this.reportName, this.startPeriod,
+    this.summarizeColumnsBy, this.time, this.vendor
+  });
+  factory ProfitHeader.fromJson(Map<String, dynamic> json) => _$ProfitHeaderFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ProfitHeaderToJson(this);
+
+}
+
+@JsonSerializable(includeIfNull: false)
+class Option {
+
+  final String? name;
+
+  final String? value;
+
+  Option({
+    this.name, this.value
+  });
+  factory Option.fromJson(Map<String, dynamic> json) => _$OptionFromJson(json);
+
+  Map<String, dynamic> toJson() => _$OptionToJson(this);
+}
+
+
+@JsonSerializable(includeIfNull: false)
+class ProfitRow {
+
+  @JsonKey(name: "Header")
+  final RowHeader? header;
+
+  @JsonKey(name: "Rows")
+  final List<ProfitRow>? rows;
+
+  @JsonKey(name: "Columns")
+  final List<ProfitColumn>? columns;
+
+  ProfitRow({
+    this.rows, this.header, this.columns
+  });
+  factory ProfitRow.fromJson(Map<String, dynamic> json) => _$ProfitRowFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ProfitRowToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class RowHeader {
+  @JsonKey(name: "ColData")
+  final List<ColData>? colData;
+
+  RowHeader({
+    this.colData
+  });
+  factory RowHeader.fromJson(Map<String, dynamic> json) => _$RowHeaderFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RowHeaderToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class ColData {
+
+  final String? id;
+
+  final String? value;
+
+  final String? href;
+
+  ColData({
+    this.value, this.id, this.href
+  });
+  factory ColData.fromJson(Map<String, dynamic> json) => _$ColDataFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ColDataToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class ProfitColumn {
+
+  @JsonKey(name: "ColType")
+  final String? colType;
+
+  @JsonKey(name: "ColTitle")
+  final String? colTitle;
+
+  ProfitColumn({
+    this.colTitle, this.colType
+  });
+  factory ProfitColumn.fromJson(Map<String, dynamic> json) => _$ProfitColumnFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ProfitColumnToJson(this);
+
+}
+
+/// A TaxAgency object is associated with a tax rate and
+/// identifies the agency to which that tax rate applies,
+/// that is, the entity that collects those taxes.
+@JsonSerializable(includeIfNull: false)
+class TaxAgency {
+
+  @JsonKey(name: "Id")
+  final String? id;
+
+  @JsonKey(name: "DisplayName")
+  final String? displayName;
+
+  @JsonKey(name: "SyncToken")
+  final String? syncToken;
+
+  @JsonKey(name: "TaxTrackedOnSales")
+  final bool? taxTrackedOnSales;
+
+  @JsonKey(name: "TaxTrackedOnPurchases")
+  final bool? taxTrackedOnPurchases;
+
+  @JsonKey(name: "LastFileDate")
+  final String? lastFileDate;
+
+  @JsonKey(name: "TaxRegistrationNumber")
+  final String? taxRegistrationNumber;
+
+  @JsonKey(name: "MetaData")
+  final ModificationMetaData? metaData;
+
+  @JsonKey(name: "TaxAgencyConfig")
+  final String? taxAgencyConfig;
+
+  TaxAgency({
+    this.id, this.metaData, this.syncToken, this.displayName,
+    this.lastFileDate, this.taxAgencyConfig, this.taxRegistrationNumber,
+    this.taxTrackedOnPurchases, this.taxTrackedOnSales
+  });
+  factory TaxAgency.fromJson(Map<String, dynamic> json) => _$TaxAgencyFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TaxAgencyToJson(this);
+
+}
+
+/// The Vendor object represents the seller from whom
+/// your company purchases any service or product.
+@JsonSerializable(includeIfNull: false)
+class Vendor {
+
+  @JsonKey(name: "Id")
+  final String? id;
+
+  @JsonKey(name: "SyncToken")
+  final String? syncToken;
+
+  @JsonKey(name: "Title")
+  final String? title;
+
+  @JsonKey(name: "GivenName")
+  final String? givenName;
+
+  @JsonKey(name: "MiddleName")
+  final String? middleName;
+
+  @JsonKey(name: "Suffix")
+  final String? suffix;
+
+  @JsonKey(name: "FamilyName")
+  final String? familyName;
+
+  @JsonKey(name: "PrimaryEmailAddr")
+  final EmailAddress? primaryEmailAddr;
+
+  @JsonKey(name: "DisplayName")
+  final String? displayName;
+
+  @JsonKey(name: "OtherContactInfo")
+  final ContactInfo? otherContactInfo;
+
+  @JsonKey(name: "APAccountRef")
+  final ReferenceType? aPAccountRef;
+  
+  @JsonKey(name: "TermRef")
+  final ReferenceType? termRef;
+  
+  @JsonKey(name: "Source")
+  final String? source;
+  
+  @JsonKey(name: "GSTIN")
+  final String? gSTIN;
+
+  @JsonKey(name: "T4AEligible")
+  final bool? t4AEligible;
+
+  @JsonKey(name: "Fax")
+  final TelephoneNumber? fax;
+  
+  @JsonKey(name: "BusinessNumber")
+  final String? businessNumber;
+
+  @JsonKey(name: "CurrencyRef")
+  final CurrencyRefType? currencyRef;
+
+  @JsonKey(name: "HasTPAR")
+  final bool? hasTPAR;
+  
+  @JsonKey(name: "TaxReportingBasis")
+  final String? taxReportingBasis;
+
+  @JsonKey(name: "Mobile")
+  final TelephoneNumber? mobile;
+
+  @JsonKey(name: "PrimaryPhone")
+  final TelephoneNumber? primaryPhone;
+
+  @JsonKey(name: "Active")
+  final bool? active;
+
+  @JsonKey(name: "AlternatePhone")
+  final TelephoneNumber? alternatePhone;
+
+  @JsonKey(name: "MetaData")
+  final ModificationMetaData? metaData;
+
+  @JsonKey(name: "Vendor1099")
+  final bool? vendor1099;
+
+  @JsonKey(name: "CostRate")
+  final double? costRate;
+
+  @JsonKey(name: "BillRate")
+  final double? billRate;
+
+  @JsonKey(name: "WebAddr")
+  final WebSiteAddress? webAddr;
+
+  @JsonKey(name: "T5018Eligible")
+  final bool? t5018Eligible;
+
+  @JsonKey(name: "CompanyName")
+  final String? companyName;
+  
+  @JsonKey(name: "VendorPaymentBankDetail")
+  final VendorPaymentBankDetail? vendorPaymentBankDetail;
+
+  @JsonKey(name: "TaxIdentifier")
+  final String? taxIdentifier;
+
+  @JsonKey(name: "AcctNum")
+  final String? acctNum;
+  
+  @JsonKey(name: "GSTRegistrationType")
+  final String? gSTRegistrationType;
+  
+  @JsonKey(name: "PrintOnCheckName")
+  final String? printOnCheckName;
+
+  @JsonKey(name: "BillAddr")
+  final PhysicalAddress? billAddr;
+
+  @JsonKey(name: "Balance")
+  final double? balance;
+
+
+  Vendor({
+    this.displayName, this.syncToken, this.metaData, this.id,
+    this.source, this.active, this.balance, this.currencyRef, this.billAddr,
+    this.costRate, this.billRate, this.primaryPhone, this.familyName,
+    this.givenName, this.middleName, this.mobile, this.primaryEmailAddr,
+    this.printOnCheckName, this.suffix, this.title, this.gSTRegistrationType,
+    this.gSTIN, this.fax, this.businessNumber, this.alternatePhone,
+    this.companyName, this.webAddr, this.aPAccountRef, this.acctNum,
+    this.hasTPAR, this.otherContactInfo, this.t4AEligible, this.t5018Eligible,
+    this.taxIdentifier, this.taxReportingBasis, this.termRef,
+    this.vendor1099, this.vendorPaymentBankDetail
+  });
+  factory Vendor.fromJson(Map<String, dynamic> json) => _$VendorFromJson(json);
+
+  Map<String, dynamic> toJson() => _$VendorToJson(this);
+
+}
+
+@JsonSerializable(includeIfNull: false)
+class ContactInfo{
+
+  @JsonKey(name: "Type")
+  final String? type;
+  
+  @JsonKey(name: "Telephone")
+  final TelephoneNumber? telephone;
+
+  ContactInfo({
+    this.type, this.telephone
+  });
+  factory ContactInfo.fromJson(Map<String, dynamic> json) => _$ContactInfoFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ContactInfoToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class VendorPaymentBankDetail {
+
+  @JsonKey(name: "BankAccountName")
+  final String? bankAccountName;
+
+  @JsonKey(name: "BankBranchIdentifier")
+  final String? bankBranchIdentifier;
+  
+  @JsonKey(name: "BankAccountNumber")
+  final String? bankAccountNumber;
+
+  @JsonKey(name: "StatementText")
+  final String? statementText;
+
+  VendorPaymentBankDetail({
+    this.bankAccountName, this.bankAccountNumber, this.bankBranchIdentifier,
+    this.statementText
+  });
+  factory VendorPaymentBankDetail.fromJson(Map<String, dynamic> json) => _$VendorPaymentBankDetailFromJson(json);
+
+  Map<String, dynamic> toJson() => _$VendorPaymentBankDetailToJson(this);
+}
+
+/// Quickbooks - Payments
+@JsonSerializable(includeIfNull: false)
+class BankAccount {
+
+  final String? id;
+
+  final String? name;
+
+  final String? accountNumber;
+
+  final String? phone;
+
+  final BankAccountTypeEnum? accountType;
+
+  final String? routingNumber;
+
+  final String? updated;
+
+  @JsonKey(name: "default")
+  final bool? isDefautl;
+
+  final String? country;
+
+  final String? inputType;
+  
+  final String? entityType;
+
+  final String? created;
+
+  final String? bankCode;
+
+  final String? entityId;
+
+  BankAccount({
+    this.id, this.name, this.country, this.accountType, this.accountNumber,
+    this.bankCode, this.created, this.isDefautl, this.entityId,
+    this.entityType, this.inputType, this.phone, this.routingNumber,
+    this.updated
+  });
+  factory BankAccount.fromJson(Map<String, dynamic> json) => _$BankAccountFromJson(json);
+
+  Map<String, dynamic> toJson() => _$BankAccountToJson(this);
+}
+
+
+@JsonSerializable(includeIfNull: false)
+class Card {
+
+  final String? id;
+
+  final String? number;
+
+  final String? expMonth;
+
+  final String? expYear;
+
+  final String? cvc;
+
+  final String? updated;
+
+  final CardTypeEnum? cardType;
+
+  final String? name;
+
+  @JsonKey(name: "default")
+  final bool? isDefault;
+
+  final String? commercialCardCode;
+
+  final Address? address;
+
+  final bool? isBusiness;
+
+  final bool? isLevel3Eligible;
+
+  final String? created;
+
+  final String? entityType;
+
+  final String? entityId;
+
+  final ZeroDollarVerification? zeroDollarVerification;
+
+
+  Card({
+    this.updated, this.entityType, this.entityId, this.created,
+    this.name, this.id, this.address, this.cardType, this.commercialCardCode,
+    this.cvc, this.expMonth, this.expYear, this.isBusiness, this.isDefault,
+    this.isLevel3Eligible, this.number, this.zeroDollarVerification
+  });
+  factory Card.fromJson(Map<String, dynamic> json) => _$CardFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CardToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class Address {
+
+  final String? city;
+
+  final String? streetAddress;
+
+  final String? country;
+
+  final String? postalCode;
+
+  final String? region;
+
+  Address({
+    this.country, this.postalCode, this.city, this.region, this.streetAddress
+  });
+  factory Address.fromJson(Map<String, dynamic> json) => _$AddressFromJson(json);
+
+  Map<String, dynamic> toJson() => _$AddressToJson(this);
+
+}
+
+@JsonSerializable(includeIfNull: false)
+class ZeroDollarVerification {
+
+  final String? transactionId;
+
+  final String? type;
+
+  final String? status;
+
+  ZeroDollarVerification({
+    this.type, this.status, this.transactionId
+  });
+  factory ZeroDollarVerification.fromJson(Map<String, dynamic> json) => _$ZeroDollarVerificationFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ZeroDollarVerificationToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class Charge {
+
+  final String? id;
+
+  final String? currency;
+
+  final double? amount;
+
+  final PaymentContext? context;
+
+  final Card? card;
+
+  final bool? capture;
+
+  final String? description;
+
+  final String? authCode;
+
+  // TODO refundDetail
+
+  final ChargeStatusEnum? status;
+
+  final String? created;
+
+  final CaptureDetail? captureDetail;
+
+  final String? avsZip;
+
+  final String? token;
+
+  final String? cardSecurityCodeMatch;
+
+  final String? avsStreet;
+
+  Charge({
+    this.status, this.id, this.created, this.currency, this.amount,
+    this.authCode, this.description, this.avsStreet, this.avsZip,
+    this.capture, this.captureDetail, this.card, this.cardSecurityCodeMatch,
+    this.context, this.token
+  });
+  factory Charge.fromJson(Map<String, dynamic> json) => _$ChargeFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ChargeToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class CaptureDetail{
+
+  final double? amount;
+
+  final String? description;
+
+  final PaymentContext? context;
+
+  final String? created;
+
+  CaptureDetail({
+    this.context, this.description, this.amount, this.created
+  });
+  factory CaptureDetail.fromJson(Map<String, dynamic> json) => _$CaptureDetailFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CaptureDetailToJson(this);
+
+}
+
+@JsonSerializable(includeIfNull: false)
+class PaymentContext {
+
+  final bool? mobile;
+
+  final bool? isEcommerce;
+
+  final double? tax;
+
+  final DeviceInfo? deviceInfo;
+
+  final bool? recurring;
+
+  final Restaurant? restaurant;
+
+  final Lodging? lodging;
+
+  PaymentContext({
+    this.mobile, this.deviceInfo, this.isEcommerce, this.lodging,
+    this.recurring, this.restaurant, this.tax
+  });
+  factory PaymentContext.fromJson(Map<String, dynamic> json) => _$PaymentContextFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PaymentContextToJson(this);
+
+}
+
+@JsonSerializable(includeIfNull: false)
+class DeviceInfo {
+
+  final String? id;
+
+  final String? macAddress;
+
+  final bool? encrypted;
+
+  final String? ipAddress;
+
+  final String? longitude;
+
+  final String? phoneNumber;
+
+  final String? latitude;
+
+  final String? type;
+
+  DeviceInfo({
+    this.id, this.type, this.encrypted, this.ipAddress,
+    this.latitude, this.longitude, this.macAddress, this.phoneNumber
+  });
+  factory DeviceInfo.fromJson(Map<String, dynamic> json) => _$DeviceInfoFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DeviceInfoToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class Restaurant {
+
+  final double? beverageAmount;
+
+  final String? serverID;
+
+  final double? taxAmount;
+
+  final double? foodAmount;
+
+  final double? tipAmount;
+
+  Restaurant({
+    this.taxAmount, this.beverageAmount, this.foodAmount, this.serverID,
+    this.tipAmount
+  });
+  factory Restaurant.fromJson(Map<String, dynamic> json) => _$RestaurantFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RestaurantToJson(this);
+
+}
+
+@JsonSerializable(includeIfNull: false)
+class Lodging {
+
+  final double? lengthOfStay;
+
+  final String? checkInDate;
+
+  final double? roomRate;
+
+  final SpecialProgramEnum? specialProgram;
+
+  final ChargeTypeEnum? chargeType;
+
+  final String? folioID;
+
+  final List<String>? extraCharges;
+
+  final String? checkOutDate;
+
+  final double? totalAuthAmount;
+
+  Lodging({
+    this.chargeType, this.checkInDate, this.checkOutDate, this.extraCharges,
+    this.folioID, this.lengthOfStay, this.roomRate, this.specialProgram,
+    this.totalAuthAmount
+  });
+  factory Lodging.fromJson(Map<String, dynamic> json) => _$LodgingFromJson(json);
+
+  Map<String, dynamic> toJson() => _$LodgingToJson(this);
+}
+
+@JsonSerializable(includeIfNull:  false)
+class ECheck {
+
+  final String? id;
+
+  final String? paymentMode;
+
+  final double? amount;
+
+  final String? description;
+
+  final String? checkNumber;
+
+  final String? authCode;
+
+  final PaymentContext? context;
+
+  final ECheckStatus? status;
+
+  final BankAccount? bankAccount;
+
+  final String? created;
+
+  final String? token;
+
+  final String? bankAccountOnFile;
+
+  ECheck({
+    this.id, this.created, this.amount, this.description,
+    this.context, this.token, this.authCode, this.status,
+    this.bankAccount, this.bankAccountOnFile, this.checkNumber,
+    this.paymentMode
+  });
+  factory ECheck.fromJson(Map<String, dynamic> json) => _$ECheckFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ECheckToJson(this);
+
+}
+
+
 enum GlobalTaxCalculationEnum {
   TaxExcluded,
   TaxInclusive,
@@ -1682,4 +2891,67 @@ enum BillableStatusEnum {
 
 enum CustomFieldTypeEnum {
   StringType,
+}
+
+enum CCPaymentStatusEnum {
+  Completed,
+  Unknown
+}
+
+enum BankAccountTypeEnum {
+  PERSONAL_CHECKING,
+  PERSONAL_SAVINGS,
+  BUSINESS_CHECKING
+}
+
+enum CardTypeEnum {
+  VISA,
+  MC,
+  AMEX,
+  DISC,
+  DINERS,
+  JCB,
+
+}
+
+enum ChargeStatusEnum {
+
+  AUTHORIZED,
+  DECLINED,
+  CAPTURED,
+  CANCELLED,
+  SETTLED,
+  REFUNDED,
+
+}
+
+enum SpecialProgramEnum {
+  AdvanceDeposit,
+  AssuredReservation,
+  DelayedCharge,
+  ExpressService,
+  NormalCharge,
+  NoShowCharge,
+
+}
+
+enum ChargeTypeEnum {
+  ConventionFees,
+  GiftShop,
+  Golf,
+  HealthClub,
+  Hotel,
+  Restaurant,
+  Salon,
+  Tennis,
+
+}
+
+enum ECheckStatus {
+  PENDING,
+  SUCCEEDED,
+  DECLINED,
+  VOIDED,
+  REFUNDED,
+
 }
