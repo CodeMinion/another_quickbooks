@@ -2876,6 +2876,115 @@ class ECheck {
 
 }
 
+@JsonSerializable(includeIfNull: false)
+class UrlDiscovery {
+
+  final String? issuer;
+
+  final String authorization_endpoint;
+
+  final String token_endpoint;
+
+  final String userinfo_endpoint;
+
+  final String revocation_endpoint;
+
+  final String jwks_uri;
+  
+  final List<String> response_types_supported;
+
+  final List<String> subject_types_supported;
+
+  final List<String> id_token_signing_alg_values_supported;
+
+  final List<String> scopes_supported;
+
+  final List<String> token_endpoint_auth_methods_supported;
+
+  final List<String> claims_supported;
+
+  UrlDiscovery({
+    required this.authorization_endpoint, required this.claims_supported,
+    required this.id_token_signing_alg_values_supported,
+    required this.issuer, required this.jwks_uri,
+    required this.response_types_supported,
+    required this.revocation_endpoint,
+    required this.scopes_supported, required this.subject_types_supported,
+    required this.token_endpoint, required this.token_endpoint_auth_methods_supported,
+    required this.userinfo_endpoint
+  });
+  factory UrlDiscovery.fromJson(Map<String, dynamic> json) => _$UrlDiscoveryFromJson(json);
+
+  Map<String, dynamic> toJson() => _$UrlDiscoveryToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
+}
+
+
+class Scope {
+  final _id;
+  final scope;
+
+  Scope._(this._id, this.scope);
+
+  static final Invalid = Scope._("invalid", "");
+  static final OpenId = Scope._("openid", "openid");
+  static final Email = Scope._("email", "email");
+  static final Profile = Scope._("profile", "profile");
+  static final Phone = Scope._("phone", "phone");
+  static final Address= Scope._("address", "address");
+  static final Accounting = Scope._("payment", "com.intuit.quickbooks.accounting");
+  static final Payments = Scope._("payment", "com.intuit.quickbooks.payment");
+
+  static final _values = [
+    Accounting,
+    Address,
+    Email,
+    Payments,
+    Phone,
+    Profile,
+    Invalid,
+    OpenId
+  ];
+
+  static Scope findById(String id) {
+    Scope found = Invalid;
+
+    for (var scope in _values) {
+      if (scope._id == id) {
+        return scope;
+      }
+    }
+    return found;
+  }
+}
+
+@JsonSerializable(includeIfNull: false)
+class TokenResponse {
+
+  final String? refresh_token;
+  final String? access_token;
+  final int? expires_in;
+  final int? x_refresh_token_expires_in;
+  final String? idToken;
+
+  TokenResponse({this.refresh_token,
+   this.access_token, this.expires_in,
+  this.idToken, this.x_refresh_token_expires_in});
+
+  factory TokenResponse.fromJson(Map<String, dynamic> json) => _$TokenResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TokenResponseToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
+}
+
 
 enum GlobalTaxCalculationEnum {
   TaxExcluded,
