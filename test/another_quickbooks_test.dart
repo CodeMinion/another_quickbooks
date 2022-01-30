@@ -52,35 +52,6 @@ void main() {
 
 
   // Accounts
-  test('test account create ', () async {
-    final quickClient = QuickbooksClient(
-        applicationId: applicationId,
-        clientId: clientId,
-        clientSecret: clientSecret);
-    await quickClient.initialize();
-
-    String token = (await quickClient.refreshToken(
-        refreshToken: refreshToken
-    )).access_token ?? "";
-
-    print(token);
-    expect(token.length, isNot(0));
-
-    var accountCreated = await quickClient.getPaymentClient().createAccount(
-      realmId: "4620816365213534410",
-        requestId: "ABCD1",
-        customerId: "0",
-        name: "Hello World", accountNumber:
-    "1234-444-44-4-4",
-        phone: "333445555",
-        accountType: BankAccountTypeEnum.PERSONAL_SAVINGS,
-        routingNumber: "asssssssddd");
-
-    print(accountCreated);
-    expect(accountCreated, isNotNull);
-    expect(quickClient.isInitialized(), true);
-  });
-
   test('test query account ', () async {
     final quickClient = QuickbooksClient(
         applicationId: applicationId,
@@ -2139,4 +2110,7 @@ void main() {
     expect(found, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
+
+
+  //// Paymets
 }

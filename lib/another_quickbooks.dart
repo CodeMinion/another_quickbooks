@@ -28,6 +28,7 @@ class QuickbooksClient {
   final String clientId;
   final String clientSecret;
   String _url = "quickbooks.api.intuit.com";
+  String _paymentsUrl = "sandbox.api.intuit.com";
   String _discoveryUrl =
       "https://developer.api.intuit.com/.well-known/openid_sandbox_configuration";
   late DiscoveryService _discoveryService;
@@ -44,10 +45,12 @@ class QuickbooksClient {
       _url = "sandbox-quickbooks.api.intuit.com";
       _discoveryUrl =
           "https://developer.api.intuit.com/.well-known/openid_sandbox_configuration";
+      _paymentsUrl = "sandbox.api.intuit.com";
     } else {
       _url = "quickbooks.api.intuit.com";
       _discoveryUrl =
           "https://developer.api.intuit.com/.well-known/openid_configuration";
+      _paymentsUrl = "api.intuit.com";
     }
     _discoveryService = DiscoveryService(discoveryUrl: _discoveryUrl);
   }
@@ -65,7 +68,7 @@ class QuickbooksClient {
         tokenEndpoint: discovery.token_endpoint,
         revocationEndpoint: discovery.revocation_endpoint);
     _paymentClient = PaymentClient._(
-        baseUrl: _url, authenticationService: _authenticationService!);
+        baseUrl: _paymentsUrl, authenticationService: _authenticationService!);
 
     _accountingClient = AccountingClient._(
         baseUrl: _url, authenticationService: _authenticationService!);
@@ -161,37 +164,64 @@ class PaymentClient {
   ///
   /// URL: https://developer.intuit.com/app/developer/qbpayments/docs/api/resources/all-entities/bankaccounts
   /// Creates a bank account
-  Future<BankAccount> createAccount({
+  Future<BankAccount> createBankAccount({
     required String requestId,
     required String customerId,
-    required String name,
-    required String accountNumber,
-    required String phone,
-    required BankAccountTypeEnum accountType,
-    required String routingNumber,
-    bool? isDefault,
-    String? country,
-    String? bankCode,
-    String? inputType,
+    required BankAccount account,
     String? realmId,
     String? authToken,
   }) async {
     return _accountsService.createAccount(
         requestId: requestId,
         customerId: customerId,
-        name: name,
-        accountNumber: accountNumber,
-        phone: phone,
-        accountType: accountType,
-        routingNumber: routingNumber,
-      isDefault: isDefault,
-      country: country,
-      bankCode:bankCode,
-      inputType: inputType,
+        account: account,
       realmId: realmId,
       authToken: authToken,
 
     );
+  }
+
+  Future<BankAccount> createBankAccountFromToken({
+    required String requestId,
+    required String customerId,
+    required String accountToken,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _accountsService.createAccountFromToken(requestId: requestId,
+        customerId: customerId, accountToken: accountToken, realmId: realmId, authToken: authToken);
+  }
+
+  Future<List<BankAccount>> readAllBankAccounts({
+    required String requestId,
+    required String customerId,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _accountsService.readAllAccounts(requestId: requestId, customerId: customerId, realmId: realmId, authToken: authToken);
+  }
+
+  Future<BankAccount> readBankAccount({
+    required String bankAccountId,
+    required String customerId,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _accountsService.readAccount(bankAccountId: bankAccountId,
+        customerId: customerId, realmId: realmId, authToken: authToken);
+  }
+
+  Future<bool> deleteBankAccount({
+    required String requestId,
+    required String bankAccountId,
+    required String customerId,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _accountsService.deleteAccount(
+        requestId: requestId,
+        bankAccountId: bankAccountId,
+        customerId: customerId, realmId: realmId, authToken: authToken);
   }
 }
 

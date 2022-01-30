@@ -18,15 +18,7 @@ class BankAccountsService {
   Future<BankAccount> createAccount({
     required String requestId,
     required String customerId,
-    required String name,
-    required String accountNumber,
-    required String phone,
-    required BankAccountTypeEnum accountType,
-    required String routingNumber,
-    bool? isDefault,
-    String? country,
-    String? bankCode,
-    String? inputType,
+    required BankAccount account,
     String? realmId,
     String? authToken,
   }) async {
@@ -34,37 +26,156 @@ class BankAccountsService {
     realmId ??= authenticationService.getCachedRealmId();
 
     Map<String, String> headers = {
-      "request-Id": requestId,
+      "Request-ID": requestId,
       "Authorization": "Bearer ${authToken ?? ""}",
-      'Content-Type': 'application/json; charset=UTF-8',
+      'Content-Type': 'application/json',
+      //'Accept': 'application/json',
     };
 
-    Map<String, String> params = {
-      "id": customerId
+
+    //v4/customers/2/bank-accounts
+    Uri endpoint = Uri.https(
+        baseUrl, "/quickbooks/v4/customers/$customerId/bank-accounts");
+
+    print (endpoint.toString());
+
+    print (jsonEncode(account.toJson()));
+    var response = await
+        http.post(endpoint, headers: headers, body: jsonEncode(account.toJson()));
+
+    if (response.statusCode == 200 || response.statusCode == 200) {
+        return BankAccount.fromJson(jsonDecode(response.body));
+    }
+    else {
+      throw BankAccountException(statusCode: response.statusCode, message: response.body);
+    }
+  }
+
+  Future<BankAccount> createAccountFromToken({
+    required String requestId,
+    required String customerId,
+    required String accountToken,
+    String? realmId,
+    String? authToken,
+  }) async {
+    authToken ??= authenticationService.getCachedToken()?.access_token;
+    realmId ??= authenticationService.getCachedRealmId();
+
+    Map<String, String> headers = {
+      "Request-ID": requestId,
+      "Authorization": "Bearer ${authToken ?? ""}",
+      'Content-Type': 'application/json',
+      //'Accept': 'application/json',
     };
 
-    BankAccount account = BankAccount(
-      name: name,
-      country: country,
-      accountType: accountType,
-      accountNumber: accountNumber,
-      bankCode: bankCode,
-      isDefault: isDefault,
-      inputType: inputType,
-      phone: phone,
-      routingNumber: routingNumber,
-    );
 
     Uri endpoint = Uri.https(
-        baseUrl, "/v4/customers/$realmId/bank-accounts", params);
+        baseUrl, "/quickbooks/v4/customers/$customerId/bank-accounts/createFromToken");
+
+    print (endpoint.toString());
+    var response = await
+    http.post(endpoint, headers: headers, body: jsonEncode({"value": accountToken}));
+
+    if (response.statusCode == 200) {
+      return BankAccount.fromJson(jsonDecode(response.body));
+    }
+    else {
+      throw BankAccountException(statusCode: response.statusCode, message: response.body);
+    }
+  }
+
+  Future<List<BankAccount>> readAllAccounts({
+    required String requestId,
+    required String customerId,
+    String? realmId,
+    String? authToken,
+  }) async {
+    authToken ??= authenticationService.getCachedToken()?.access_token;
+    realmId ??= authenticationService.getCachedRealmId();
+
+    Map<String, String> headers = {
+      "Request-ID": requestId,
+      "Authorization": "Bearer ${authToken ?? ""}",
+      'Content-Type': 'application/json',
+      //'Accept': 'application/json',
+    };
+
+
+    //v4/customers/2/bank-accounts
+    Uri endpoint = Uri.https(
+        baseUrl, "/quickbooks/v4/customers/$customerId/bank-accounts");
 
     print (endpoint.toString());
 
     var response = await
-        http.post(endpoint, headers: headers, body: jsonEncode(account.toJson()));
+    http.get(endpoint, headers: headers,);
 
     if (response.statusCode == 200) {
-        return BankAccount.fromJson(jsonDecode(response.body));
+      return (jsonDecode(response.body) as List).map((e) => BankAccount.fromJson(e)).toList();
+    }
+    else {
+      throw BankAccountException(statusCode: response.statusCode, message: response.body);
+    }
+  }
+
+  Future<BankAccount> readAccount({
+    required String bankAccountId,
+    required String customerId,
+    String? realmId,
+    String? authToken,
+  }) async {
+    authToken ??= authenticationService.getCachedToken()?.access_token;
+    realmId ??= authenticationService.getCachedRealmId();
+
+    Map<String, String> headers = {
+      "Authorization": "Bearer ${authToken ?? ""}",
+      'Content-Type': 'application/json',
+      //'Accept': 'application/json',
+    };
+
+    Uri endpoint = Uri.https(
+        baseUrl, "/quickbooks/v4/customers/$customerId/bank-accounts/$bankAccountId");
+
+    print (endpoint.toString());
+
+    var response = await
+    http.get(endpoint, headers: headers,);
+
+    if (response.statusCode == 200) {
+      return BankAccount.fromJson(jsonDecode(response.body));
+    }
+    else {
+      throw BankAccountException(statusCode: response.statusCode, message: response.body);
+    }
+  }
+
+  Future<bool> deleteAccount({
+    required String requestId,
+    required String bankAccountId,
+    required String customerId,
+    String? realmId,
+    String? authToken,
+  }) async {
+    authToken ??= authenticationService.getCachedToken()?.access_token;
+    realmId ??= authenticationService.getCachedRealmId();
+
+    Map<String, String> headers = {
+      "Request-ID": requestId,
+      "Authorization": "Bearer ${authToken ?? ""}",
+      'Content-Type': 'application/json',
+      //'Accept': 'application/json',
+    };
+
+    Uri endpoint = Uri.https(
+        baseUrl, "/quickbooks/v4/customers/$customerId/bank-accounts/$bankAccountId");
+
+    print (endpoint.toString());
+
+    var response = await
+    http.delete(endpoint, headers: headers,);
+
+    if (response.statusCode == 204) {
+      return true;
     }
     else {
       throw BankAccountException(statusCode: response.statusCode, message: response.body);
