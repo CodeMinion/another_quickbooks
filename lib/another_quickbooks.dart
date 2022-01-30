@@ -13,6 +13,7 @@ import 'package:another_quickbooks/services/accounting/invoice_service.dart';
 import 'package:another_quickbooks/services/accounting/item_service.dart';
 import 'package:another_quickbooks/services/accounting/payment_service.dart';
 import 'package:another_quickbooks/services/accounting/preferences_service.dart';
+import 'package:another_quickbooks/services/accounting/profit_loss_service.dart';
 import 'package:another_quickbooks/services/authentication_service.dart';
 import 'package:another_quickbooks/services/discovery_service.dart';
 import 'package:another_quickbooks/services/payments/bank_accounts_service.dart';
@@ -210,6 +211,7 @@ class AccountingClient {
   late ItemService _itemService;
   late PaymentService _paymentService;
   late PreferencesService _preferencesService;
+  late ProfitAndLossService _profitAndLossService;
 
   AccountingClient._(
       {required this.baseUrl, required this.authenticationService, this.minorVersion = 63}) {
@@ -241,6 +243,9 @@ class AccountingClient {
         baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
 
     _preferencesService = PreferencesService(
+        baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
+
+    _profitAndLossService = ProfitAndLossService(
         baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
 
 
@@ -720,6 +725,14 @@ class AccountingClient {
     return _preferencesService.updatePreferences(preferences: preferences, realmId: realmId, authToken: authToken);
   }
 
+  // Profit And Loss
+  Future<ProfitAndLoss> queryReport({
+    required ProfitAndLossQuery query,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _profitAndLossService.queryReport(query: query, realmId: realmId, authToken: authToken);
+  }
 
 
 }

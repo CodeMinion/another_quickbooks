@@ -1870,6 +1870,33 @@ void main() {
     expect(quickClient.isInitialized(), true);
   });
 
+  // Profit And Loss
+  test('test query profit and loss report ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
 
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var resultsFound = await quickClient.getAccountingClient().queryReport(
+        realmId: realmId,
+        query: ProfitAndLossQuery(
+          start_date: "2015-06-01",
+          end_date: "2015-06-30",
+          customer:"1"
+        )
+    );
+
+    print(resultsFound);
+    expect(resultsFound, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
 
 }

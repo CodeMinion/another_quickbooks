@@ -2557,10 +2557,10 @@ class ProfitAndLoss {
   final ProfitHeader? header;
 
   @JsonKey(name: "Rows")
-  final List<ProfitRow>? rows;
+  final ProfitRows? rows;
 
   @JsonKey(name: "Columns")
-  final List<ProfitColumn>? columns;
+  final ProfitColumns? columns;
 
   ProfitAndLoss({
     this.columns, this.header, this.rows
@@ -2568,6 +2568,25 @@ class ProfitAndLoss {
   factory ProfitAndLoss.fromJson(Map<String, dynamic> json) => _$ProfitAndLossFromJson(json);
 
   Map<String, dynamic> toJson() => _$ProfitAndLossToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
+}
+
+@JsonSerializable(includeIfNull: false)
+class ProfitColumns {
+
+  @JsonKey(name: "Column")
+  final List<ProfitColumn>? columns;
+
+  ProfitColumns({
+    this.columns
+  });
+  factory ProfitColumns.fromJson(Map<String, dynamic> json) => _$ProfitColumnsFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ProfitColumnsToJson(this);
 
   @override
   String toString() {
@@ -2588,7 +2607,7 @@ class ProfitHeader {
   final String? vendor;
 
   @JsonKey(name: "Option")
-  final Option? option;
+  final List<Option>? options;
 
   @JsonKey(name: "Item")
   final String? item;
@@ -2622,7 +2641,7 @@ class ProfitHeader {
 
   ProfitHeader({
     this.className, this.currency, this.customer, this.department,
-    this.employee, this.endPeriod, this.item, this.option,
+    this.employee, this.endPeriod, this.item, this.options,
     this.reportBasis, this.reportName, this.startPeriod,
     this.summarizeColumnsBy, this.time, this.vendor
   });
@@ -2656,6 +2675,24 @@ class Option {
   }
 }
 
+@JsonSerializable(includeIfNull: false)
+class ProfitRows {
+
+  @JsonKey(name: "Row")
+  final List<ProfitRow>? rows;
+
+  ProfitRows({
+    this.rows
+  });
+  factory ProfitRows.fromJson(Map<String, dynamic> json) => _$ProfitRowsFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ProfitRowsToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
+}
 
 @JsonSerializable(includeIfNull: false)
 class ProfitRow {
@@ -3578,6 +3615,52 @@ class DeleteResponse {
   }
 }
 
+@JsonSerializable(includeIfNull: false)
+class ProfitAndLossQuery {
+
+  final String? customer;
+
+  final String? qzurl;
+
+  final String? accounting_method;
+
+  final String? end_date;
+
+  final String? date_macro;
+  
+  final String? adjusted_gain_loss;
+
+  @JsonKey(name: "class")
+  final String? reportClass;
+
+  final String? item;
+
+  final String? sort_order;
+
+  final String? summarize_column_by;
+
+  final String? department;
+
+  final String? vendor;
+
+  final String? start_date;
+
+  ProfitAndLossQuery({
+    this.customer, this.vendor, this.item, this.department,
+    this.accounting_method, this.adjusted_gain_loss, this.date_macro,
+    this.end_date, this.qzurl, this.reportClass, this.sort_order,
+    this.start_date, this.summarize_column_by
+  });
+
+  factory ProfitAndLossQuery.fromJson(Map<String, dynamic> json) => _$ProfitAndLossQueryFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ProfitAndLossQueryToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
+}
 enum GlobalTaxCalculationEnum {
   TaxExcluded,
   TaxInclusive,
