@@ -14,6 +14,7 @@ import 'package:another_quickbooks/services/accounting/item_service.dart';
 import 'package:another_quickbooks/services/accounting/payment_service.dart';
 import 'package:another_quickbooks/services/accounting/preferences_service.dart';
 import 'package:another_quickbooks/services/accounting/profit_loss_service.dart';
+import 'package:another_quickbooks/services/accounting/tax_agency_service.dart';
 import 'package:another_quickbooks/services/authentication_service.dart';
 import 'package:another_quickbooks/services/discovery_service.dart';
 import 'package:another_quickbooks/services/payments/bank_accounts_service.dart';
@@ -212,6 +213,7 @@ class AccountingClient {
   late PaymentService _paymentService;
   late PreferencesService _preferencesService;
   late ProfitAndLossService _profitAndLossService;
+  late TaxAgencyService _taxAgencyService;
 
   AccountingClient._(
       {required this.baseUrl, required this.authenticationService, this.minorVersion = 63}) {
@@ -246,6 +248,9 @@ class AccountingClient {
         baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
 
     _profitAndLossService = ProfitAndLossService(
+        baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
+
+    _taxAgencyService = TaxAgencyService(
         baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
 
 
@@ -734,6 +739,30 @@ class AccountingClient {
     return _profitAndLossService.queryReport(query: query, realmId: realmId, authToken: authToken);
   }
 
+  // Tax Agency
+  Future<List<TaxAgency>> queryTaxAgency({
+    required String query,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _taxAgencyService.queryTaxAgency(query: query, realmId: realmId, authToken: authToken);
+  }
+
+  Future<TaxAgency> readTaxAgency({
+    required String taxAgencyId,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _taxAgencyService.readTaxAgency(taxAgencyId: taxAgencyId, realmId: realmId, authToken: authToken);
+  }
+
+  Future<TaxAgency> createTaxAgency({
+    required TaxAgency agency,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _taxAgencyService.createTaxAgency(agency: agency, realmId: realmId, authToken: authToken);
+  }
 
 }
 enum EnvironmentType {

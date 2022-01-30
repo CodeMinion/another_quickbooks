@@ -3562,6 +3562,9 @@ class QueryResponse {
   @JsonKey(name: "Preferences")
   List<Preferences>? preferences;
 
+  @JsonKey(name: "TaxAgency")
+  List<TaxAgency>? taxAgency;
+
   final int? startPosition;
 
   final int? maxResults;
@@ -3577,6 +3580,7 @@ class QueryResponse {
     this.item,
     this.payment,
     this.preferences,
+    this.taxAgency,
     this.maxResults,
     this.startPosition
   });
