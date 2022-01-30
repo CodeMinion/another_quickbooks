@@ -1,5 +1,5 @@
 
-// URL: https://developer.intuit.com/app/developer/qbpayments/docs/api/resources/all-entities/bankaccounts
+// URL: https://developer.intuit.com/app/developer/qbo/docs/api/accounting/most-commonly-used/account
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -94,11 +94,7 @@ class AccountService {
   }
 
   Future<Account> createAccount({
-    required String name,
-    String? acctNum,
-    ReferenceType? taxCodeRef,
-    String? accountType,
-    String? accountSubType,
+    required Account account,
 
     String? realmId,
     String? authToken,
@@ -118,10 +114,13 @@ class AccountService {
       "minorversion": minorVersion.toString()
     };
 
+    /*
     var account = Account(name: name, acctNum:acctNum,
         taxCodeRef: taxCodeRef,
         accountType: accountType,
         accountSubType: accountSubType );
+
+     */
 
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/account", params);

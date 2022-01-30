@@ -15,6 +15,7 @@ import 'package:another_quickbooks/services/accounting/payment_service.dart';
 import 'package:another_quickbooks/services/accounting/preferences_service.dart';
 import 'package:another_quickbooks/services/accounting/profit_loss_service.dart';
 import 'package:another_quickbooks/services/accounting/tax_agency_service.dart';
+import 'package:another_quickbooks/services/accounting/vendor_service.dart';
 import 'package:another_quickbooks/services/authentication_service.dart';
 import 'package:another_quickbooks/services/discovery_service.dart';
 import 'package:another_quickbooks/services/payments/bank_accounts_service.dart';
@@ -214,6 +215,7 @@ class AccountingClient {
   late PreferencesService _preferencesService;
   late ProfitAndLossService _profitAndLossService;
   late TaxAgencyService _taxAgencyService;
+  late VendorService _vendorService;
 
   AccountingClient._(
       {required this.baseUrl, required this.authenticationService, this.minorVersion = 63}) {
@@ -253,6 +255,9 @@ class AccountingClient {
     _taxAgencyService = TaxAgencyService(
         baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
 
+    _vendorService = VendorService(
+        baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
+
 
   }
 
@@ -274,19 +279,12 @@ class AccountingClient {
   }
 
   Future<Account> createAccount({
-    required String name,
-    String? acctNum,
-    ReferenceType? taxCodeRef,
-    String? accountType,
-    String? accountSubType,
+    required Account account,
 
     String? realmId,
     String? authToken,
   }) async {
-    return _accountsService.createAccount(name: name,
-        acctNum: acctNum, taxCodeRef: taxCodeRef,
-        accountSubType: accountSubType, accountType:
-        accountType, authToken: authToken, realmId: realmId);
+    return _accountsService.createAccount(account: account, authToken: authToken, realmId: realmId);
   }
 
   ///
@@ -763,6 +761,54 @@ class AccountingClient {
   }) async {
     return _taxAgencyService.createTaxAgency(agency: agency, realmId: realmId, authToken: authToken);
   }
+
+  // Vendor
+  Future<List<Vendor>> queryVendor({
+    required String query,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _vendorService.queryVendor(query: query, realmId: realmId, authToken: authToken);
+  }
+
+  Future<Vendor> readVendor({
+    required String vendorId,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _vendorService.readVendor(vendorId: vendorId, realmId: realmId, authToken: authToken);
+  }
+
+  Future<Vendor> createVendor({
+    required Vendor vendor,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _vendorService.createVendor(vendor: vendor, realmId: realmId, authToken: authToken);
+  }
+
+  ///
+  /// Use this operation to update any of the writable
+  /// fields of an existing vendor object. The request
+  /// body must include all writable fields of the existing
+  /// object as returned in a read response. Writable fields
+  /// omitted from the request body are set to NULL. The ID of
+  /// the object to update is specified in the request body.Add
+  /// the query parameter, include=updateaccountontxns&minorversion=5,
+  /// to the endpoint to automatically update the AP account on historical
+  /// transactions (from soft close date forward) for this vendor with that
+  /// defined by the APAccountRef attribute in the Vendor object. Updates
+  /// on soft closed transacitons associated will fail.
+  ///
+  Future<Vendor> updateVendor({
+    required Vendor vendor,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _vendorService.updateVendor(vendor: vendor, realmId: realmId, authToken: authToken);
+  }
+
+
 
 }
 enum EnvironmentType {

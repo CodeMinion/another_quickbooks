@@ -1,5 +1,3 @@
-
-// URL: https://developer.intuit.com/app/developer/qbpayments/docs/api/resources/all-entities/bankaccounts
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -7,6 +5,8 @@ import 'package:http/http.dart' as http;
 import 'package:another_quickbooks/quickbook_models.dart';
 import 'package:another_quickbooks/services/authentication_service.dart';
 
+///
+/// URL:https://developer.intuit.com/app/developer/qbo/docs/api/accounting/most-commonly-used/companyinfo
 class CompanyInfoService {
   final String baseUrl;
   final AuthenticationService authenticationService;

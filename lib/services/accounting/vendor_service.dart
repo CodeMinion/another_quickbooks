@@ -1,3 +1,4 @@
+
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -5,17 +6,18 @@ import 'package:http/http.dart' as http;
 import 'package:another_quickbooks/quickbook_models.dart';
 import 'package:another_quickbooks/services/authentication_service.dart';
 
-/// URL: https://developer.intuit.com/app/developer/qbo/docs/api/accounting/most-commonly-used/item
-class ItemService {
+/// URL: https://developer.intuit.com/app/developer/qbo/docs/api/accounting/most-commonly-used/vendor
+///
+class VendorService {
   final String baseUrl;
   final AuthenticationService authenticationService;
   final int minorVersion;
 
-  ItemService(
+  VendorService(
       {required this.baseUrl, required this.authenticationService, this.minorVersion = 63});
 
 
-  Future<List<Item>> queryItem({
+  Future<List<Vendor>> queryVendor({
     required String query,
     String? realmId,
     String? authToken,
@@ -47,15 +49,15 @@ class ItemService {
 
     if (response.statusCode == 200) {
       print (jsonDecode(response.body));
-      return QueryResponse.fromJson(jsonDecode(response.body)["QueryResponse"]).item!;
+      return QueryResponse.fromJson(jsonDecode(response.body)["QueryResponse"]).vendor!;
     }
     else {
-      throw ItemException(statusCode: response.statusCode, message: response.body);
+      throw VendorException(statusCode: response.statusCode, message: response.body);
     }
   }
 
-  Future<Item> readItem({
-    required String itemId,
+  Future<Vendor> readVendor({
+    required String vendorId,
     String? realmId,
     String? authToken,
   }) async {
@@ -76,7 +78,7 @@ class ItemService {
 
 
     Uri endpoint = Uri.https(
-        baseUrl, "/v3/company/$realmId/item/$itemId", params);
+        baseUrl, "/v3/company/$realmId/vendor/$vendorId", params);
 
     print (endpoint.toString());
 
@@ -85,15 +87,15 @@ class ItemService {
 
     if (response.statusCode == 200) {
       print (jsonDecode(response.body));
-      return Item.fromJson(jsonDecode(response.body)["Item"]);
+      return Vendor.fromJson(jsonDecode(response.body)["Vendor"]);
     }
     else {
-      throw ItemException(statusCode: response.statusCode, message: response.body);
+      throw VendorException(statusCode: response.statusCode, message: response.body);
     }
   }
 
-  Future<Item> createItem({
-    required Item item,
+  Future<Vendor> createVendor({
+    required Vendor vendor,
     String? realmId,
     String? authToken,
   }) async {
@@ -114,30 +116,37 @@ class ItemService {
 
 
     Uri endpoint = Uri.https(
-        baseUrl, "/v3/company/$realmId/item", params);
+        baseUrl, "/v3/company/$realmId/vendor", params);
 
     print (endpoint.toString());
 
     var response = await
-    http.post(endpoint, body: jsonEncode(item.toJson()), headers: headers);
+    http.post(endpoint, body: jsonEncode(vendor.toJson()), headers: headers);
 
     if (response.statusCode == 200) {
       print (jsonDecode(response.body));
-      return Item.fromJson(jsonDecode(response.body)["Item"]);
+      return Vendor.fromJson(jsonDecode(response.body)["Vendor"]);
     }
     else {
-      throw ItemException(statusCode: response.statusCode, message: response.body);
+      throw VendorException(statusCode: response.statusCode, message: response.body);
     }
   }
 
-
   ///
-  /// Use this operation to update any of the writable fields of an
-  /// existing category object. The ID of the object to update is
-  /// specified in the request body.
+  /// Use this operation to update any of the writable
+  /// fields of an existing vendor object. The request
+  /// body must include all writable fields of the existing
+  /// object as returned in a read response. Writable fields
+  /// omitted from the request body are set to NULL. The ID of
+  /// the object to update is specified in the request body.Add
+  /// the query parameter, include=updateaccountontxns&minorversion=5,
+  /// to the endpoint to automatically update the AP account on historical
+  /// transactions (from soft close date forward) for this vendor with that
+  /// defined by the APAccountRef attribute in the Vendor object. Updates
+  /// on soft closed transacitons associated will fail.
   ///
-  Future<Item> updateItem({
-    required Item item,
+  Future<Vendor> updateVendor({
+    required Vendor vendor,
     String? realmId,
     String? authToken,
   }) async {
@@ -157,32 +166,33 @@ class ItemService {
     };
 
     Uri endpoint = Uri.https(
-        baseUrl, "/v3/company/$realmId/item", params);
+        baseUrl, "/v3/company/$realmId/vendor", params);
 
     print (endpoint.toString());
 
     var response = await
-    http.post(endpoint, body: jsonEncode(item.toJson()), headers: headers);
+    http.post(endpoint, body: jsonEncode(vendor.toJson()), headers: headers);
 
     if (response.statusCode == 200) {
       print (jsonDecode(response.body));
-      return Item.fromJson(jsonDecode(response.body)["Item"]);
+      return Vendor.fromJson(jsonDecode(response.body)["Vendor"]);
     }
     else {
-      throw ItemException(statusCode: response.statusCode, message: response.body);
+      throw VendorException(statusCode: response.statusCode, message: response.body);
     }
   }
+
 }
 
-class ItemException implements Exception {
+class VendorException implements Exception {
   final String? message;
   final int statusCode;
 
-  ItemException({required this.statusCode, this.message});
+  VendorException({required this.statusCode, this.message});
 
   @override
   String toString() {
-    return "ItemException: $statusCode - $message";
+    return "VendorException: $statusCode - $message";
   }
 }
 

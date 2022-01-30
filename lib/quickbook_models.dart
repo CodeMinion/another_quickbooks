@@ -7,10 +7,10 @@ part 'quickbook_models.g.dart';
 @JsonSerializable(includeIfNull: false)
 class Account {
 
-  @JsonKey(name: 'Id', required: true)
+  @JsonKey(name: 'Id')
   final String? id;
 
-  @JsonKey(name: "Name", required: true)
+  @JsonKey(name: "Name")
   final String? name;
 
   @JsonKey(name: "SyncToken")
@@ -3565,6 +3565,9 @@ class QueryResponse {
   @JsonKey(name: "TaxAgency")
   List<TaxAgency>? taxAgency;
 
+  @JsonKey(name: "Vendor")
+  List<Vendor>? vendor;
+
   final int? startPosition;
 
   final int? maxResults;
@@ -3581,6 +3584,7 @@ class QueryResponse {
     this.payment,
     this.preferences,
     this.taxAgency,
+    this.vendor,
     this.maxResults,
     this.startPosition
   });

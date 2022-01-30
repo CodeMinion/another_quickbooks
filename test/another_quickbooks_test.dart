@@ -146,8 +146,10 @@ void main() {
 
     var accountsFound = await quickClient.getAccountingClient().createAccount(
         realmId: realmId,
-        name: "Test Account",
-      accountType: "Accounts Receivable"
+        account: Account.fromJson({
+          "Name": "MyJobs_test2",
+          "AccountType": "Accounts Receivable"
+        })
     );
 
     print(accountsFound);
@@ -1974,4 +1976,167 @@ void main() {
     expect(quickClient.isInitialized(), true);
   });
 
+  // Vendor
+  test('test query vendor ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var resultsFound = await quickClient.getAccountingClient().queryVendor(
+        realmId: realmId,
+        query: "select * from Vendor"
+    );
+
+    print(resultsFound);
+    expect(resultsFound, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test read vendor ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var found = await quickClient.getAccountingClient().readVendor(
+        realmId: realmId,
+        vendorId: "56"
+    );
+
+    print(found);
+    expect(found, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test create vendor ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var found = await quickClient.getAccountingClient().createVendor(
+        realmId: realmId,
+        vendor: Vendor.fromJson({
+          "PrimaryEmailAddr": {
+            "Address": "dbradley@myemail.com"
+          },
+          "WebAddr": {
+            "URI": "http://DiannesAutoShop.com"
+          },
+          "PrimaryPhone": {
+            "FreeFormNumber": "(650) 555-2342"
+          },
+          "DisplayName": "Dianne's Auto Shop",
+          "Suffix": "Sr.",
+          "Title": "Ms.",
+          "Mobile": {
+            "FreeFormNumber": "(650) 555-2000"
+          },
+          "FamilyName": "Bradley",
+          "TaxIdentifier": "99-5688293",
+          "AcctNum": "35372649",
+          "CompanyName": "Dianne's Auto Shop",
+          "BillAddr": {
+            "City": "Millbrae",
+            "Country": "U.S.A",
+            "Line3": "29834 Mustang Ave.",
+            "Line2": "Dianne Bradley",
+            "Line1": "Dianne's Auto Shop",
+            "PostalCode": "94030",
+            "CountrySubDivisionCode": "CA"
+          },
+          "GivenName": "Dianne",
+          "PrintOnCheckName": "Dianne's Auto Shop"
+        })
+    );
+
+    print(found);
+    expect(found, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test update vendor ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var found = await quickClient.getAccountingClient().updateVendor(
+        realmId: realmId,
+        vendor: Vendor.fromJson({
+          "PrimaryEmailAddr": {
+            "Address": "Books@Intuit.com"
+          },
+          "Vendor1099": false,
+          "domain": "QBO",
+          "GivenName": "Bessie",
+          "DisplayName": "Books by Bessie",
+          "BillAddr": {
+            "City": "Palo Alto",
+            "Line1": "15 Main St.",
+            "PostalCode": "94303",
+            "Lat": "37.445013",
+            "Long": "-122.1391443",
+            "CountrySubDivisionCode": "CA",
+            "Id": "31"
+          },
+          "SyncToken": "1",
+          "PrintOnCheckName": "Books by Bessie and Joan",
+          "FamilyName": "Williams",
+          "PrimaryPhone": {
+            "FreeFormNumber": "(650) 555-7745"
+          },
+          "AcctNum": "13451234",
+          "CompanyName": "Books by Bessie",
+          "WebAddr": {
+            "URI": "http://www.booksbybessie.co"
+          },
+          "sparse": false,
+          "Active": true,
+          "Balance": 0,
+          "Id": "30",
+          "MetaData": {
+            "CreateTime": "2014-09-12T10:07:56-07:00",
+            "LastUpdatedTime": "2015-07-28T13:34:38-07:00"
+          }
+        })
+    );
+
+    print(found);
+    expect(found, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
 }
