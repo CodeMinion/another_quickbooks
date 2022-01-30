@@ -20,6 +20,7 @@ import 'package:another_quickbooks/services/authentication_service.dart';
 import 'package:another_quickbooks/services/discovery_service.dart';
 import 'package:another_quickbooks/services/payments/bank_accounts_service.dart';
 import 'package:another_quickbooks/services/payments/card_service.dart';
+import 'package:another_quickbooks/services/payments/charge_service.dart';
 
 /// A Calculator.
 class QuickbooksClient {
@@ -155,6 +156,7 @@ class PaymentClient {
   final AuthenticationService authenticationService;
   late BankAccountsService _accountsService;
   late CardService _cardService;
+  late ChargeService _chargeService;
 
   PaymentClient._(
       {required this.baseUrl, required this.authenticationService}) {
@@ -163,6 +165,9 @@ class PaymentClient {
         baseUrl: baseUrl, authenticationService: authenticationService);
 
     _cardService = CardService(
+        baseUrl: baseUrl, authenticationService: authenticationService);
+
+    _chargeService = ChargeService(
         baseUrl: baseUrl, authenticationService: authenticationService);
   }
 
@@ -287,6 +292,76 @@ class PaymentClient {
     realmId: realmId, authToken: authToken);
   }
 
+  // Charge
+  Future<Charge> createCharge({
+    required String requestId,
+    required Charge charge,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _chargeService.createCharge(requestId: requestId, charge: charge,
+    realmId: realmId, authToken: authToken);
+  }
+
+  Future<Charge> readCharge({
+    required String chargeId,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _chargeService.readCharge(chargeId: chargeId, realmId: realmId,
+    authToken: authToken);
+  }
+
+  Future<Charge> readRefund({
+    required String chargeId,
+    required String refundId,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _chargeService.readRefund(chargeId: chargeId, refundId: refundId,
+    realmId: realmId, authToken: authToken);
+  }
+
+  Future<Charge> refundCharge({
+    required String requestId,
+    required String chargeId,
+    required String amount,
+    String? description,
+    PaymentContext? context,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _chargeService.refundCharge(requestId: requestId,
+        chargeId: chargeId, amount: amount,
+    description: description, context: context, realmId: realmId,
+    authToken: authToken);
+  }
+
+  Future<Charge> captureCharge({
+    required String requestId,
+    required String chargeId,
+    required String amount,
+    String? description,
+    PaymentContext? context,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _chargeService.captureCharge(requestId: requestId,
+        chargeId: chargeId,
+        amount: amount, description: description, context: context,
+    realmId: realmId, authToken: authToken);
+  }
+
+  Future<Charge> voidTransaction({
+    required String requestId,
+    required String chargeRequestId,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _chargeService.voidTransaction(requestId: requestId,
+        chargeRequestId: chargeRequestId,
+    realmId: realmId, authToken: authToken);
+  }
 
 }
 

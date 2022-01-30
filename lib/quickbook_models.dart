@@ -3182,7 +3182,7 @@ class Charge {
 
   final String? currency;
 
-  final double? amount;
+  final String? amount;
 
   final PaymentContext? context;
 
@@ -3229,7 +3229,7 @@ class Charge {
 @JsonSerializable(includeIfNull: false)
 class CaptureDetail{
 
-  final double? amount;
+  final String? amount;
 
   final String? description;
 
@@ -3257,7 +3257,7 @@ class PaymentContext {
 
   final bool? isEcommerce;
 
-  final double? tax;
+  final String? tax;
 
   final DeviceInfo? deviceInfo;
 
@@ -3697,12 +3697,13 @@ enum BankAccountTypeEnum {
 }
 
 enum CardTypeEnum {
-  VISA,
-  MC,
-  AMEX,
-  DISC,
-  DINERS,
-  JCB,
+  AmEx,
+  DebitCard,
+  Discover,
+  GiftCard,
+  MasterCard,
+  OtherCreditCard,
+  Visa
 
 }
 
@@ -3714,6 +3715,7 @@ enum ChargeStatusEnum {
   CANCELLED,
   SETTLED,
   REFUNDED,
+  ISSUED,
 
 }
 

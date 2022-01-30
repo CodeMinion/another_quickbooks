@@ -285,4 +285,179 @@ void main() {
     expect(response, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
+  
+  // Charge 
+  test('test create charge ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var response = await quickClient.getPaymentClient().createCharge(
+        realmId: realmId,
+        requestId: "12VVXDV34",
+      charge: Charge.fromJson({
+        "capture": false,
+        "currency": "USD",
+        "amount": "10.55",
+        "context": {
+          "mobile": false,
+          "isEcommerce": true
+        },
+        "card": {
+          "name": "emulate=0",
+          "number": "4111111111111111",
+          "expMonth": "02",
+          "address": {
+            "postalCode": "94086",
+            "country": "US",
+            "region": "CA",
+            "streetAddress": "1130 Kifer Rd",
+            "city": "Sunnyvale"
+          },
+          "expYear": "2022",
+          "cvc": "123"
+        }
+      })
+    );
+
+    print(response);
+    expect(response, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test read refund ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var response = await quickClient.getPaymentClient().readRefund(
+        realmId: realmId,
+        chargeId: "EMU891209421",
+        refundId: "EMU891209421"
+    );
+
+    print(response);
+    expect(response, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test read charge ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var response = await quickClient.getPaymentClient().readCharge(
+        realmId: realmId,
+        chargeId: "EF5W5TEW3TRG",
+
+    );
+
+    print(response);
+    expect(response, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test refund charge ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var response = await quickClient.getPaymentClient().refundCharge(
+      realmId: realmId,
+      chargeId: "EF5W5TEW3TRG",
+      amount: "1.00",
+      requestId: "123AAA4",
+    );
+
+    print(response);
+    expect(response, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test capture charge ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var response = await quickClient.getPaymentClient().captureCharge(
+      realmId: realmId,
+      chargeId: "E9S2UAT2V2JS",
+      amount: "10.55",
+      requestId: "12VVXVVVDV34",
+    );
+
+    print(response);
+    expect(response, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test void transaction ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var response = await quickClient.getPaymentClient().voidTransaction(
+      realmId: realmId,
+      requestId: "12VNNNNVVDV34",
+      chargeRequestId: "12VVXDV34"
+    );
+
+    print(response);
+    expect(response, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
 }
