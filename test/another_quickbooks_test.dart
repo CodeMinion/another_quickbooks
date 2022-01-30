@@ -597,4 +597,143 @@ void main() {
     expect(updated, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
+
+  // Employee
+  test('test query employee ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var resultsFound = await quickClient.getAccountingClient().queryEmployee(
+        realmId: realmId,
+        query: "select * from Employee where Metadata.CreateTime > '2014-12-31'"
+    );
+
+    print(resultsFound);
+    expect(resultsFound, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test read employee ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var found = await quickClient.getAccountingClient().readEmployee(
+      realmId: realmId,
+      employeeId: "55",
+    );
+
+    print(found);
+    expect(found, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test update employee ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    //
+    var updated = await quickClient.getAccountingClient().updateEmployee(
+        realmId: realmId,
+        employee: Employee.fromJson({
+          "SyncToken": "0",
+          "domain": "QBO",
+          "DisplayName": "Bill Miller",
+          "PrimaryPhone": {
+            "FreeFormNumber": "234-525-1234"
+          },
+          "PrintOnCheckName": "Bill Lee Miller",
+          "FamilyName": "Miller",
+          "Active": true,
+          "SSN": "XXX-XX-XXXX",
+          "PrimaryAddr": {
+            "CountrySubDivisionCode": "CA",
+            "City": "Middlefield",
+            "PostalCode": "93242",
+            "Id": "116",
+            "Line1": "45 N. Elm Street"
+          },
+          "sparse": false,
+          "BillableTime": false,
+          "GivenName": "Bill",
+          "Id": "71",
+          "MetaData": {
+            "CreateTime": "2015-07-24T09:34:35-07:00",
+            "LastUpdatedTime": "2015-07-24T09:34:35-07:00"
+          }
+        })
+    );
+
+    print(updated);
+    expect(updated, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test create employee ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    //
+    var updated = await quickClient.getAccountingClient().createEmployee(
+        realmId: realmId,
+        employee: Employee.fromJson({
+          "GivenName": "John",
+          "SSN": "444-55-6666",
+          "PrimaryAddr": {
+            "CountrySubDivisionCode": "CA",
+            "City": "Middlefield",
+            "PostalCode": "93242",
+            "Id": "50",
+            "Line1": "45 N. Elm Street"
+          },
+          "PrimaryPhone": {
+            "FreeFormNumber": "408-525-1234"
+          },
+          "FamilyName": "Meuller"
+        })
+    );
+
+    print(updated);
+    expect(updated, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
 }

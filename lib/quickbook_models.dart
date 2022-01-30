@@ -1314,6 +1314,11 @@ class Employee {
 
   Map<String, dynamic> toJson() => _$EmployeeToJson(this);
 
+  @override
+  String toString() {
+    return toJson().toString();
+  }
+
 }
 
 ///
@@ -3025,6 +3030,9 @@ class QueryResponse {
   @JsonKey(name:"Customer")
   List<Customer>? customer;
 
+  @JsonKey(name:"Employee")
+  List<Employee>? employee;
+
   final int? startPosition;
 
   final int? maxResults;
@@ -3034,6 +3042,7 @@ class QueryResponse {
     this.companyInfo,
     this.bill,
     this.customer,
+    this.employee,
     this.maxResults,
     this.startPosition
   });

@@ -5,6 +5,7 @@ import 'package:another_quickbooks/services/accounting/account_service.dart';
 import 'package:another_quickbooks/services/accounting/bill_service.dart';
 import 'package:another_quickbooks/services/accounting/company_info_service.dart';
 import 'package:another_quickbooks/services/accounting/customer_service.dart';
+import 'package:another_quickbooks/services/accounting/employee_service.dart';
 import 'package:another_quickbooks/services/authentication_service.dart';
 import 'package:another_quickbooks/services/discovery_service.dart';
 import 'package:another_quickbooks/services/payments/bank_accounts_service.dart';
@@ -196,6 +197,7 @@ class AccountingClient {
   late CompanyInfoService _companyInfoService;
   late BillService _billService;
   late CustomerService _customerService;
+  late EmployeeService _employeeService;
 
   AccountingClient._(
       {required this.baseUrl, required this.authenticationService, this.minorVersion = 63}) {
@@ -209,6 +211,9 @@ class AccountingClient {
         baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
 
     _customerService = CustomerService(
+        baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
+
+    _employeeService = EmployeeService(
         baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
   }
 
@@ -382,6 +387,49 @@ class AccountingClient {
   }) async {
     return _customerService.updateCustomer(customer: customer, realmId: realmId, authToken: authToken);
   }
+
+  // Start: Employee
+  Future<List<Employee>> queryEmployee({
+    required String query,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _employeeService.queryEmployee(query: query, realmId: realmId, authToken: authToken);
+  }
+
+  Future<Employee> readEmployee({
+    required String employeeId,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _employeeService.readEmployee(employeeId: employeeId, realmId: realmId, authToken: authToken);
+  }
+
+  Future<Employee> createEmployee({
+    required Employee employee,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _employeeService.createEmployee(employee: employee, realmId: realmId, authToken: authToken);
+  }
+
+  ///
+  /// Use this operation to update any of the writable fields of an
+  /// existing employee object. The request body must include all
+  /// writable fields of the existing object as returned in a read
+  /// response. Writable fields omitted from the request body are set
+  /// to NULL. The ID of the object to update is specified in the request body.
+  ///
+  Future<Employee> updateEmployee({
+    required Employee employee,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _employeeService.updateEmployee(employee: employee, realmId: realmId, authToken: authToken);
+  }
+
+
+
 
 }
 enum EnvironmentType {
