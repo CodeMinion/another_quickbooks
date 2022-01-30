@@ -9,6 +9,7 @@ import 'package:another_quickbooks/services/accounting/company_info_service.dart
 import 'package:another_quickbooks/services/accounting/customer_service.dart';
 import 'package:another_quickbooks/services/accounting/employee_service.dart';
 import 'package:another_quickbooks/services/accounting/estimate_service.dart';
+import 'package:another_quickbooks/services/accounting/invoice_service.dart';
 import 'package:another_quickbooks/services/authentication_service.dart';
 import 'package:another_quickbooks/services/discovery_service.dart';
 import 'package:another_quickbooks/services/payments/bank_accounts_service.dart';
@@ -202,6 +203,7 @@ class AccountingClient {
   late CustomerService _customerService;
   late EmployeeService _employeeService;
   late EstimateService _estimateService;
+  late InvoiceService _invoiceService;
 
   AccountingClient._(
       {required this.baseUrl, required this.authenticationService, this.minorVersion = 63}) {
@@ -221,6 +223,9 @@ class AccountingClient {
         baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
 
     _estimateService = EstimateService(
+        baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
+
+    _invoiceService = InvoiceService(
         baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
   }
 
@@ -492,6 +497,73 @@ class AccountingClient {
   }) async {
     return _estimateService.sendEstimate(estimateId: estimateId, emailTo: emailTo, realmId: realmId, authToken: authToken);
   }
+
+  // Start: Invoice
+  Future<List<Invoice>> queryInvoice({
+    required String query,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _invoiceService.queryInvoice(query: query, realmId: realmId, authToken: authToken);
+  }
+
+  Future<Invoice> readInvoice({
+    required String invoiceId,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _invoiceService.readInvoice(invoiceId: invoiceId, realmId: realmId, authToken: authToken);
+  }
+
+  Future<Invoice> createInvoice({
+    required Invoice invoice,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _invoiceService.createInvoice(invoice: invoice, realmId: realmId, authToken: authToken);
+  }
+
+  Future<Invoice> updateInvoice({
+    required Invoice invoice,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _invoiceService.updateInvoice(invoice: invoice, realmId: realmId, authToken: authToken);
+  }
+
+  Future<DeleteResponse> deleteInvoice({
+    required Invoice invoice,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _invoiceService.deleteInvoice(invoice: invoice, realmId: realmId, authToken: authToken);
+  }
+
+  Future<Invoice> voidInvoice({
+    required Invoice invoice,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _invoiceService.voidInvoice(invoice: invoice, realmId: realmId, authToken: authToken);
+  }
+
+  Future<Uint8List> getInvoicePdf({
+    required String invoiceId,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _invoiceService.getInvoicePdf(invoiceId: invoiceId, realmId: realmId, authToken: authToken);
+  }
+
+  Future<Invoice> sendInvoice({
+    required String invoiceId,
+    required String emailTo,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _invoiceService.sendInvoice(invoiceId: invoiceId, emailTo: emailTo, realmId: realmId, authToken: authToken);
+  }
+
 
 
 }

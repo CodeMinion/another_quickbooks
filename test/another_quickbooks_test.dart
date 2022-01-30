@@ -800,7 +800,7 @@ void main() {
     print(token);
     expect(token.length, isNot(0));
 
-    //
+
     var updated = await quickClient.getAccountingClient().updateEstimate(
         realmId: realmId,
         estimate: Estimate.fromJson({
@@ -1094,6 +1094,299 @@ void main() {
         realmId: realmId,
         estimateId: "41",
         emailTo: "hernandez.frank@gmail.com"
+    );
+
+    print(found);
+    expect(found, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  // Invoice
+  test('test query invoice ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var resultsFound = await quickClient.getAccountingClient().queryInvoice(
+        realmId: realmId,
+        query: "select * from Invoice where Metadata.CreateTime > '2014-12-31'"
+    );
+
+    print(resultsFound);
+    expect(resultsFound, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test read invoice ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var found = await quickClient.getAccountingClient().readInvoice(
+      realmId: realmId,
+      invoiceId: "130",
+    );
+
+    print(found);
+    expect(found, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test update invoice ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+
+    var updated = await quickClient.getAccountingClient().updateInvoice(
+        realmId: realmId,
+        invoice: Invoice.fromJson({
+          "DocNumber": "1070",
+          "SyncToken": "0",
+          "domain": "QBO",
+          "Balance": 150.0,
+          "BillAddr": {
+            "City": "Bayshore",
+            "Line1": "4581 Finch St.",
+            "PostalCode": "94326",
+            "Lat": "INVALID",
+            "Long": "INVALID",
+            "CountrySubDivisionCode": "CA",
+            "Id": "2"
+          },
+          "TxnDate": "2015-07-24",
+          "TotalAmt": 150.0,
+          "CustomerRef": {
+            "name": "Amy's Bird Sanctuary",
+            "value": "1"
+          },
+          "CustomerMemo": {
+            "value": "Added customer memo."
+          },
+          "ShipAddr": {
+            "City": "Bayshore",
+            "Line1": "4581 Finch St.",
+            "PostalCode": "94326",
+            "Lat": "INVALID",
+            "Long": "INVALID",
+            "CountrySubDivisionCode": "CA",
+            "Id": "109"
+          },
+          "LinkedTxn": [],
+          "DueDate": "2015-08-23",
+          "PrintStatus": "NeedToPrint",
+          "EmailStatus": "NotSet",
+          "sparse": false,
+          "Line": [
+            {
+              "LineNum": 1,
+              "Amount": 150.0,
+              "SalesItemLineDetail": {
+                "TaxCodeRef": {
+                  "value": "NON"
+                },
+                "ItemRef": {
+                  "name": "Services",
+                  "value": "1"
+                }
+              },
+              "Id": "1",
+              "DetailType": "SalesItemLineDetail"
+            },
+            {
+              "DetailType": "SubTotalLineDetail",
+              "Amount": 150.0,
+              "SubTotalLineDetail": {}
+            }
+          ],
+          "ApplyTaxAfterDiscount": false,
+          "CustomField": [
+            {
+              "DefinitionId": "1",
+              "Type": "StringType",
+              "Name": "Crew #"
+            }
+          ],
+          "Id": "239",
+          "TxnTaxDetail": {
+            "TotalTax": 0
+          },
+          "MetaData": {
+            "CreateTime": "2015-07-24T10:35:08-07:00",
+            "LastUpdatedTime": "2015-07-24T10:35:08-07:00"
+          }
+        })
+    );
+
+    print(updated);
+    expect(updated, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test create invoice ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    //
+    var updated = await quickClient.getAccountingClient().createInvoice(
+        realmId: realmId,
+        invoice: Invoice.fromJson({
+          "Line": [
+            {
+              "DetailType": "SalesItemLineDetail",
+              "Amount": 100.0,
+              "SalesItemLineDetail": {
+                "ItemRef": {
+                  "name": "Services",
+                  "value": "1"
+                }
+              }
+            }
+          ],
+          "CustomerRef": {
+            "value": "1"
+          }
+        })
+    );
+
+    print(updated);
+    expect(updated, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test delete invoice ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var found = await quickClient.getAccountingClient().deleteInvoice(
+        realmId: realmId,
+        invoice: Invoice.fromJson({
+          "SyncToken": "3",
+          "Id": "33"
+        })
+    );
+
+    print(found);
+    expect(found, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test get invoice pdf ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var found = await quickClient.getAccountingClient().getInvoicePdf(
+        realmId: realmId,
+        invoiceId: "130"
+    );
+
+    print(found);
+    expect(found, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test send invoice pdf ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var found = await quickClient.getAccountingClient().sendInvoice(
+        realmId: realmId,
+        invoiceId: "130",
+        emailTo: "hernandez.frank@gmail.com"
+    );
+
+    print(found);
+    expect(found, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test void invoice ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var found = await quickClient.getAccountingClient().voidInvoice(
+        realmId: realmId,
+        invoice: Invoice.fromJson({
+          "SyncToken": "0",
+          "Id": "129"
+        })
     );
 
     print(found);

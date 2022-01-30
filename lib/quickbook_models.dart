@@ -695,8 +695,8 @@ class SubTotalLine implements Line {
   @JsonKey(name: "Id")
   final String? id;
 
-  @JsonKey(name: "SubTotalLineDetail")
-  final SubtotalLineDetail? subtotalLineDetail;
+  //@JsonKey(name: "SubTotalLineDetail")
+  //final SubtotalLineDetail? subtotalLineDetail;
 
   @JsonKey(name: "DetailType")
   final String? detailType; //SubtotalLineDetail
@@ -712,7 +712,7 @@ class SubTotalLine implements Line {
 
   SubTotalLine({
     this.id, this.description, this.lineNum, this.amount, this.detailType,
-    this.subtotalLineDetail
+    //this.subtotalLineDetail
   });
 
   factory SubTotalLine.fromJson(Map<String, dynamic> json) => _$SubTotalLineFromJson(json);
@@ -720,7 +720,7 @@ class SubTotalLine implements Line {
   Map<String, dynamic> toJson() => _$SubTotalLineToJson(this);
 }
 
-@JsonSerializable(includeIfNull: false)
+@JsonSerializable(includeIfNull: false, )
 class SubtotalLineDetail {
 
   @JsonKey(name: "ItemRef")
@@ -1626,7 +1626,7 @@ class Invoice {
   final bool? allowOnlineCreditCardPayment;
 
   @JsonKey(name: "CustomField")
-  final CustomField? customField;
+  final List<CustomField>? customField;
 
   @JsonKey(name: "ShipAddr")
   final PhysicalAddress? shipAddr;
@@ -1699,6 +1699,11 @@ class Invoice {
   factory Invoice.fromJson(Map<String, dynamic> json) => _$InvoiceFromJson(json);
 
   Map<String, dynamic> toJson() => _$InvoiceToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -3062,6 +3067,9 @@ class QueryResponse {
   @JsonKey(name: "Estimate")
   List<Estimate>? estimate;
 
+  @JsonKey(name: "Invoice")
+  List<Invoice>? invoice;
+
   final int? startPosition;
 
   final int? maxResults;
@@ -3073,6 +3081,7 @@ class QueryResponse {
     this.customer,
     this.employee,
     this.estimate,
+    this.invoice,
     this.maxResults,
     this.startPosition
   });
