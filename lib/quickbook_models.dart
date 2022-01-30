@@ -1500,6 +1500,9 @@ class CustomField {
   @JsonKey(name: "DefinitionId")
   final String definitionId;
 
+  @JsonKey(name: "BooleanValue")
+  final bool? booleanValue;
+
   @JsonKey(name: "StringValue")
   final String? stringValue;
 
@@ -1510,13 +1513,18 @@ class CustomField {
   final CustomFieldTypeEnum? type;
 
   CustomField({
-    this.name, required this.definitionId, this.stringValue, this.type
+    this.name, required this.definitionId, this.stringValue, this.type,
+    this.booleanValue
   });
 
   factory CustomField.fromJson(Map<String, dynamic> json) => _$CustomFieldFromJson(json);
 
   Map<String, dynamic> toJson() => _$CustomFieldToJson(this);
 
+  @override
+  String toString() {
+    return toJson().toString();
+  }
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -2262,8 +2270,82 @@ class AccountingInfoPrefs {
 @JsonSerializable(includeIfNull: false)
 class SalesFormsPrefs {
 
-  // TODO Add fields
-  SalesFormsPrefs();
+  @JsonKey(name: "SalesEmailBcc")
+  final EmailAddress? salesEmailBcc;
+
+  @JsonKey(name: "SalesEmailCc")
+  final EmailAddress? salesEmailCc;
+
+  @JsonKey(name: "UsingProgressInvoicing")
+  final bool? usingProgressInvoicing;
+
+  @JsonKey(name: "CustomField")
+  final CustomField? customField;
+
+  @JsonKey(name: "AllowServiceDate")
+  final bool? allowServiceDate;
+
+  @JsonKey(name: "EstimateMessage")
+  final String? estimateMessage;
+
+  @JsonKey(name: "EmailCopyToCompany")
+  final bool? emailCopyToCompany;
+
+  @JsonKey(name: "DefaultCustomerMessage")
+  final String? defaultCustomerMessage;
+
+  @JsonKey(name:"AllowShipping")
+  final bool? allowShipping;
+  
+  @JsonKey(name: "DefaultDiscountAccount")
+  final bool? defaultDiscountAccount;
+
+  @JsonKey(name: "IPNSupportEnabled")
+  final bool? iPNSupportEnabled;
+
+  @JsonKey(name: "ETransactionPaymentEnabled")
+  final bool? eTransactionPaymentEnabled;
+
+  @JsonKey(name: "DefaultTerms")
+  final ReferenceType? defaultTerms;
+  
+  @JsonKey(name:" AllowDeposit")
+  final bool? allowDeposit;
+  
+  @JsonKey(name: "UsingPriceLevels")
+  final bool? usingPriceLevels;
+
+  @JsonKey(name: "DefaultShippingAccount")
+  final bool? defaultShippingAccount;
+  
+  @JsonKey(name: "ETransactionAttachPDF")
+  final bool? eTransactionAttachPDF;
+
+  @JsonKey(name: "CustomTxnNumbers")
+  final bool? customTxnNumbers;
+
+  @JsonKey(name: "ETransactionEnabledStatus")
+  final String? eTransactionEnabledStatus;
+
+  @JsonKey(name: "AllowEstimates")
+  final bool? allowEstimates;
+
+  @JsonKey(name: "AllowDiscount")
+  final bool? allowDiscount;
+
+  @JsonKey(name: "AutoApplyCredit")
+  final bool? autoApplyCredit;
+
+  SalesFormsPrefs({
+    this.estimateMessage, this.customField, this.allowDeposit,
+    this.allowDiscount, this.allowEstimates, this.allowServiceDate,
+    this.allowShipping, this.autoApplyCredit, this.customTxnNumbers,
+    this.defaultCustomerMessage, this.defaultDiscountAccount, this.defaultShippingAccount,
+    this.defaultTerms, this.emailCopyToCompany, this.eTransactionAttachPDF,
+    this.eTransactionEnabledStatus, this.eTransactionPaymentEnabled,
+    this.iPNSupportEnabled, this.salesEmailBcc, this.salesEmailCc,
+    this.usingPriceLevels, this.usingProgressInvoicing
+  });
   factory SalesFormsPrefs.fromJson(Map<String, dynamic> json) => _$SalesFormsPrefsFromJson(json);
 
   Map<String, dynamic> toJson() => _$SalesFormsPrefsToJson(this);
@@ -2277,8 +2359,32 @@ class SalesFormsPrefs {
 @JsonSerializable(includeIfNull: false)
 class VendorAndPurchasesPrefs {
 
-  // TODO Add fields
-  VendorAndPurchasesPrefs();
+  @JsonKey(name: "POCustomField")
+  final CustomField? pOCustomField;
+
+  @JsonKey(name: "DefaultMarkupAccount")
+  final ReferenceType? defaultMarkupAccount;
+
+  @JsonKey(name: "TrackingByCustomer")
+  final bool? trackingByCustomer;
+
+  @JsonKey(name: "DefaultTerms")
+  final ReferenceType? defaultTerms;
+
+  @JsonKey(name: "BillableExpenseTracking")
+  final bool? billableExpenseTracking;
+
+  @JsonKey(name: "DefaultMarkup")
+  final double? defaultMarkup;
+
+  @JsonKey(name: "TPAREnabled")
+  final bool? tPAREnabled;
+
+  VendorAndPurchasesPrefs({
+    this.defaultTerms, this.billableExpenseTracking, this.defaultMarkup,
+    this.defaultMarkupAccount, this.pOCustomField,
+    this.tPAREnabled, this.trackingByCustomer
+  });
   factory VendorAndPurchasesPrefs.fromJson(Map<String, dynamic> json) => _$VendorAndPurchasesPrefsFromJson(json);
 
   Map<String, dynamic> toJson() => _$VendorAndPurchasesPrefsToJson(this);
@@ -2292,8 +2398,18 @@ class VendorAndPurchasesPrefs {
 @JsonSerializable(includeIfNull: false)
 class TaxPrefs {
 
-  // TODO Add fields
-  TaxPrefs();
+  @JsonKey(name: "PartnerTaxEnabled")
+  final bool? partnerTaxEnabled;
+
+  @JsonKey(name: "TaxGroupCodeRef")
+  final String? taxGroupCodeRef;
+
+  @JsonKey(name: "UsingSalesTax")
+  final bool? usingSalesTax;
+
+  TaxPrefs({
+    this.partnerTaxEnabled, this.taxGroupCodeRef, this.usingSalesTax
+  });
   factory TaxPrefs.fromJson(Map<String, dynamic> json) => _$TaxPrefsFromJson(json);
 
   Map<String, dynamic> toJson() => _$TaxPrefsToJson(this);
@@ -2307,8 +2423,12 @@ class TaxPrefs {
 @JsonSerializable(includeIfNull: false)
 class OtherPrefs {
 
-  // TODO Add fields
-  OtherPrefs();
+  @JsonKey(name: "NameValue")
+  final List<NameValue>? nameValues;
+  
+  OtherPrefs({
+    this.nameValues
+  });
   factory OtherPrefs.fromJson(Map<String, dynamic> json) => _$OtherPrefsFromJson(json);
 
   Map<String, dynamic> toJson() => _$OtherPrefsToJson(this);
@@ -2322,8 +2442,25 @@ class OtherPrefs {
 @JsonSerializable(includeIfNull: false)
 class TimeTrackingPrefs {
 
-  // TODO Add fields
-  TimeTrackingPrefs();
+  @JsonKey(name:"WorkWeekStartDate")
+  final String? workWeekStartDate;
+
+  @JsonKey(name: "MarkTimeEntriesBillable")
+  final bool? markTimeEntriesBillable;
+
+  @JsonKey(name:"ShowBillRateToAll")
+  final bool? showBillRateToAll;
+
+  @JsonKey(name: "UsingSalesTax")
+  final bool? usingSalesTax;
+
+  @JsonKey(name: "BillCustomers")
+  final bool? billCustomers;
+
+  TimeTrackingPrefs({
+    this.usingSalesTax, this.billCustomers, this.markTimeEntriesBillable,
+    this.showBillRateToAll, this.workWeekStartDate
+  });
   factory TimeTrackingPrefs.fromJson(Map<String, dynamic> json) => _$TimeTrackingPrefsFromJson(json);
 
   Map<String, dynamic> toJson() => _$TimeTrackingPrefsToJson(this);
