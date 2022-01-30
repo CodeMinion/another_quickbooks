@@ -51,6 +51,7 @@ void main() {
   });
 
 
+  // Accounts
   test('test account create ', () async {
     final quickClient = QuickbooksClient(
         applicationId: applicationId,
@@ -97,30 +98,6 @@ void main() {
     var accountsFound = await quickClient.getAccountingClient().queryAccount(
         realmId: realmId,
       query: "select * from Account where Metadata.CreateTime > '2014-12-31'"
-    );
-
-    print(accountsFound);
-    expect(accountsFound, isNotNull);
-    expect(quickClient.isInitialized(), true);
-  });
-
-  test('test query account ', () async {
-    final quickClient = QuickbooksClient(
-        applicationId: applicationId,
-        clientId: clientId,
-        clientSecret: clientSecret);
-    await quickClient.initialize();
-
-    String token = (await quickClient.refreshToken(
-        refreshToken: refreshToken
-    )).access_token ?? "";
-
-    print(token);
-    expect(token.length, isNot(0));
-
-    var accountsFound = await quickClient.getAccountingClient().queryAccount(
-        realmId: realmId,
-        query: "select * from Account where Metadata.CreateTime > '2014-12-31'"
     );
 
     print(accountsFound);
@@ -208,6 +185,7 @@ void main() {
     expect(quickClient.isInitialized(), true);
   });
 
+  // Company Info
   test('test query companyInfo ', () async {
     final quickClient = QuickbooksClient(
         applicationId: applicationId,
@@ -292,6 +270,163 @@ void main() {
 
     print(updated);
     expect(updated, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  // Bill
+  test('test query bill ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var resultsFound = await quickClient.getAccountingClient().queryBill(
+        realmId: realmId,
+        query: "select * from Bill where Metadata.CreateTime > '2014-12-31'"
+    );
+
+    print(resultsFound);
+    expect(resultsFound, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test read bill ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var found = await quickClient.getAccountingClient().readBill(
+      realmId: realmId,
+      billId: "25",
+    );
+
+    print(found);
+    expect(found, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test update bill ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    //
+    var updated = await quickClient.getAccountingClient().updateBill(
+        realmId: realmId,
+        bill: Bill.fromJson({
+          "DocNumber": "56789",
+          "SyncToken": "1",
+          "domain": "QBO",
+          "APAccountRef": {
+            "name": "Accounts Payable",
+            "value": "49"
+          },
+          "VendorRef": {
+            "name": "Bayshore CalOil Service",
+            "value": "81"
+          },
+          "TxnDate": "2014-04-04",
+          "TotalAmt": 200.0,
+          "CurrencyRef": {
+            "name": "United States Dollar",
+            "value": "USD"
+          },
+          "PrivateNote": "This is a updated memo.",
+          "SalesTermRef": {
+            "value": "12"
+          },
+          "DepartmentRef": {
+            "name": "Garden Services",
+            "value": "1"
+          },
+          "DueDate": "2013-06-09",
+          "sparse": false,
+          "Line": [
+            {
+              "DetailType": "AccountBasedExpenseLineDetail",
+              "Amount": 200.0,
+              "Id": "1",
+              "AccountBasedExpenseLineDetail": {
+                "TaxCodeRef": {
+                  "value": "TAX"
+                },
+                "AccountRef": {
+                  "name": "Automobile",
+                  "value": "75"
+                },
+                "BillableStatus": "Billable",
+                "CustomerRef": {
+                  "name": "Blackwell, Edward",
+                  "value": "20"
+                },
+                "MarkupInfo": {
+                  "Percent": 10
+                }
+              },
+              "Description": "Gasoline"
+            }
+          ],
+          "Balance": 200.0,
+          "Id": "890",
+          "MetaData": {
+            "CreateTime": "2014-04-04T12:38:01-07:00",
+            "LastUpdatedTime": "2014-04-04T12:48:56-07:00"
+          }
+        })
+    );
+
+    print(updated);
+    expect(updated, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test delete bill ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var found = await quickClient.getAccountingClient().deleteBill(
+      realmId: realmId,
+      bill: Bill(id: "108", syncToken: "0"),
+    );
+
+    print(found);
+    expect(found, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
 }

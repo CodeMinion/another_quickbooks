@@ -2,6 +2,7 @@ library another_quickbooks;
 
 import 'package:another_quickbooks/quickbook_models.dart';
 import 'package:another_quickbooks/services/accounting/account_service.dart';
+import 'package:another_quickbooks/services/accounting/bill_service.dart';
 import 'package:another_quickbooks/services/accounting/company_info_service.dart';
 import 'package:another_quickbooks/services/authentication_service.dart';
 import 'package:another_quickbooks/services/discovery_service.dart';
@@ -192,6 +193,7 @@ class AccountingClient {
   late AccountService _accountsService;
   final AuthenticationService authenticationService;
   late CompanyInfoService _companyInfoService;
+  late BillService _billService;
 
   AccountingClient._(
       {required this.baseUrl, required this.authenticationService, this.minorVersion = 63}) {
@@ -199,6 +201,9 @@ class AccountingClient {
         baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
 
     _companyInfoService = CompanyInfoService(
+        baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
+
+    _billService = BillService(
         baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
   }
 
@@ -283,6 +288,59 @@ class AccountingClient {
   }) async {
     return _companyInfoService.updateCompanyInfo(companyInfo: companyInfo,
         realmId: realmId, authToken: authToken);
+  }
+
+  // Start: Bill Service
+  Future<List<Bill>> queryBill({
+    required String query,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _billService.queryBill(query: query, realmId: realmId, authToken: authToken);
+  }
+
+  Future<Bill> readBill({
+    required String billId,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _billService.readBill(billId: billId, realmId: realmId, authToken: authToken);
+  }
+
+  Future<Bill> createBill({
+    required ReferenceType vendorRef,
+    required List<Line> line,
+    CurrencyRefType? currencyRef,
+
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _billService.createBill(vendorRef: vendorRef,
+        line: line, currencyRef: currencyRef,
+        realmId: realmId, authToken: authToken);
+  }
+
+  ///
+  /// Use this operation to update any of the writable fields of
+  /// an existing bill object. The request body must include all
+  /// writable fields of the existing object as returned in a read
+  /// response. Writable fields omitted from the request body are set
+  /// to NULL. The ID of the object to update is specified in the request body.
+  ///
+  Future<Bill> updateBill({
+    required Bill bill,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _billService.updateBill(bill: bill, realmId: realmId, authToken: authToken);
+  }
+
+  Future<DeleteResponse> deleteBill({
+    required Bill bill,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _billService.deleteBill(bill: bill, realmId: realmId, authToken: authToken);
   }
 
 }

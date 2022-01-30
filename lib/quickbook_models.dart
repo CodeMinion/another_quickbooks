@@ -178,7 +178,7 @@ class Bill {
     final String? syncToken;
 
     @JsonKey(name: "CurrencyRef")
-    final ReferenceType? currencyRef;
+    final CurrencyRefType? currencyRef;
 
     @JsonKey(name: "TxnDate")
     final String? txnDate;
@@ -246,6 +246,11 @@ class Bill {
     factory Bill.fromJson(Map<String, dynamic> json) => _$BillFromJson(json);
 
     Map<String, dynamic> toJson() => _$BillToJson(this);
+
+    @override
+  String toString() {
+    return toJson().toString();
+  }
 }
 
 class _LineConverter implements JsonConverter<Line, Object?> {
@@ -3008,6 +3013,9 @@ class QueryResponse {
   
   @JsonKey(name: "CompanyInfo")
   final List<CompanyInfo>? companyInfo;
+
+  @JsonKey(name: "Bill")
+  final List<Bill>? bill;
   
   final int? startPosition;
 
@@ -3016,6 +3024,7 @@ class QueryResponse {
   QueryResponse({
     this.account,
     this.companyInfo,
+    this.bill,
     this.maxResults,
     this.startPosition
   });
@@ -3030,6 +3039,29 @@ class QueryResponse {
   }
 }
 
+@JsonSerializable(includeIfNull: false)
+class DeleteResponse {
+  final String? status;
+  final String? domain;
+
+  @JsonKey(name: "Id")
+  final String? id;
+
+  DeleteResponse({
+    this.status,
+    this.domain,
+    this.id
+  });
+
+  factory DeleteResponse.fromJson(Map<String, dynamic> json) => _$DeleteResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DeleteResponseToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
+}
 
 enum GlobalTaxCalculationEnum {
   TaxExcluded,
