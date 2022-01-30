@@ -2100,46 +2100,163 @@ class Preferences {
   factory Preferences.fromJson(Map<String, dynamic> json) => _$PreferencesFromJson(json);
 
   Map<String, dynamic> toJson() => _$PreferencesToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
 }
 
 @JsonSerializable(includeIfNull: false)
 class EmailMessagesPrefs {
 
-  // TODO Add fields
-  EmailMessagesPrefs();
+  @JsonKey(name: "InvoiceMessage")
+  EmailMessageType? invoiceMessage;
+
+  @JsonKey(name: "EstimateMessage")
+  EmailMessageType? estimateMessage;
+
+  @JsonKey(name: "SalesReceiptMessage")
+  EmailMessageType? salesReceiptMessage;
+
+  @JsonKey(name: "StatementMessage")
+  EmailMessageType? statementMessage;
+
+  EmailMessagesPrefs({
+    this.estimateMessage, this.invoiceMessage, this.salesReceiptMessage,
+    this.statementMessage
+  });
   factory EmailMessagesPrefs.fromJson(Map<String, dynamic> json) => _$EmailMessagesPrefsFromJson(json);
 
   Map<String, dynamic> toJson() => _$EmailMessagesPrefsToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
+}
+
+@JsonSerializable(includeIfNull: false)
+class EmailMessageType {
+
+  @JsonKey(name: "Message")
+  final String? message;
+
+  @JsonKey(name: "Subject")
+  final String? subject;
+
+  EmailMessageType({
+    this.message, this.subject
+  });
+  factory EmailMessageType.fromJson(Map<String, dynamic> json) => _$EmailMessageTypeFromJson(json);
+
+  Map<String, dynamic> toJson() => _$EmailMessageTypeToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
 }
 
 @JsonSerializable(includeIfNull: false)
 class ProductAndServicesPrefs {
 
-  // TODO Add fields
-  ProductAndServicesPrefs();
+  @JsonKey(name: "QuantityWithPriceAndRate")
+  final bool? quantityWithPriceAndRate;
+
+  @JsonKey(name: "ForPurchase")
+  final bool? forPurchase;
+
+  @JsonKey(name: "QuantityOnHand")
+  final bool? quantityOnHand;
+
+  @JsonKey(name: "ForSales")
+  final bool? forSales;
+  
+  ProductAndServicesPrefs({
+    this.forPurchase, this.forSales, this.quantityOnHand,
+    this.quantityWithPriceAndRate
+  });
   factory ProductAndServicesPrefs.fromJson(Map<String, dynamic> json) => _$ProductAndServicesPrefsFromJson(json);
 
   Map<String, dynamic> toJson() => _$ProductAndServicesPrefsToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
 }
 
 @JsonSerializable(includeIfNull: false)
 class ReportPrefs {
 
-  // TODO Add fields
-  ReportPrefs();
+  @JsonKey(name: "ReportBasis")
+  final String? reportBasis;
+
+  @JsonKey(name:"CalcAgingReportFromTxnDate")
+  final bool? calcAgingReportFromTxnDate;
+
+  ReportPrefs({
+    this.reportBasis, this.calcAgingReportFromTxnDate
+  });
   factory ReportPrefs.fromJson(Map<String, dynamic> json) => _$ReportPrefsFromJson(json);
 
   Map<String, dynamic> toJson() => _$ReportPrefsToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
 }
 
 @JsonSerializable(includeIfNull: false)
 class AccountingInfoPrefs {
 
-  // TODO Add fields
-  AccountingInfoPrefs();
+  @JsonKey(name: "FirstMonthOfFiscalYear")
+  final String? firstMonthOfFiscalYear;
+
+  @JsonKey(name: "UseAccountNumbers")
+  final bool? useAccountNumbers;
+
+  @JsonKey(name: "TaxYearMonth")
+  final String? taxYearMonth;
+
+  @JsonKey(name: "ClassTrackingPerTxn")
+  final bool? classTrackingPerTxn;
+
+  @JsonKey(name: "TrackDepartments")
+  final bool? trackDepartments;
+
+  @JsonKey(name: "TaxForm")
+  final String? taxForm;
+
+  @JsonKey(name: "CustomerTerminology")
+  final String? customerTerminology;
+
+  @JsonKey(name: "BookCloseDate")
+  final String? bookCloseDate;
+
+  @JsonKey(name: "DepartmentTerminology")
+  final String? departmentTerminology;
+
+  @JsonKey(name: "ClassTrackingPerTxnLine")
+  final bool? classTrackingPerTxnLine;
+
+
+  AccountingInfoPrefs({
+    this.bookCloseDate, this.classTrackingPerTxn, this.classTrackingPerTxnLine,
+    this.customerTerminology, this.departmentTerminology,
+    this.firstMonthOfFiscalYear, this.taxForm, this.taxYearMonth,
+    this.trackDepartments, this.useAccountNumbers
+  });
   factory AccountingInfoPrefs.fromJson(Map<String, dynamic> json) => _$AccountingInfoPrefsFromJson(json);
 
   Map<String, dynamic> toJson() => _$AccountingInfoPrefsToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -2150,6 +2267,11 @@ class SalesFormsPrefs {
   factory SalesFormsPrefs.fromJson(Map<String, dynamic> json) => _$SalesFormsPrefsFromJson(json);
 
   Map<String, dynamic> toJson() => _$SalesFormsPrefsToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -2160,6 +2282,11 @@ class VendorAndPurchasesPrefs {
   factory VendorAndPurchasesPrefs.fromJson(Map<String, dynamic> json) => _$VendorAndPurchasesPrefsFromJson(json);
 
   Map<String, dynamic> toJson() => _$VendorAndPurchasesPrefsToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -2170,6 +2297,11 @@ class TaxPrefs {
   factory TaxPrefs.fromJson(Map<String, dynamic> json) => _$TaxPrefsFromJson(json);
 
   Map<String, dynamic> toJson() => _$TaxPrefsToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -2180,6 +2312,11 @@ class OtherPrefs {
   factory OtherPrefs.fromJson(Map<String, dynamic> json) => _$OtherPrefsFromJson(json);
 
   Map<String, dynamic> toJson() => _$OtherPrefsToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -2190,6 +2327,11 @@ class TimeTrackingPrefs {
   factory TimeTrackingPrefs.fromJson(Map<String, dynamic> json) => _$TimeTrackingPrefsFromJson(json);
 
   Map<String, dynamic> toJson() => _$TimeTrackingPrefsToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -2207,6 +2349,11 @@ class CurrencyPrefs {
   factory CurrencyPrefs.fromJson(Map<String, dynamic> json) => _$CurrencyPrefsFromJson(json);
 
   Map<String, dynamic> toJson() => _$CurrencyPrefsToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -2228,6 +2375,10 @@ class ProfitAndLoss {
 
   Map<String, dynamic> toJson() => _$ProfitAndLossToJson(this);
 
+  @override
+  String toString() {
+    return toJson().toString();
+  }
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -2285,6 +2436,10 @@ class ProfitHeader {
 
   Map<String, dynamic> toJson() => _$ProfitHeaderToJson(this);
 
+  @override
+  String toString() {
+    return toJson().toString();
+  }
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -3086,6 +3241,9 @@ class QueryResponse {
   @JsonKey(name: "Payment")
   List<Payment>? payment;
 
+  @JsonKey(name: "Preferences")
+  List<Preferences>? preferences;
+
   final int? startPosition;
 
   final int? maxResults;
@@ -3100,6 +3258,7 @@ class QueryResponse {
     this.invoice,
     this.item,
     this.payment,
+    this.preferences,
     this.maxResults,
     this.startPosition
   });

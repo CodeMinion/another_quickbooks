@@ -12,6 +12,7 @@ import 'package:another_quickbooks/services/accounting/estimate_service.dart';
 import 'package:another_quickbooks/services/accounting/invoice_service.dart';
 import 'package:another_quickbooks/services/accounting/item_service.dart';
 import 'package:another_quickbooks/services/accounting/payment_service.dart';
+import 'package:another_quickbooks/services/accounting/preferences_service.dart';
 import 'package:another_quickbooks/services/authentication_service.dart';
 import 'package:another_quickbooks/services/discovery_service.dart';
 import 'package:another_quickbooks/services/payments/bank_accounts_service.dart';
@@ -208,6 +209,7 @@ class AccountingClient {
   late InvoiceService _invoiceService;
   late ItemService _itemService;
   late PaymentService _paymentService;
+  late PreferencesService _preferencesService;
 
   AccountingClient._(
       {required this.baseUrl, required this.authenticationService, this.minorVersion = 63}) {
@@ -236,6 +238,9 @@ class AccountingClient {
         baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
 
     _paymentService = PaymentService(
+        baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
+
+    _preferencesService = PreferencesService(
         baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
 
 
@@ -683,7 +688,37 @@ class AccountingClient {
     return _paymentService.sendPayment(paymentId: paymentId, emailTo: emailTo, realmId: realmId, authToken: authToken);
   }
 
+  // Preferences
+  Future<List<Preferences>> queryPreferences({
+    required String query,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _preferencesService.queryPreferences(query: query, realmId: realmId, authToken: authToken);
+  }
 
+  Future<Preferences> readPreferences({
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _preferencesService.readPreferences(realmId: realmId, authToken: authToken);
+  }
+
+  ///
+  /// Use this operation to update any of the writable preference fields.
+  /// The request body must include all writable fields of the
+  /// existing object as returned in a read response.
+  /// Writable fields omitted from the request body are set to
+  /// NULL or reverted to a default value. The ID of the object
+  /// to update is specified in the request body.
+  ///
+  Future<Preferences> updatePreferences({
+    required Preferences preferences,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _preferencesService.updatePreferences(preferences: preferences, realmId: realmId, authToken: authToken);
+  }
 
 
 
