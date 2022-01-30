@@ -72,7 +72,7 @@ class Account {
 
 
 
-  Account({required this.id, required this.name,
+  Account({this.id, this.name,
     this.accountAlias, this.accountSubType,
     this.accountType, this.acctNum, this.active,
     this.classification, this.createTime, this.currencyRef,
@@ -85,6 +85,11 @@ class Account {
   factory Account.fromJson(Map<String, dynamic> json) => _$AccountFromJson(json);
 
   Map<String, dynamic> toJson() => _$AccountToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -917,6 +922,11 @@ class CompanyInfo {
   factory CompanyInfo.fromJson(Map<String, dynamic> json) => _$CompanyInfoFromJson(json);
 
   Map<String, dynamic> toJson() => _$CompanyInfoToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -2547,7 +2557,7 @@ class BankAccount {
   final String? updated;
 
   @JsonKey(name: "default")
-  final bool? isDefautl;
+  final bool? isDefault;
 
   final String? country;
 
@@ -2563,13 +2573,18 @@ class BankAccount {
 
   BankAccount({
     this.id, this.name, this.country, this.accountType, this.accountNumber,
-    this.bankCode, this.created, this.isDefautl, this.entityId,
+    this.bankCode, this.created, this.isDefault, this.entityId,
     this.entityType, this.inputType, this.phone, this.routingNumber,
     this.updated
   });
   factory BankAccount.fromJson(Map<String, dynamic> json) => _$BankAccountFromJson(json);
 
   Map<String, dynamic> toJson() => _$BankAccountToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
 }
 
 
@@ -2978,6 +2993,36 @@ class TokenResponse {
   factory TokenResponse.fromJson(Map<String, dynamic> json) => _$TokenResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$TokenResponseToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
+}
+
+@JsonSerializable(includeIfNull: false)
+class QueryResponse {
+  
+  @JsonKey(name: "Account")
+  final List<Account>? account;
+  
+  @JsonKey(name: "CompanyInfo")
+  final List<CompanyInfo>? companyInfo;
+  
+  final int? startPosition;
+
+  final int? maxResults;
+
+  QueryResponse({
+    this.account,
+    this.companyInfo,
+    this.maxResults,
+    this.startPosition
+  });
+
+  factory QueryResponse.fromJson(Map<String, dynamic> json) => _$QueryResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$QueryResponseToJson(this);
 
   @override
   String toString() {

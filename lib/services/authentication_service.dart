@@ -13,6 +13,7 @@ class AuthenticationService {
   final String tokenEndpoint;
   final String revocationEndpoint;
   TokenResponse? _lastTokenResponse;
+  String? _lastRealmId; // Company ID cached
 
   AuthenticationService(
       {required this.clientId,
@@ -43,7 +44,9 @@ class AuthenticationService {
   ///
   /// Obtains the access token from the authorization code.
   ///
-  Future<TokenResponse> getAuthToken({required String code, required String redirectUrl }) async {
+  Future<TokenResponse> getAuthToken({required String code, required String redirectUrl, required String realmId }) async {
+
+    _lastRealmId = realmId;
 
     var credentials = "$clientId:$clientSecret";
     Codec<String, String> stringToBase64Url = utf8.fuse(base64Url);
@@ -132,6 +135,20 @@ class AuthenticationService {
         queryParameters: queryParameters);
 
     return uri;
+  }
+
+  ///
+  /// Returns the cached token if available
+  ///
+  TokenResponse? getCachedToken() {
+    return _lastTokenResponse;
+  }
+
+  ///
+  /// Returns the realm ID that was last
+  /// used for a token.
+  String? getCachedRealmId() {
+    return _lastRealmId;
   }
 }
 
