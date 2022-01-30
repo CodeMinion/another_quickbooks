@@ -736,4 +736,368 @@ void main() {
     expect(updated, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
+
+  // Estimate
+  test('test query estimate ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var resultsFound = await quickClient.getAccountingClient().queryEstimate(
+        realmId: realmId,
+        query: "select * from Estimate where Metadata.CreateTime > '2014-12-31'"
+    );
+
+    print(resultsFound);
+    expect(resultsFound, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test read estimate ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var found = await quickClient.getAccountingClient().readEstimate(
+      realmId: realmId,
+      estimateId: "41",
+    );
+
+    print(found);
+    expect(found, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test update estimate ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    //
+    var updated = await quickClient.getAccountingClient().updateEstimate(
+        realmId: realmId,
+        estimate: Estimate.fromJson({
+          "DocNumber": "1001",
+          "SyncToken": "2",
+          "domain": "QBO",
+          "TxnStatus": "Closed",
+          "BillEmail": {
+            "Address": "Geeta@Kalapatapu.com"
+          },
+          "TxnDate": "2014-09-07",
+          "TotalAmt": 582.5,
+          "CustomerRef": {
+            "name": "Geeta Kalapatapu",
+            "value": "10"
+          },
+          "CustomerMemo": {
+            "value": "An updated memo via full update."
+          },
+          "ShipAddr": {
+            "CountrySubDivisionCode": "CA",
+            "City": "Middlefield",
+            "PostalCode": "94303",
+            "Id": "119",
+            "Line1": "1987 Main St."
+          },
+          "LinkedTxn": [
+            {
+              "TxnId": "103",
+              "TxnType": "Invoice"
+            }
+          ],
+          "PrintStatus": "NeedToPrint",
+          "BillAddr": {
+            "Line3": "Middlefield, CA  94303",
+            "Id": "59",
+            "Line1": "Geeta Kalapatapu",
+            "Line2": "1987 Main St."
+          },
+          "sparse": false,
+          "EmailStatus": "NotSet",
+          "Line": [
+            {
+              "Description": "Rock Fountain",
+              "DetailType": "SalesItemLineDetail",
+              "SalesItemLineDetail": {
+                "TaxCodeRef": {
+                  "value": "NON"
+                },
+                "Qty": 1,
+                "UnitPrice": 275,
+                "ItemRef": {
+                  "name": "Rock Fountain",
+                  "value": "5"
+                }
+              },
+              "LineNum": 1,
+              "Amount": 275.0,
+              "Id": "1"
+            },
+            {
+              "Description": "Custom Design",
+              "DetailType": "SalesItemLineDetail",
+              "SalesItemLineDetail": {
+                "TaxCodeRef": {
+                  "value": "NON"
+                },
+                "Qty": 3.5,
+                "UnitPrice": 75,
+                "ItemRef": {
+                  "name": "Design",
+                  "value": "4"
+                }
+              },
+              "LineNum": 2,
+              "Amount": 262.5,
+              "Id": "2"
+            },
+            {
+              "Description": "Fountain Pump",
+              "DetailType": "SalesItemLineDetail",
+              "SalesItemLineDetail": {
+                "TaxCodeRef": {
+                  "value": "NON"
+                },
+                "Qty": 2,
+                "UnitPrice": 22.5,
+                "ItemRef": {
+                  "name": "Pump",
+                  "value": "11"
+                }
+              },
+              "LineNum": 3,
+              "Amount": 45.0,
+              "Id": "3"
+            },
+            {
+              "DetailType": "SubTotalLineDetail",
+              "Amount": 582.5,
+              "SubTotalLineDetail": {}
+            }
+          ],
+          "ApplyTaxAfterDiscount": false,
+          "CustomField": [
+            {
+              "DefinitionId": "1",
+              "Type": "StringType",
+              "Name": "Crew #"
+            }
+          ],
+          "Id": "41",
+          "TxnTaxDetail": {
+            "TotalTax": 0
+          },
+          "MetaData": {
+            "CreateTime": "2014-09-17T11:20:06-07:00",
+            "LastUpdatedTime": "2015-07-24T14:08:04-07:00"
+          }
+        })
+    );
+
+    print(updated);
+    expect(updated, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test create estimate ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    //
+    var updated = await quickClient.getAccountingClient().createEstimate(
+        realmId: realmId,
+        estimate: Estimate.fromJson({
+          "TotalAmt": 31.5,
+          "BillEmail": {
+            "Address": "Cool_Cars@intuit.com"
+          },
+          "CustomerMemo": {
+            "value": "Thank you for your business and have a great day!"
+          },
+          "ShipAddr": {
+            "City": "Half Moon Bay",
+            "Line1": "65 Ocean Dr.",
+            "PostalCode": "94213",
+            "Lat": "37.4300318",
+            "Long": "-122.4336537",
+            "CountrySubDivisionCode": "CA",
+            "Id": "4"
+          },
+          "PrintStatus": "NeedToPrint",
+          "EmailStatus": "NotSet",
+          "BillAddr": {
+            "City": "Half Moon Bay",
+            "Line1": "65 Ocean Dr.",
+            "PostalCode": "94213",
+            "Lat": "37.4300318",
+            "Long": "-122.4336537",
+            "CountrySubDivisionCode": "CA",
+            "Id": "4"
+          },
+          "Line": [
+            {
+              "Description": "Pest Control Services",
+              "DetailType": "SalesItemLineDetail",
+              "SalesItemLineDetail": {
+                "TaxCodeRef": {
+                  "value": "NON"
+                },
+                "Qty": 1,
+                "UnitPrice": 35,
+                "ItemRef": {
+                  "name": "Pest Control",
+                  "value": "10"
+                }
+              },
+              "LineNum": 1,
+              "Amount": 35.0,
+              "Id": "1"
+            },
+            {
+              "DetailType": "SubTotalLineDetail",
+              "Amount": 35.0,
+              "SubTotalLineDetail": {}
+            },
+            {
+              "DetailType": "DiscountLineDetail",
+              "Amount": 3.5,
+              "DiscountLineDetail": {
+                "DiscountAccountRef": {
+                  "name": "Discounts given",
+                  "value": "86"
+                },
+                "PercentBased": true,
+                "DiscountPercent": 10
+              }
+            }
+          ],
+          "CustomerRef": {
+            "name": "Cool Cars",
+            "value": "3"
+          },
+          "TxnTaxDetail": {
+            "TotalTax": 0
+          },
+          "ApplyTaxAfterDiscount": false
+        })
+    );
+
+    print(updated);
+    expect(updated, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test delete estimate ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var found = await quickClient.getAccountingClient().deleteEstimate(
+      realmId: realmId,
+      estimate: Estimate.fromJson({
+        "SyncToken": "3",
+        "Id": "96"
+      })
+    );
+
+    print(found);
+    expect(found, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test get estimate pdf ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var found = await quickClient.getAccountingClient().getEstimatePdf(
+        realmId: realmId,
+        estimateId: "41"
+    );
+
+    print(found);
+    expect(found, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test send estimate pdf ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var found = await quickClient.getAccountingClient().sendEstimate(
+        realmId: realmId,
+        estimateId: "41",
+        emailTo: "hernandez.frank@gmail.com"
+    );
+
+    print(found);
+    expect(found, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
 }

@@ -278,10 +278,15 @@ class _LineConverter implements JsonConverter<Line, Object?> {
       else if (json["DetailType"] == "DiscountLineDetail") {
         return DiscountLine.fromJson(json);
       }
-      else if (json["DetailType"] == "SubtotalLineDetail") {
+      else if (json["DetailType"] == "SubTotalLineDetail") {
         return SubTotalLine.fromJson(json);
       }
+
+      print ("Unable to parse $json - ${json["DetailType"] }");
     }
+
+
+    print ("Unable to parse $json }");
     // This will only work if `json` is a native JSON type:
     //   num, String, bool, null, etc
     // *and* is assignable to `T`.
@@ -299,6 +304,22 @@ class _LineConverter implements JsonConverter<Line, Object?> {
     else if (object is AccountBasedExpenseLine) {
       return object.toJson();
     }
+    else if (object is SalesItemLine) {
+      return object.toJson();
+    }
+    else if (object is GroupLine) {
+      return object.toJson();
+    }
+    else if (object is DescriptionOnlyLine) {
+      return object.toJson();
+    }
+    else if (object is DiscountLine) {
+      return object.toJson();
+    }
+    else if (object is SubTotalLine) {
+      return object.toJson();
+    }
+    print ("Unable to convert $object");
     return null;
   }
 }
@@ -489,7 +510,7 @@ class SalesItemLineDetail {
   final double? discountRate;
 
   @JsonKey(name: "Qty")
-  final int? qty;
+  final double? qty;
 
   @JsonKey(name: "UnitPrice")
   final double? unitPrice;
@@ -674,7 +695,7 @@ class SubTotalLine implements Line {
   @JsonKey(name: "Id")
   final String? id;
 
-  @JsonKey(name: "SubtotalLineDetail")
+  @JsonKey(name: "SubTotalLineDetail")
   final SubtotalLineDetail? subtotalLineDetail;
 
   @JsonKey(name: "DetailType")
@@ -1350,7 +1371,7 @@ class Estimate {
   final PhysicalAddress? shipFromAddr;
 
   @JsonKey(name: "ShipDate")
-  final String? shipDate;
+  final Date? shipDate;
 
   @JsonKey(name: "ClassRef")
   final ReferenceType? classRef;
@@ -1359,7 +1380,7 @@ class Estimate {
   final String? printStatus;
 
   @JsonKey(name: "CustomField")
-  final CustomField? customField;
+  final List<CustomField>? customField;
 
   @JsonKey(name: "SalesTermRef")
   final ReferenceType? salesTermRef;
@@ -1374,16 +1395,16 @@ class Estimate {
   final GlobalTaxCalculationEnum? globalTaxCalculation;
 
   @JsonKey(name: "AcceptedDate")
-  final String? acceptedDate;
+  final Date? acceptedDate;
 
   @JsonKey(name: "ExpirationDate")
-  final String? expirationDate;
+  final Date? expirationDate;
 
   @JsonKey(name: "TransactionLocationType")
   final String? transactionLocationType;
 
   @JsonKey(name: "DueDate")
-  final String? dueDate;
+  final Date? dueDate;
 
   @JsonKey(name: "MetaData")
   final ModificationMetaData? metaData;
@@ -1461,6 +1482,11 @@ class Estimate {
   factory Estimate.fromJson(Map<String, dynamic> json) => _$EstimateFromJson(json);
 
   Map<String, dynamic> toJson() => _$EstimateToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -3033,6 +3059,9 @@ class QueryResponse {
   @JsonKey(name:"Employee")
   List<Employee>? employee;
 
+  @JsonKey(name: "Estimate")
+  List<Estimate>? estimate;
+
   final int? startPosition;
 
   final int? maxResults;
@@ -3043,6 +3072,7 @@ class QueryResponse {
     this.bill,
     this.customer,
     this.employee,
+    this.estimate,
     this.maxResults,
     this.startPosition
   });

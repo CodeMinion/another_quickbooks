@@ -1,11 +1,14 @@
 library another_quickbooks;
 
+import 'dart:typed_data';
+
 import 'package:another_quickbooks/quickbook_models.dart';
 import 'package:another_quickbooks/services/accounting/account_service.dart';
 import 'package:another_quickbooks/services/accounting/bill_service.dart';
 import 'package:another_quickbooks/services/accounting/company_info_service.dart';
 import 'package:another_quickbooks/services/accounting/customer_service.dart';
 import 'package:another_quickbooks/services/accounting/employee_service.dart';
+import 'package:another_quickbooks/services/accounting/estimate_service.dart';
 import 'package:another_quickbooks/services/authentication_service.dart';
 import 'package:another_quickbooks/services/discovery_service.dart';
 import 'package:another_quickbooks/services/payments/bank_accounts_service.dart';
@@ -198,6 +201,7 @@ class AccountingClient {
   late BillService _billService;
   late CustomerService _customerService;
   late EmployeeService _employeeService;
+  late EstimateService _estimateService;
 
   AccountingClient._(
       {required this.baseUrl, required this.authenticationService, this.minorVersion = 63}) {
@@ -214,6 +218,9 @@ class AccountingClient {
         baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
 
     _employeeService = EmployeeService(
+        baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
+
+    _estimateService = EstimateService(
         baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
   }
 
@@ -428,7 +435,63 @@ class AccountingClient {
     return _employeeService.updateEmployee(employee: employee, realmId: realmId, authToken: authToken);
   }
 
+  // Start: Estimate 
+  Future<List<Estimate>> queryEstimate({
+    required String query,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _estimateService.queryEstimate(query: query, realmId: realmId, authToken: authToken);
+  }
 
+  Future<Estimate> readEstimate({
+    required String estimateId,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _estimateService.readEstimate(estimateId: estimateId, realmId: realmId, authToken: authToken);
+  }
+
+  Future<Estimate> createEstimate({
+    required Estimate estimate,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _estimateService.createEstimate(estimate: estimate, realmId: realmId, authToken: authToken);
+  }
+
+  Future<Estimate> updateEstimate({
+    required Estimate estimate,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _estimateService.updateEstimate(estimate: estimate, realmId: realmId, authToken: authToken);
+  }
+
+  Future<DeleteResponse> deleteEstimate({
+    required Estimate estimate,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _estimateService.deleteEstimate(estimate: estimate, realmId: realmId, authToken: authToken);
+  }
+
+  Future<Uint8List> getEstimatePdf({
+    required String estimateId,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _estimateService.getEstimatePdf(estimateId: estimateId, realmId: realmId, authToken: authToken);
+  }
+
+  Future<Estimate> sendEstimate({
+    required String estimateId,
+    required String emailTo,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _estimateService.sendEstimate(estimateId: estimateId, emailTo: emailTo, realmId: realmId, authToken: authToken);
+  }
 
 
 }
