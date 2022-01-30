@@ -406,6 +406,47 @@ void main() {
     expect(quickClient.isInitialized(), true);
   });
 
+  test('test create bill ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    //
+    var updated = await quickClient.getAccountingClient().createBill(
+        realmId: realmId,
+        bill: Bill.fromJson({
+          "Line": [
+            {
+              "DetailType": "AccountBasedExpenseLineDetail",
+              "Amount": 200.0,
+              "Id": "1",
+              "AccountBasedExpenseLineDetail": {
+                "AccountRef": {
+                  "value": "7"
+                }
+              }
+            }
+          ],
+          "VendorRef": {
+            "value": "56"
+          }
+        })
+    );
+
+    print(updated);
+    expect(updated, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
   test('test delete bill ', () async {
     final quickClient = QuickbooksClient(
         applicationId: applicationId,
@@ -427,6 +468,133 @@ void main() {
 
     print(found);
     expect(found, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  // Customer
+  test('test query customer ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var resultsFound = await quickClient.getAccountingClient().queryCustomer(
+        realmId: realmId,
+        query: "select * from Customer where Metadata.CreateTime > '2014-12-31'"
+    );
+
+    print(resultsFound);
+    expect(resultsFound, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test read customer ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var found = await quickClient.getAccountingClient().readCustomer(
+      realmId: realmId,
+      customerId: "2",
+    );
+
+    print(found);
+    expect(found, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test update customer ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    //
+    var updated = await quickClient.getAccountingClient().updateCustomer(
+        realmId: realmId,
+        customer: Customer.fromJson({
+          "MiddleName": "Mark",
+          "SyncToken": "0",
+          "Id": "2",
+          "sparse": true
+        })
+    );
+
+    print(updated);
+    expect(updated, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test create customer ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    //
+    var updated = await quickClient.getAccountingClient().createCustomer(
+        realmId: realmId,
+        customer: Customer.fromJson({
+          "FullyQualifiedName": "King Groceries",
+          "PrimaryEmailAddr": {
+            "Address": "jdrew@myemail.com"
+          },
+          "DisplayName": "King's Groceries",
+          "Suffix": "Jr",
+          "Title": "Mr",
+          "MiddleName": "B",
+          "Notes": "Here are other details.",
+          "FamilyName": "King",
+          "PrimaryPhone": {
+            "FreeFormNumber": "(555) 555-5555"
+          },
+          "CompanyName": "King Groceries",
+          "BillAddr": {
+            "CountrySubDivisionCode": "CA",
+            "City": "Mountain View",
+            "PostalCode": "94042",
+            "Line1": "123 Main Street",
+            "Country": "USA"
+          },
+          "GivenName": "James"
+        })
+    );
+
+    print(updated);
+    expect(updated, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
 }

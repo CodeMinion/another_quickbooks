@@ -1212,6 +1212,11 @@ class Customer {
   factory Customer.fromJson(Map<String, dynamic> json) => _$CustomerFromJson(json);
 
   Map<String, dynamic> toJson() => _$CustomerToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -3016,7 +3021,10 @@ class QueryResponse {
 
   @JsonKey(name: "Bill")
   final List<Bill>? bill;
-  
+
+  @JsonKey(name:"Customer")
+  List<Customer>? customer;
+
   final int? startPosition;
 
   final int? maxResults;
@@ -3025,6 +3033,7 @@ class QueryResponse {
     this.account,
     this.companyInfo,
     this.bill,
+    this.customer,
     this.maxResults,
     this.startPosition
   });

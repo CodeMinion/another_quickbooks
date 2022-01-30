@@ -4,6 +4,7 @@ import 'package:another_quickbooks/quickbook_models.dart';
 import 'package:another_quickbooks/services/accounting/account_service.dart';
 import 'package:another_quickbooks/services/accounting/bill_service.dart';
 import 'package:another_quickbooks/services/accounting/company_info_service.dart';
+import 'package:another_quickbooks/services/accounting/customer_service.dart';
 import 'package:another_quickbooks/services/authentication_service.dart';
 import 'package:another_quickbooks/services/discovery_service.dart';
 import 'package:another_quickbooks/services/payments/bank_accounts_service.dart';
@@ -194,6 +195,7 @@ class AccountingClient {
   final AuthenticationService authenticationService;
   late CompanyInfoService _companyInfoService;
   late BillService _billService;
+  late CustomerService _customerService;
 
   AccountingClient._(
       {required this.baseUrl, required this.authenticationService, this.minorVersion = 63}) {
@@ -204,6 +206,9 @@ class AccountingClient {
         baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
 
     _billService = BillService(
+        baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
+
+    _customerService = CustomerService(
         baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
   }
 
@@ -308,15 +313,11 @@ class AccountingClient {
   }
 
   Future<Bill> createBill({
-    required ReferenceType vendorRef,
-    required List<Line> line,
-    CurrencyRefType? currencyRef,
-
+    required Bill bill,
     String? realmId,
     String? authToken,
   }) async {
-    return _billService.createBill(vendorRef: vendorRef,
-        line: line, currencyRef: currencyRef,
+    return _billService.createBill(bill: bill,
         realmId: realmId, authToken: authToken);
   }
 
@@ -341,6 +342,45 @@ class AccountingClient {
     String? authToken,
   }) async {
     return _billService.deleteBill(bill: bill, realmId: realmId, authToken: authToken);
+  }
+
+  // Start: Customer Service
+  Future<List<Customer>> queryCustomer({
+    required String query,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _customerService.queryCustomer(query: query, realmId: realmId, authToken: authToken);
+  }
+
+  Future<Customer> readCustomer({
+    required String customerId,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _customerService.readCustomer(customerId: customerId, realmId: realmId, authToken: authToken);
+  }
+
+  Future<Customer> createCustomer({
+    required Customer customer,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _customerService.createCustomer(customer: customer, realmId: realmId, authToken: authToken);
+  }
+
+  ///
+  /// Sparse updating provides the ability to update a subset
+  /// of properties for a given object; only elements specified
+  /// in the request are updated. Missing elements are left untouched.
+  /// The ID of the object to update is specified in the request body.​
+  ///
+  Future<Customer> updateCustomer({
+    required Customer customer,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _customerService.updateCustomer(customer: customer, realmId: realmId, authToken: authToken);
   }
 
 }

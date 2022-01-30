@@ -7,18 +7,16 @@ import 'package:http/http.dart' as http;
 import 'package:another_quickbooks/quickbook_models.dart';
 import 'package:another_quickbooks/services/authentication_service.dart';
 
-///
-///
-class BillService {
+class CustomerService {
   final String baseUrl;
   final AuthenticationService authenticationService;
   final int minorVersion;
 
-  BillService(
+  CustomerService(
       {required this.baseUrl, required this.authenticationService, this.minorVersion = 63});
 
 
-  Future<List<Bill>> queryBill({
+  Future<List<Customer>> queryCustomer({
     required String query,
     String? realmId,
     String? authToken,
@@ -50,15 +48,15 @@ class BillService {
 
     if (response.statusCode == 200) {
       print (jsonDecode(response.body));
-      return QueryResponse.fromJson(jsonDecode(response.body)["QueryResponse"]).bill!;
+      return QueryResponse.fromJson(jsonDecode(response.body)["QueryResponse"]).customer!;
     }
     else {
-      throw BillException(statusCode: response.statusCode, message: response.body);
+      throw CustomerException(statusCode: response.statusCode, message: response.body);
     }
   }
 
-  Future<Bill> readBill({
-    required String billId,
+  Future<Customer> readCustomer({
+    required String customerId,
     String? realmId,
     String? authToken,
   }) async {
@@ -79,7 +77,7 @@ class BillService {
 
 
     Uri endpoint = Uri.https(
-        baseUrl, "/v3/company/$realmId/bill/$billId", params);
+        baseUrl, "/v3/company/$realmId/customer/$customerId", params);
 
     print (endpoint.toString());
 
@@ -88,15 +86,15 @@ class BillService {
 
     if (response.statusCode == 200) {
       print (jsonDecode(response.body));
-      return Bill.fromJson(jsonDecode(response.body)["Bill"]);
+      return Customer.fromJson(jsonDecode(response.body)["Customer"]);
     }
     else {
-      throw BillException(statusCode: response.statusCode, message: response.body);
+      throw CustomerException(statusCode: response.statusCode, message: response.body);
     }
   }
 
-  Future<Bill> createBill({
-    required Bill bill,
+  Future<Customer> createCustomer({
+    required Customer customer,
     String? realmId,
     String? authToken,
   }) async {
@@ -117,31 +115,30 @@ class BillService {
 
 
     Uri endpoint = Uri.https(
-        baseUrl, "/v3/company/$realmId/bill", params);
+        baseUrl, "/v3/company/$realmId/customer", params);
 
     print (endpoint.toString());
 
     var response = await
-    http.post(endpoint, body: jsonEncode(bill.toJson()), headers: headers);
+    http.post(endpoint, body: jsonEncode(customer.toJson()), headers: headers);
 
     if (response.statusCode == 200) {
       print (jsonDecode(response.body));
-      return Bill.fromJson(jsonDecode(response.body)["Bill"]);
+      return Customer.fromJson(jsonDecode(response.body)["Customer"]);
     }
     else {
-      throw BillException(statusCode: response.statusCode, message: response.body);
+      throw CustomerException(statusCode: response.statusCode, message: response.body);
     }
   }
 
   ///
-  /// Use this operation to update any of the writable fields of
-  /// an existing bill object. The request body must include all
-  /// writable fields of the existing object as returned in a read
-  /// response. Writable fields omitted from the request body are set
-  /// to NULL. The ID of the object to update is specified in the request body.
+  /// Sparse updating provides the ability to update a subset
+  /// of properties for a given object; only elements specified
+  /// in the request are updated. Missing elements are left untouched.
+  /// The ID of the object to update is specified in the request body.​
   ///
-  Future<Bill> updateBill({
-    required Bill bill,
+  Future<Customer> updateCustomer({
+    required Customer customer,
     String? realmId,
     String? authToken,
   }) async {
@@ -161,70 +158,32 @@ class BillService {
     };
 
     Uri endpoint = Uri.https(
-        baseUrl, "/v3/company/$realmId/bill", params);
+        baseUrl, "/v3/company/$realmId/customer", params);
 
     print (endpoint.toString());
 
     var response = await
-    http.post(endpoint, body: jsonEncode(bill.toJson()), headers: headers);
+    http.post(endpoint, body: jsonEncode(customer.toJson()), headers: headers);
 
     if (response.statusCode == 200) {
       print (jsonDecode(response.body));
-      return Bill.fromJson(jsonDecode(response.body)["Bill"]);
+      return Customer.fromJson(jsonDecode(response.body)["Customer"]);
     }
     else {
-      throw BillException(statusCode: response.statusCode, message: response.body);
-    }
-  }
-
-  Future<DeleteResponse> deleteBill({
-    required Bill bill,
-    String? realmId,
-    String? authToken,
-  }) async {
-
-    authToken ??= authenticationService.getCachedToken()?.access_token;
-    realmId ??= authenticationService.getCachedRealmId();
-
-    Map<String, String> headers = {
-      "Authorization": "Bearer ${authToken ?? ""}",
-      'Content-Type': 'application/json; charset=UTF-8',
-      'Accept': 'application/json',
-
-    };
-
-    Map<String, String> params = {
-      "minorversion": minorVersion.toString(),
-      "operation": "delete"
-    };
-
-    Uri endpoint = Uri.https(
-        baseUrl, "/v3/company/$realmId/bill", params);
-
-    print (endpoint.toString());
-
-    var response = await
-    http.post(endpoint, body: jsonEncode(bill.toJson()), headers: headers);
-
-    if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
-      return DeleteResponse.fromJson(jsonDecode(response.body)["Bill"]);
-    }
-    else {
-      throw BillException(statusCode: response.statusCode, message: response.body);
+      throw CustomerException(statusCode: response.statusCode, message: response.body);
     }
   }
 }
 
-class BillException implements Exception {
+class CustomerException implements Exception {
   final String? message;
   final int statusCode;
 
-  BillException({required this.statusCode, this.message});
+  CustomerException({required this.statusCode, this.message});
 
   @override
   String toString() {
-    return "BillException: $statusCode - $message";
+    return "CustomerException: $statusCode - $message";
   }
 }
 
