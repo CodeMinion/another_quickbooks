@@ -3083,6 +3083,9 @@ class QueryResponse {
   @JsonKey(name: "Item")
   List<Item>? item;
 
+  @JsonKey(name: "Payment")
+  List<Payment>? payment;
+
   final int? startPosition;
 
   final int? maxResults;
@@ -3096,6 +3099,7 @@ class QueryResponse {
     this.estimate,
     this.invoice,
     this.item,
+    this.payment,
     this.maxResults,
     this.startPosition
   });

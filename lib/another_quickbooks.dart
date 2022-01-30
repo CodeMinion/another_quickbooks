@@ -11,6 +11,7 @@ import 'package:another_quickbooks/services/accounting/employee_service.dart';
 import 'package:another_quickbooks/services/accounting/estimate_service.dart';
 import 'package:another_quickbooks/services/accounting/invoice_service.dart';
 import 'package:another_quickbooks/services/accounting/item_service.dart';
+import 'package:another_quickbooks/services/accounting/payment_service.dart';
 import 'package:another_quickbooks/services/authentication_service.dart';
 import 'package:another_quickbooks/services/discovery_service.dart';
 import 'package:another_quickbooks/services/payments/bank_accounts_service.dart';
@@ -206,6 +207,7 @@ class AccountingClient {
   late EstimateService _estimateService;
   late InvoiceService _invoiceService;
   late ItemService _itemService;
+  late PaymentService _paymentService;
 
   AccountingClient._(
       {required this.baseUrl, required this.authenticationService, this.minorVersion = 63}) {
@@ -231,6 +233,9 @@ class AccountingClient {
         baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
 
     _itemService = ItemService(
+        baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
+
+    _paymentService = PaymentService(
         baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
 
 
@@ -603,6 +608,84 @@ class AccountingClient {
   }) async {
     return _itemService.updateItem(item: item, realmId: realmId, authToken: authToken);
   }
+
+  // Start: Payment
+  Future<List<Payment>> queryPayment({
+    required String query,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _paymentService.queryPayment(query: query, realmId: realmId, authToken: authToken);
+  }
+
+  Future<Payment> readPayment({
+    required String paymentId,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _paymentService.readPayment(paymentId: paymentId, realmId: realmId, authToken: authToken);
+  }
+
+  Future<Payment> createPayment({
+    required Payment payment,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _paymentService.createPayment(payment: payment, realmId: realmId, authToken: authToken);
+  }
+
+  ///
+  /// Use this operation to update any of the writable fields
+  /// of an existing Payment object. The request body must
+  /// include all writable fields of the existing object as
+  /// returned in a read response. Writable fields omitted
+  /// from the request body are set to NULL. The ID of the
+  /// object to update is specified in the request body.
+  ///
+  Future<Payment> updatePayment({
+    required Payment payment,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _paymentService.updatePayment(payment: payment, realmId: realmId, authToken: authToken);
+  }
+
+  Future<DeleteResponse> deletePayment({
+    required Payment payment,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _paymentService.deletePayment(payment: payment, realmId: realmId, authToken: authToken);
+  }
+
+  Future<Payment> voidPayment({
+    required Payment payment,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _paymentService.voidPayment(payment: payment, realmId: realmId, authToken: authToken);
+  }
+
+  Future<Uint8List> getPaymentPdf({
+    required String paymentId,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _paymentService.getPaymentPdf(paymentId: paymentId, realmId: realmId, authToken: authToken);
+  }
+
+  Future<Payment> sendPayment({
+    required String paymentId,
+    required String emailTo,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _paymentService.sendPayment(paymentId: paymentId, emailTo: emailTo, realmId: realmId, authToken: authToken);
+  }
+
+
+
+
 
 }
 enum EnvironmentType {

@@ -1543,5 +1543,247 @@ void main() {
     expect(quickClient.isInitialized(), true);
   });
 
+  // Payment
+  test('test query payment ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var resultsFound = await quickClient.getAccountingClient().queryPayment(
+        realmId: realmId,
+        query: "select * from Payment where Metadata.CreateTime > '2014-12-31'"
+    );
+
+    print(resultsFound);
+    expect(resultsFound, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test read payment ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var found = await quickClient.getAccountingClient().readPayment(
+      realmId: realmId,
+      paymentId: "128",
+    );
+
+    print(found);
+    expect(found, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test update payment ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+
+    var updated = await quickClient.getAccountingClient().updatePayment(
+        realmId: realmId,
+        payment: Payment.fromJson({
+          "SyncToken": "0",
+          "PaymentMethodRef": {
+            "value": "16"
+          },
+          "PaymentRefNum": "123456",
+          "sparse": false,
+          "Line": [
+            {
+              "Amount": 300,
+              "LinkedTxn": [
+                {
+                  "TxnId": "67",
+                  "TxnType": "Invoice"
+                }
+              ]
+            },
+            {
+              "Amount": 300,
+              "LinkedTxn": [
+                {
+                  "TxnId": "68",
+                  "TxnType": "CreditMemo"
+                }
+              ]
+            }
+          ],
+          "CustomerRef": {
+            "value": "16"
+          },
+          "Id": "69",
+          "MetaData": {
+            "CreateTime": "2013-03-13T14:49:21-07:00",
+            "LastUpdatedTime": "2013-03-13T14:49:21-07:00"
+          }
+        })
+    );
+
+    print(updated);
+    expect(updated, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test create payment ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    //
+    var updated = await quickClient.getAccountingClient().createPayment(
+        realmId: realmId,
+        payment: Payment.fromJson({
+          "TotalAmt": 25.0,
+          "CustomerRef": {
+            "value": "20"
+          }
+        })
+    );
+
+    print(updated);
+    expect(updated, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test delete payment ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var found = await quickClient.getAccountingClient().deletePayment(
+        realmId: realmId,
+        payment: Payment.fromJson({
+          "SyncToken": "2",
+          "Id": "153"
+        })
+    );
+
+    print(found);
+    expect(found, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test get payment pdf ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var found = await quickClient.getAccountingClient().getPaymentPdf(
+        realmId: realmId,
+        paymentId: "128"
+    );
+
+    print(found);
+    expect(found, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test send payment pdf ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var found = await quickClient.getAccountingClient().sendPayment(
+        realmId: realmId,
+        paymentId: "128",
+        emailTo: "hernandez.frank@gmail.com"
+    );
+
+    print(found);
+    expect(found, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test void payment ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var found = await quickClient.getAccountingClient().voidPayment(
+        realmId: realmId,
+        payment: Payment.fromJson({
+          "SyncToken": "1",
+          "Id": "33",
+          "sparse": true
+        })
+    );
+
+    print(found);
+    expect(found, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
 
 }
