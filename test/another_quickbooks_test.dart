@@ -1811,7 +1811,7 @@ void main() {
     expect(quickClient.isInitialized(), true);
   });
 
-  test('test read bill ', () async {
+  test('test read preference ', () async {
     final quickClient = QuickbooksClient(
         applicationId: applicationId,
         clientId: clientId,
@@ -1825,9 +1825,8 @@ void main() {
     print(token);
     expect(token.length, isNot(0));
 
-    var found = await quickClient.getAccountingClient().readBill(
-      realmId: realmId,
-      billId: "25",
+    var found = await quickClient.getAccountingClient().readPreferences(
+      realmId: realmId
     );
 
     print(found);
@@ -1835,7 +1834,7 @@ void main() {
     expect(quickClient.isInitialized(), true);
   });
 
-  test('test update bill ', () async {
+  test('test update preference ', () async {
     final quickClient = QuickbooksClient(
         applicationId: applicationId,
         clientId: clientId,
@@ -1850,67 +1849,19 @@ void main() {
     expect(token.length, isNot(0));
 
     //
-    var updated = await quickClient.getAccountingClient().updateBill(
+    var updated = await quickClient.getAccountingClient().updatePreferences(
         realmId: realmId,
-        bill: Bill.fromJson({
-          "DocNumber": "56789",
-          "SyncToken": "1",
-          "domain": "QBO",
-          "APAccountRef": {
-            "name": "Accounts Payable",
-            "value": "49"
+        preferences: Preferences.fromJson({
+          "ProductAndServicesPrefs": {
+            "ForPurchase": true,
+            "ForSales": true
           },
-          "VendorRef": {
-            "name": "Bayshore CalOil Service",
-            "value": "81"
-          },
-          "TxnDate": "2014-04-04",
-          "TotalAmt": 200.0,
-          "CurrencyRef": {
-            "name": "United States Dollar",
-            "value": "USD"
-          },
-          "PrivateNote": "This is a updated memo.",
-          "SalesTermRef": {
-            "value": "12"
-          },
-          "DepartmentRef": {
-            "name": "Garden Services",
-            "value": "1"
-          },
-          "DueDate": "2013-06-09",
+          "SyncToken": "20",
           "sparse": false,
-          "Line": [
-            {
-              "DetailType": "AccountBasedExpenseLineDetail",
-              "Amount": 200.0,
-              "Id": "1",
-              "AccountBasedExpenseLineDetail": {
-                "TaxCodeRef": {
-                  "value": "TAX"
-                },
-                "AccountRef": {
-                  "name": "Automobile",
-                  "value": "75"
-                },
-                "BillableStatus": "Billable",
-                "CustomerRef": {
-                  "name": "Blackwell, Edward",
-                  "value": "20"
-                },
-                "MarkupInfo": {
-                  "Percent": 10
-                }
-              },
-              "Description": "Gasoline"
-            }
-          ],
-          "Balance": 200.0,
-          "Id": "890",
-          "MetaData": {
-            "CreateTime": "2014-04-04T12:38:01-07:00",
-            "LastUpdatedTime": "2014-04-04T12:48:56-07:00"
-          }
+          "SalesFormsPrefs": {
+            "AllowEstimates": true
+          },
+          "Id": "1"
         })
     );
 
@@ -1919,69 +1870,6 @@ void main() {
     expect(quickClient.isInitialized(), true);
   });
 
-  test('test create bill ', () async {
-    final quickClient = QuickbooksClient(
-        applicationId: applicationId,
-        clientId: clientId,
-        clientSecret: clientSecret);
-    await quickClient.initialize();
 
-    String token = (await quickClient.refreshToken(
-        refreshToken: refreshToken
-    )).access_token ?? "";
-
-    print(token);
-    expect(token.length, isNot(0));
-
-    //
-    var updated = await quickClient.getAccountingClient().createBill(
-        realmId: realmId,
-        bill: Bill.fromJson({
-          "Line": [
-            {
-              "DetailType": "AccountBasedExpenseLineDetail",
-              "Amount": 200.0,
-              "Id": "1",
-              "AccountBasedExpenseLineDetail": {
-                "AccountRef": {
-                  "value": "7"
-                }
-              }
-            }
-          ],
-          "VendorRef": {
-            "value": "56"
-          }
-        })
-    );
-
-    print(updated);
-    expect(updated, isNotNull);
-    expect(quickClient.isInitialized(), true);
-  });
-
-  test('test delete bill ', () async {
-    final quickClient = QuickbooksClient(
-        applicationId: applicationId,
-        clientId: clientId,
-        clientSecret: clientSecret);
-    await quickClient.initialize();
-
-    String token = (await quickClient.refreshToken(
-        refreshToken: refreshToken
-    )).access_token ?? "";
-
-    print(token);
-    expect(token.length, isNot(0));
-
-    var found = await quickClient.getAccountingClient().deleteBill(
-      realmId: realmId,
-      bill: Bill(id: "108", syncToken: "0"),
-    );
-
-    print(found);
-    expect(found, isNotNull);
-    expect(quickClient.isInitialized(), true);
-  });
 
 }
