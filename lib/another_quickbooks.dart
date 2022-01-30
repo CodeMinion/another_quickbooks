@@ -19,6 +19,7 @@ import 'package:another_quickbooks/services/accounting/vendor_service.dart';
 import 'package:another_quickbooks/services/authentication_service.dart';
 import 'package:another_quickbooks/services/discovery_service.dart';
 import 'package:another_quickbooks/services/payments/bank_accounts_service.dart';
+import 'package:another_quickbooks/services/payments/card_service.dart';
 
 /// A Calculator.
 class QuickbooksClient {
@@ -151,12 +152,17 @@ class QuickbooksClient {
 ///
 class PaymentClient {
   final String baseUrl;
-  late BankAccountsService _accountsService;
   final AuthenticationService authenticationService;
+  late BankAccountsService _accountsService;
+  late CardService _cardService;
 
   PaymentClient._(
       {required this.baseUrl, required this.authenticationService}) {
+
     _accountsService = BankAccountsService(
+        baseUrl: baseUrl, authenticationService: authenticationService);
+
+    _cardService = CardService(
         baseUrl: baseUrl, authenticationService: authenticationService);
   }
 
@@ -223,6 +229,65 @@ class PaymentClient {
         bankAccountId: bankAccountId,
         customerId: customerId, realmId: realmId, authToken: authToken);
   }
+
+  // Start: Card
+  Future<Card> createCard({
+    required String requestId,
+    required String customerId,
+    required Card card,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _cardService.createCard(requestId: requestId,
+        customerId: customerId, card: card, realmId: requestId, authToken: authToken);
+  }
+
+  Future<Card> createCardFromToken({
+    required String requestId,
+    required String customerId,
+    required String cardToken,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _cardService.createCardFromToken(requestId: requestId,
+        customerId: customerId, cardToken: cardToken,
+    realmId: requestId, authToken: authToken);
+  }
+
+  Future<List<Card>> readAllCards({
+    required String requestId,
+    required String customerId,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _cardService.readAllCards(requestId: requestId,
+        customerId: customerId,
+    realmId: requestId, authToken: authToken);
+  }
+
+  Future<Card> readCard({
+    required String cardId,
+    required String customerId,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _cardService.readCard(cardId: cardId, customerId: customerId,
+    realmId: realmId, authToken: authToken);
+  }
+
+  Future<bool> deleteCard({
+    required String requestId,
+    required String cardId,
+    required String customerId,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _cardService.deleteCard(requestId: requestId,
+        cardId: cardId, customerId: customerId,
+    realmId: realmId, authToken: authToken);
+  }
+
+
 }
 
 ///

@@ -146,4 +146,143 @@ void main() {
     expect(response, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
+
+  // Card
+  test('test card create ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var accountCreated = await quickClient.getPaymentClient().createCard(
+        realmId: realmId,
+        requestId: "123456",
+        customerId: "2",
+        card: Card.fromJson({
+          "expMonth": "12",
+          "address": {
+            "postalCode": "44112",
+            "city": "Richmond",
+            "streetAddress": "1245 Hana Rd",
+            "region": "VA",
+            "country": "US"
+          },
+          "number": "4408041234567893",
+          "name": "Test User",
+          "expYear": "2026"
+        }));
+
+    print(accountCreated);
+    expect(accountCreated, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test card create from token', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var accountCreated = await quickClient.getPaymentClient().createCardFromToken(
+        realmId: realmId,
+        requestId: "123456",
+        customerId: "2",
+        cardToken: "F+hgXXynTwwTi3B70MFysfj/s7o=");
+
+    print(accountCreated);
+    expect(accountCreated, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test read cards ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var response = await quickClient.getPaymentClient().readAllCards(
+        realmId: realmId,
+        requestId: "5555",
+        customerId: "2"
+    );
+
+    print(response);
+    expect(response, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test read card ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var response = await quickClient.getPaymentClient().readCard(
+        realmId: realmId,
+        cardId: "101103986137004248057893",
+        customerId: "2"
+    );
+
+    print(response);
+    expect(response, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test delete card ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var response = await quickClient.getPaymentClient().deleteCard(
+        realmId: realmId,
+        requestId: "1234",
+        cardId: "101103986137004248057893",
+        customerId: "2"
+    );
+
+    print(response);
+    expect(response, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
 }
