@@ -1393,4 +1393,155 @@ void main() {
     expect(found, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
+
+  // Item
+  test('test query item ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var resultsFound = await quickClient.getAccountingClient().queryItem(
+        realmId: realmId,
+        query: "select * from Item where Metadata.CreateTime > '2014-12-31'"
+    );
+
+    print(resultsFound);
+    expect(resultsFound, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test read item ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var found = await quickClient.getAccountingClient().readItem(
+      realmId: realmId,
+      itemId: "14",
+    );
+
+    print(found);
+    expect(found, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test update item ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+
+    var updated = await quickClient.getAccountingClient().updateItem(
+        realmId: realmId,
+        item: Item.fromJson({
+          "FullyQualifiedName": "Rock Fountain",
+          "domain": "QBO",
+          "Id": "5",
+          "Name": "Rock Fountain",
+          "TrackQtyOnHand": true,
+          "Type": "Inventory",
+          "PurchaseCost": 125,
+          "QtyOnHand": 2,
+          "IncomeAccountRef": {
+            "name": "Sales of Product Income",
+            "value": "79"
+          },
+          "AssetAccountRef": {
+            "name": "Inventory Asset",
+            "value": "81"
+          },
+          "Taxable": true,
+          "MetaData": {
+            "CreateTime": "2014-09-16T10:42:19-07:00",
+            "LastUpdatedTime": "2014-09-19T13:16:17-07:00"
+          },
+          "sparse": false,
+          "Active": true,
+          "SyncToken": "2",
+          "InvStartDate": "2014-09-19",
+          "UnitPrice": 275,
+          "ExpenseAccountRef": {
+            "name": "Cost of Goods Sold",
+            "value": "80"
+          },
+          "PurchaseDesc": "Rock Fountain",
+          "Description": "New, updated description for Rock Fountain"
+        })
+    );
+
+    print(updated);
+    expect(updated, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test create item ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var updated = await quickClient.getAccountingClient().createItem(
+        realmId: realmId,
+        item: Item.fromJson({
+          "TrackQtyOnHand": true,
+          "Name": "Garden Supplies",
+          "QtyOnHand": 10,
+          "IncomeAccountRef": {
+            "name": "Sales of Product Income",
+            "value": "79"
+          },
+          "AssetAccountRef": {
+            "name": "Inventory Asset",
+            "value": "81"
+          },
+          "InvStartDate": "2015-01-01",
+          "Type": "Inventory",
+          "ExpenseAccountRef": {
+            "name": "Cost of Goods Sold",
+            "value": "80"
+          }
+        })
+    );
+
+    print(updated);
+    expect(updated, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+
 }

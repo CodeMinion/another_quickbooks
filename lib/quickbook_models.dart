@@ -119,6 +119,11 @@ class ReferenceType{
 
   Map<String, dynamic> toJson() => _$ReferenceTypeToJson(this);
 
+  @override
+  String toString() {
+    return toJson().toString();
+  }
+
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -1743,7 +1748,7 @@ class Item {
   final String? syncToken;
 
   @JsonKey(name: "InvStartDate")
-  final Date? invStartDate;
+  final String? invStartDate;
 
   @JsonKey(name: "Type")
   final String? type;
@@ -1859,6 +1864,11 @@ class Item {
   factory Item.fromJson(Map<String, dynamic> json) => _$ItemFromJson(json);
 
   Map<String, dynamic> toJson() => _$ItemToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -3070,6 +3080,9 @@ class QueryResponse {
   @JsonKey(name: "Invoice")
   List<Invoice>? invoice;
 
+  @JsonKey(name: "Item")
+  List<Item>? item;
+
   final int? startPosition;
 
   final int? maxResults;
@@ -3082,6 +3095,7 @@ class QueryResponse {
     this.employee,
     this.estimate,
     this.invoice,
+    this.item,
     this.maxResults,
     this.startPosition
   });

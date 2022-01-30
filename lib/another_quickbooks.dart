@@ -10,6 +10,7 @@ import 'package:another_quickbooks/services/accounting/customer_service.dart';
 import 'package:another_quickbooks/services/accounting/employee_service.dart';
 import 'package:another_quickbooks/services/accounting/estimate_service.dart';
 import 'package:another_quickbooks/services/accounting/invoice_service.dart';
+import 'package:another_quickbooks/services/accounting/item_service.dart';
 import 'package:another_quickbooks/services/authentication_service.dart';
 import 'package:another_quickbooks/services/discovery_service.dart';
 import 'package:another_quickbooks/services/payments/bank_accounts_service.dart';
@@ -204,6 +205,7 @@ class AccountingClient {
   late EmployeeService _employeeService;
   late EstimateService _estimateService;
   late InvoiceService _invoiceService;
+  late ItemService _itemService;
 
   AccountingClient._(
       {required this.baseUrl, required this.authenticationService, this.minorVersion = 63}) {
@@ -227,6 +229,11 @@ class AccountingClient {
 
     _invoiceService = InvoiceService(
         baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
+
+    _itemService = ItemService(
+        baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
+
+
   }
 
   // Start: Account Service
@@ -564,7 +571,38 @@ class AccountingClient {
     return _invoiceService.sendInvoice(invoiceId: invoiceId, emailTo: emailTo, realmId: realmId, authToken: authToken);
   }
 
+  // Start: Item
+  Future<List<Item>> queryItem({
+    required String query,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _itemService.queryItem(query: query, realmId: realmId, authToken: authToken);
+  }
 
+  Future<Item> readItem({
+    required String itemId,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _itemService.readItem(itemId: itemId, realmId: realmId, authToken: authToken);
+  }
+
+  Future<Item> createItem({
+    required Item item,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _itemService.createItem(item: item, realmId: realmId, authToken: authToken);
+  }
+
+  Future<Item> updateItem({
+    required Item item,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _itemService.updateItem(item: item, realmId: realmId, authToken: authToken);
+  }
 
 }
 enum EnvironmentType {
