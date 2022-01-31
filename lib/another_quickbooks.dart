@@ -28,7 +28,7 @@ import 'package:another_quickbooks/services/payments/token_service.dart';
 class QuickbooksClient {
   //ABNIuyQM0oAR68j9E4qFlXa1wECY4TDah7H7w3urknpWDlgYKA
   final EnvironmentType environmentType;
-  final String applicationId;
+  final String? applicationId;
   final String clientId;
   final String clientSecret;
   String _url = "quickbooks.api.intuit.com";
@@ -41,7 +41,8 @@ class QuickbooksClient {
   AccountingClient? _accountingClient;
 
   QuickbooksClient(
-      {required this.applicationId,
+      {
+        required this.applicationId,
       required this.clientId,
       required this.clientSecret,
       this.environmentType = EnvironmentType.Sandbox}) {

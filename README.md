@@ -1,39 +1,67 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Another Quickbooks
+Flutter package for Quickbooks. Includes supports for both Payments and Accounting APIs
+as well as authorization flow.
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
+## Quickbooks Payments
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
+| Feature | Supported   | URL  |
+|---|:---:|---|
+| Bank Accounts  | Y  | https://developer.intuit.com/app/developer/qbpayments/docs/api/resources/all-entities/bankaccounts  |
+| Cards  | Y  |https://developer.intuit.com/app/developer/qbpayments/docs/api/resources/all-entities/cards  |
+| Charges  | Y  | https://developer.intuit.com/app/developer/qbpayments/docs/api/resources/all-entities/charges  |
+| EChecks  | Y  | https://developer.intuit.com/app/developer/qbpayments/docs/api/resources/all-entities/echecks  |
+| Token  | Y  | https://developer.intuit.com/app/developer/qbpayments/docs/api/resources/all-entities/tokens  |
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+## Quickbooks Accounting
 
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
+| Feature | Supported   | URL  |
+|---|:---:|---|
+| Accounts  | Y  | https://developer.intuit.com/app/developer/qbo/docs/api/accounting/most-commonly-used/account  |
+| Bill  | Y  | https://developer.intuit.com/app/developer/qbo/docs/api/accounting/most-commonly-used/bill  |
+| Company Info  | Y  | https://developer.intuit.com/app/developer/qbo/docs/api/accounting/most-commonly-used/companyinfo  |
+| Customer  | Y  | https://developer.intuit.com/app/developer/qbo/docs/api/accounting/most-commonly-used/customer  |
+| Employee  | Y  | https://developer.intuit.com/app/developer/qbo/docs/api/accounting/most-commonly-used/employee  |
+| Estimate  | Y  | https://developer.intuit.com/app/developer/qbo/docs/api/accounting/most-commonly-used/estimate  |
+| Invoice  | Y  | https://developer.intuit.com/app/developer/qbo/docs/api/accounting/most-commonly-used/invoice  |
+| Item  | Y  | https://developer.intuit.com/app/developer/qbo/docs/api/accounting/most-commonly-used/item  |
+| Payment  | Y  | https://developer.intuit.com/app/developer/qbo/docs/api/accounting/most-commonly-used/payment  |
+| Preferences  | Y  | https://developer.intuit.com/app/developer/qbo/docs/api/accounting/most-commonly-used/preferences  |
+| Profit And Loss  | Y  | https://developer.intuit.com/app/developer/qbo/docs/api/accounting/most-commonly-used/profitandloss  |
+| Tax Agency  | Y  | https://developer.intuit.com/app/developer/qbo/docs/api/accounting/most-commonly-used/taxagency  |
+| Vendor  | Y  | https://developer.intuit.com/app/developer/qbo/docs/api/accounting/most-commonly-used/vendor  |
 
 TODO: List prerequisites and provide or point to information on how to
 start using the package.
 
-## Usage
+## Credentials
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+In order to interact with Quickbooks you'll need a developer account and the clientId and clientSecret https://developer.intuit.com/app/developer/dashboard
 
 ```dart
-const like = 'sample';
+final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+// Initialize the client.        
+await quickClient.initialize();
+
+// Use this to prompt the user to authorize your app
+var authUrl = quickClient.getAuthorizationPageUrl(
+        scopes: [Scope.Accounting, Scope.Payments],         
+        redirectUrl: <your redirect url>, 
+        state: "state123")
+
+// On authorization success use the params to get the access token.
+var autoToken = quickClient.getAuthToken(
+        code: <code from redirect url>,
+        realmId: <real from redirect url>
+        redirectUrl: <redirect url>);
+        
+// Note: The token can be refreshed when it expires using the refreshToken
+String token = (await quickClient.refreshToken(
+        refreshToken: autoToken.refresh_token
+    )).access_token
 ```
 
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+## Quickbooks Developer Docs
+https://developer.intuit.com/app/developer/qbo/docs/develop
