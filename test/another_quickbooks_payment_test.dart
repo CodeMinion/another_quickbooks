@@ -584,4 +584,73 @@ void main() {
     expect(quickClient.isInitialized(), true);
   });
 
+  // Tokens 
+  test('test card token ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var response = await quickClient.getPaymentClient().createCardToken(
+        realmId: realmId,
+        requestId: "WWEESSSDDFF",
+        card: Card.fromJson({
+          "name": "emulate=0",
+          "number": "4111111111111111",
+          "expMonth": "02",
+          "address": {
+            "postalCode": "94086",
+            "country": "US",
+            "region": "CA",
+            "streetAddress": "1130 Kifer Rd",
+            "city": "Sunnyvale"
+          },
+          "expYear": "2025",
+          "cvc": "123"
+        })
+    );
+
+    print(response);
+    expect(response, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test bank account token ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var response = await quickClient.getPaymentClient().createBankAccountToken(
+        realmId: realmId,
+        requestId: "WWEESSSDDFF",
+        bankAccount: BankAccount.fromJson({
+          "phone": "6047296480",
+          "routingNumber": "021000021",
+          "name": "My Checking",
+          "accountType": "PERSONAL_CHECKING",
+          "accountNumber": "12334534"
+        })
+    );
+
+    print(response);
+    expect(response, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
 }

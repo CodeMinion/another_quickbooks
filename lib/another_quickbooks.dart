@@ -22,6 +22,7 @@ import 'package:another_quickbooks/services/payments/bank_accounts_service.dart'
 import 'package:another_quickbooks/services/payments/card_service.dart';
 import 'package:another_quickbooks/services/payments/charge_service.dart';
 import 'package:another_quickbooks/services/payments/echeck_service.dart';
+import 'package:another_quickbooks/services/payments/token_service.dart';
 
 /// A Calculator.
 class QuickbooksClient {
@@ -159,6 +160,7 @@ class PaymentClient {
   late CardService _cardService;
   late ChargeService _chargeService;
   late ECheckService _eCheckService;
+  late TokenService _tokenService;
 
   PaymentClient._(
       {required this.baseUrl, required this.authenticationService}) {
@@ -173,6 +175,9 @@ class PaymentClient {
         baseUrl: baseUrl, authenticationService: authenticationService);
 
     _eCheckService = ECheckService(
+        baseUrl: baseUrl, authenticationService: authenticationService);
+
+    _tokenService = TokenService(
         baseUrl: baseUrl, authenticationService: authenticationService);
   }
 
@@ -408,6 +413,26 @@ class PaymentClient {
     realmId: realmId, authToken: authToken);
   }
 
+  // Tokens
+  Future<String> createCardToken({
+    required String requestId,
+    required Card card,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _tokenService.createCardToken(requestId: requestId, card: card,
+    authToken: authToken, realmId: realmId);
+  }
+
+  Future<String> createBankAccountToken({
+    required String requestId,
+    required BankAccount bankAccount,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _tokenService.createBankAccountToken(requestId: requestId,
+        bankAccount: bankAccount, realmId: realmId, authToken: authToken);
+  }
 }
 
 ///
