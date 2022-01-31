@@ -3384,7 +3384,7 @@ class ECheck {
 
   final String? paymentMode;
 
-  final double? amount;
+  final String? amount;
 
   final String? description;
 

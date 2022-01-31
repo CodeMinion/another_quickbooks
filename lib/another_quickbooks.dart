@@ -21,6 +21,7 @@ import 'package:another_quickbooks/services/discovery_service.dart';
 import 'package:another_quickbooks/services/payments/bank_accounts_service.dart';
 import 'package:another_quickbooks/services/payments/card_service.dart';
 import 'package:another_quickbooks/services/payments/charge_service.dart';
+import 'package:another_quickbooks/services/payments/echeck_service.dart';
 
 /// A Calculator.
 class QuickbooksClient {
@@ -157,6 +158,7 @@ class PaymentClient {
   late BankAccountsService _accountsService;
   late CardService _cardService;
   late ChargeService _chargeService;
+  late ECheckService _eCheckService;
 
   PaymentClient._(
       {required this.baseUrl, required this.authenticationService}) {
@@ -168,6 +170,9 @@ class PaymentClient {
         baseUrl: baseUrl, authenticationService: authenticationService);
 
     _chargeService = ChargeService(
+        baseUrl: baseUrl, authenticationService: authenticationService);
+
+    _eCheckService = ECheckService(
         baseUrl: baseUrl, authenticationService: authenticationService);
   }
 
@@ -360,6 +365,46 @@ class PaymentClient {
   }) async {
     return _chargeService.voidTransaction(requestId: requestId,
         chargeRequestId: chargeRequestId,
+    realmId: realmId, authToken: authToken);
+  }
+
+  // EChecks
+  Future<ECheck> createDebit({
+    required String requestId,
+    required ECheck echeck,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _eCheckService.createDebit(requestId: requestId, echeck: echeck,
+    authToken: authToken, realmId: realmId);
+  }
+
+  Future<ECheck> readECheckRefund({
+    required String echeckId,
+    required String refundId,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _eCheckService.readRefund(echeckId: echeckId, refundId: refundId,
+    realmId: realmId, authToken: authToken);
+  }
+
+  Future<ECheck> readECheck({
+    required String echeckId,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _eCheckService.readECheck(echeckId: echeckId,
+    authToken: authToken, realmId: realmId);
+  }
+
+  Future<ECheck> voidECheck({
+    required String requestId,
+    required String echeckId,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _eCheckService.voidECheck(requestId: requestId, echeckId: echeckId,
     realmId: realmId, authToken: authToken);
   }
 

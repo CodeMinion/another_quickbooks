@@ -460,4 +460,128 @@ void main() {
     expect(response, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
+
+  // ECheck
+  test('test create debit ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var response = await quickClient.getPaymentClient().createDebit(
+        realmId: realmId,
+        requestId: "12VVXSSSDV34",
+        echeck: ECheck.fromJson({
+          "bankAccount": {
+            "phone": "1234567890",
+            "routingNumber": "490000018",
+            "name": "Fname LName",
+            "accountType": "PERSONAL_CHECKING",
+            "accountNumber": "11000000333456781"
+          },
+          "description": "Check Auth test call",
+          "checkNumber": "12345678",
+          "paymentMode": "WEB",
+          "amount": "1.11",
+          "context": {
+            "deviceInfo": {
+              "macAddress": "macaddress",
+              "ipAddress": "34",
+              "longitude": "longitude",
+              "phoneNumber": "phonenu",
+              "latitude": "",
+              "type": "type",
+              "id": "1"
+            }
+          }
+        })
+    );
+
+    print(response);
+    expect(response, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test read echeck refund ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var response = await quickClient.getPaymentClient().readECheckRefund(
+        realmId: realmId,
+        refundId: "122",
+      echeckId: "amyy7pzn"
+    );
+
+    print(response);
+    expect(response, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test read echeck ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var response = await quickClient.getPaymentClient().readECheck(
+        realmId: realmId,
+        echeckId: "amyy7pzn"
+    );
+
+    print(response);
+    expect(response, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
+  test('test void echeck ', () async {
+    final quickClient = QuickbooksClient(
+        applicationId: applicationId,
+        clientId: clientId,
+        clientSecret: clientSecret);
+    await quickClient.initialize();
+
+    String token = (await quickClient.refreshToken(
+        refreshToken: refreshToken
+    )).access_token ?? "";
+
+    print(token);
+    expect(token.length, isNot(0));
+
+    var response = await quickClient.getPaymentClient().voidECheck(
+        realmId: realmId,
+        requestId: "WWEEDDFF",
+        echeckId: "amyy7pzn"
+    );
+
+    print(response);
+    expect(response, isNotNull);
+    expect(quickClient.isInitialized(), true);
+  });
+
 }
