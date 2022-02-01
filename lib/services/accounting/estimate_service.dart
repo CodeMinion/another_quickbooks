@@ -9,6 +9,10 @@ import 'package:another_quickbooks/services/authentication_service.dart';
 
 ///
 /// URL: https://developer.intuit.com/app/developer/qbo/docs/api/accounting/most-commonly-used/estimate
+/// The Estimate represents a proposal for a financial transaction
+/// from a business to a customer for goods or services proposed to
+/// be sold, including proposed pricing.
+///
 class EstimateService {
   final String baseUrl;
   final AuthenticationService authenticationService;
@@ -18,6 +22,9 @@ class EstimateService {
       {required this.baseUrl, required this.authenticationService, this.minorVersion = 63});
 
 
+  ///
+  /// Returns the results of the query.
+  ///
   Future<List<Estimate>> queryEstimate({
     required String query,
     String? realmId,
@@ -57,6 +64,9 @@ class EstimateService {
     }
   }
 
+  ///
+  /// Retrieves the details of an estimate that has been previously created.
+  ///
   Future<Estimate> readEstimate({
     required String estimateId,
     String? realmId,
@@ -95,6 +105,12 @@ class EstimateService {
     }
   }
 
+  ///
+  /// An Estimate must have at least one line that describes an item.
+  /// An Estimate must have a reference to a customer.
+  /// If shipping address and billing address are not provided,
+  /// the address from the referenced Customer object is used.
+  ///
   Future<Estimate> createEstimate({
     required Estimate estimate,
     String? realmId,
@@ -178,6 +194,11 @@ class EstimateService {
     }
   }
 
+  ///
+  /// This operation deletes the estimate object specified
+  /// in the request body. Include a minimum of Estimate.Id
+  /// and Estimate.SyncToken in the request body.
+  ///
   Future<DeleteResponse> deleteEstimate({
     required Estimate estimate,
     String? realmId,
@@ -216,6 +237,12 @@ class EstimateService {
     }
   }
 
+  ///
+  /// This resource returns the specified object in the response
+  /// body as an Adobe Portable Document Format (PDF) file.
+  /// The resulting PDF file is formatted according to custom
+  /// form styles in the company settings.
+  ///
   Future<Uint8List> getEstimatePdf({
     required String estimateId,
     String? realmId,
@@ -253,6 +280,13 @@ class EstimateService {
     }
   }
 
+  ///
+  /// The Estimate.EmailStatus parameter is set to EmailSent.
+  /// The Estimate.DeliveryInfo element is populated with sending information.
+  /// The Estimate.BillEmail.Address parameter is updated to the
+  /// address specified with the value of the sendTo query parameter,
+  /// if specified.
+  ///
   Future<Estimate> sendEstimate({
     required String estimateId,
     required String emailTo,

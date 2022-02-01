@@ -6,7 +6,11 @@ import 'package:http/http.dart' as http;
 import 'package:another_quickbooks/quickbook_models.dart';
 import 'package:another_quickbooks/services/authentication_service.dart';
 
+///
 /// URL: https://developer.intuit.com/app/developer/qbo/docs/api/accounting/most-commonly-used/profitandloss
+/// The information below provides a reference on how to access
+/// the Profit and Loss Summary report from the
+/// QuickBooks Online Report Service.
 ///
 class ProfitAndLossService {
   final String baseUrl;
@@ -17,6 +21,9 @@ class ProfitAndLossService {
       {required this.baseUrl, required this.authenticationService, this.minorVersion = 63});
 
 
+  ///
+  /// Returns the report for the query
+  ///
   Future<ProfitAndLoss> queryReport({
     required ProfitAndLossQuery query,
     String? realmId,

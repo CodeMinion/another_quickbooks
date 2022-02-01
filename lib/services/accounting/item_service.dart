@@ -5,7 +5,12 @@ import 'package:http/http.dart' as http;
 import 'package:another_quickbooks/quickbook_models.dart';
 import 'package:another_quickbooks/services/authentication_service.dart';
 
+///
 /// URL: https://developer.intuit.com/app/developer/qbo/docs/api/accounting/most-commonly-used/item
+/// An item is a thing that your company buys, sells, or re-sells,
+/// such as products and services. An item is shown as a line on an
+/// invoice or other sales form.
+///
 class ItemService {
   final String baseUrl;
   final AuthenticationService authenticationService;
@@ -15,6 +20,9 @@ class ItemService {
       {required this.baseUrl, required this.authenticationService, this.minorVersion = 63});
 
 
+  ///
+  /// Returns the results of the query.
+  ///
   Future<List<Item>> queryItem({
     required String query,
     String? realmId,
@@ -54,6 +62,9 @@ class ItemService {
     }
   }
 
+  ///
+  /// Retrieves the details of a item object that has been previously created.
+  ///
   Future<Item> readItem({
     required String itemId,
     String? realmId,
@@ -92,6 +103,9 @@ class ItemService {
     }
   }
 
+  ///
+  /// Creates an item
+  ///
   Future<Item> createItem({
     required Item item,
     String? realmId,

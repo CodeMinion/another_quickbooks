@@ -4,13 +4,20 @@ import 'package:another_quickbooks/quickbook_models.dart';
 import 'package:another_quickbooks/services/authentication_service.dart';
 import 'package:http/http.dart' as http;
 
-// URL: https://developer.intuit.com/app/developer/qbpayments/docs/api/resources/all-entities/echecks
+///
+/// URL: https://developer.intuit.com/app/developer/qbpayments/docs/api/resources/all-entities/echecks
+/// Send and receive payments using EChecks.
+/// Applicable for US only
+///
 class ECheckService {
   final String baseUrl;
   final AuthenticationService authenticationService;
 
   ECheckService({required this.baseUrl, required this.authenticationService});
 
+  ///
+  /// To process an E-check, you create a new debit object.
+  ///
   Future<ECheck> createDebit({
     required String requestId,
     required ECheck echeck,
@@ -43,6 +50,11 @@ class ECheckService {
     }
   }
 
+  ///
+  /// Retrieves the details of an ECheck refund transaction that has
+  /// been previously created. The id of a previously created
+  /// ECheck refund must be provided.
+  ///
   Future<ECheck> readRefund({
     required String echeckId,
     required String refundId,
@@ -76,6 +88,11 @@ class ECheckService {
     }
   }
 
+  ///
+  /// Retrieves the details of an echeck transaction that has been
+  /// previously created. Supply the id as returned in the
+  /// echecks response body from the previous create operation.
+  ///
   Future<ECheck> readECheck({
     required String echeckId,
     String? realmId,
@@ -108,6 +125,13 @@ class ECheckService {
     }
   }
 
+  ///
+  /// Full or partial refund an existing ECheck transaction.
+  /// Refund requests made on the same day as the associated
+  /// debit request may result in the transaction being voided.
+  /// Refunds cannot be issued unless the original debit has succeeded
+  /// (this process typically takes approximately three business days).
+  ///
   Future<ECheck> voidECheck({
     required String requestId,
     required String echeckId,

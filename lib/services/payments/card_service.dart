@@ -4,7 +4,13 @@ import 'package:another_quickbooks/quickbook_models.dart';
 import 'package:another_quickbooks/services/authentication_service.dart';
 import 'package:http/http.dart' as http;
 
-// URL: https://developer.intuit.com/app/developer/qbpayments/docs/api/resources/all-entities/cards
+///
+/// URL: https://developer.intuit.com/app/developer/qbpayments/docs/api/resources/all-entities/cards
+/// Store credit cards and debit cards for processing future payments.
+/// Note that storing cards for swiped transactions is not currently
+/// supported by the payments API.
+/// Applicable for US and Canada only
+///
 class CardService {
   final String baseUrl;
   final AuthenticationService authenticationService;
@@ -12,6 +18,11 @@ class CardService {
   CardService(
       {required this.baseUrl, required this.authenticationService});
 
+  ///
+  /// This operation allows you to store a new card object. Note that
+  /// this card is only accessible via the Payments API.
+  /// It will not appear in QuickBooks Online.
+  ///
   Future<Card> createCard({
     required String requestId,
     required String customerId,
@@ -45,6 +56,9 @@ class CardService {
     }
   }
 
+  ///
+  /// This operation allows you to store a new card object from a token.
+  ///
   Future<Card> createCardFromToken({
     required String requestId,
     required String customerId,
@@ -78,6 +92,15 @@ class CardService {
     }
   }
 
+  ///
+  /// Returns a list of up to ten cards for the company specified
+  /// with the id parameter. The cards are returned in descending
+  /// order with most recent entry first. This operation cannot
+  /// retrieve cards created via the QuickBooks Online interface.
+  /// If more than 10 cards are needed, specify the number to be
+  /// retrieved using ?count=[number] appended to the end of the query.
+  /// For example, /cards?count=100 would retrieve 100 cards.
+  ///
   Future<List<Card>> readAllCards({
     required String requestId,
     required String customerId,
@@ -111,6 +134,11 @@ class CardService {
     }
   }
 
+  ///
+  /// Retrieves a specified card object.
+  /// This operation cannot retrieve cards created via the
+  /// QuickBooks Online interface.
+  ///
   Future<Card> readCard({
     required String cardId,
     required String customerId,
@@ -142,6 +170,9 @@ class CardService {
     }
   }
 
+  ///
+  /// Deletes a specified card object.
+  ///
   Future<bool> deleteCard({
     required String requestId,
     required String cardId,

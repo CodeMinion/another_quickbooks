@@ -4,13 +4,23 @@ import 'package:another_quickbooks/quickbook_models.dart';
 import 'package:another_quickbooks/services/authentication_service.dart';
 import 'package:http/http.dart' as http;
 
-// URL: https://developer.intuit.com/app/developer/qbpayments/docs/api/resources/all-entities/charges#capture-charge-funds
+///
+/// URL: https://developer.intuit.com/app/developer/qbpayments/docs/api/resources/all-entities/charges#capture-charge-funds
+/// Send and receive payments using credit cards and debit cards.
+/// Applicable for US and Canada only
+///
 class ChargeService {
   final String baseUrl;
   final AuthenticationService authenticationService;
 
   ChargeService({required this.baseUrl, required this.authenticationService});
 
+  ///
+  /// To charge a credit card, you create a new charge object.
+  /// If your API key is in development mode, the supplied card
+  /// won't actually be charged, though everything else will
+  /// occur as if in production mode.
+  ///
   Future<Charge> createCharge({
     required String requestId,
     required Charge charge,
@@ -43,6 +53,11 @@ class ChargeService {
     }
   }
 
+  ///
+  /// Retrieves the details of a charge that has been previously created.
+  /// Supply the id as returned in the charges response
+  /// body from the previous create operation.
+  ///
   Future<Charge> readCharge({
     required String chargeId,
     String? realmId,
@@ -75,6 +90,9 @@ class ChargeService {
     }
   }
 
+  ///
+  /// Retrieve dull or partial refund.
+  ///
   Future<Charge> readRefund({
     required String chargeId,
     required String refundId,
@@ -108,6 +126,9 @@ class ChargeService {
     }
   }
 
+  ///
+  /// Full or partial refund an existing charge.
+  ///
   Future<Charge> refundCharge({
     required String requestId,
     required String chargeId,
@@ -149,6 +170,9 @@ class ChargeService {
     }
   }
 
+  ///
+  /// Capture charge funds
+  ///
   Future<Charge> captureCharge({
     required String requestId,
     required String chargeId,
@@ -190,6 +214,11 @@ class ChargeService {
     }
   }
 
+  ///
+  /// Processes a void of a charge request that times out.
+  /// It cannot be used to void a charge that has already been settled.
+  /// Provide the request_id of the original charge as a query parameter.
+  ///
   Future<Charge> voidTransaction({
     required String requestId,
     required String chargeRequestId,

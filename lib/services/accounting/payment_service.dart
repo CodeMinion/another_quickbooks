@@ -7,7 +7,13 @@ import 'package:http/http.dart' as http;
 import 'package:another_quickbooks/quickbook_models.dart';
 import 'package:another_quickbooks/services/authentication_service.dart';
 
+///
 /// URL: https://developer.intuit.com/app/developer/qbo/docs/api/accounting/most-commonly-used/payment
+/// A Payment object records a payment in QuickBooks.
+/// The payment can be applied for a particular customer
+/// against multiple Invoices and Credit Memos. It can also
+/// be created without any Invoice or Credit Memo, by just
+/// specifying an amount.
 ///
 class PaymentService {
   final String baseUrl;
@@ -18,6 +24,9 @@ class PaymentService {
       {required this.baseUrl, required this.authenticationService, this.minorVersion = 63});
 
 
+  ///
+  /// Returns the results of the query.
+  ///
   Future<List<Payment>> queryPayment({
     required String query,
     String? realmId,
@@ -57,6 +66,10 @@ class PaymentService {
     }
   }
 
+  ///
+  /// Retrieves the details of a Payment object that has been
+  /// previously created.
+  ///
   Future<Payment> readPayment({
     required String paymentId,
     String? realmId,
@@ -95,6 +108,9 @@ class PaymentService {
     }
   }
 
+  ///
+  /// Creates a payment
+  ///
   Future<Payment> createPayment({
     required Payment payment,
     String? realmId,
@@ -178,6 +194,10 @@ class PaymentService {
     }
   }
 
+  ///
+  /// This operation deletes the Payment object specified in the request body.
+  /// Include a minimum of Payment.Id and Payment.SyncToken in the request body.
+  ///
   Future<DeleteResponse> deletePayment({
     required Payment payment,
     String? realmId,
@@ -216,6 +236,16 @@ class PaymentService {
     }
   }
 
+  ///
+  /// Use a sparse update operation with include=void to void an
+  /// existing Payment object; include a minimum of Payment.Id
+  /// and Payment.SyncToken.The transaction remains active but
+  /// all amounts and quantities are zeroed and the string, Voided,
+  /// is injected into Payment.PrivateNote, prepended to existing text
+  /// if present. If funds for the payment have been deposited,
+  /// you must delete the associated deposit object before voiding
+  /// the payment object.
+  ///
   Future<Payment> voidPayment({
     required Payment payment,
     String? realmId,
@@ -254,6 +284,12 @@ class PaymentService {
     }
   }
 
+  ///
+  /// This resource returns the specified object in the
+  /// response body as an Adobe Portable Document Format (PDF) file.
+  /// The resulting PDF file is formatted according to custom form
+  /// styles in the company settings.
+  ///
   Future<Uint8List> getPaymentPdf({
     required String paymentId,
     String? realmId,
@@ -291,6 +327,9 @@ class PaymentService {
     }
   }
 
+  ///
+  /// Sends a payment to the specified email.
+  ///
   Future<Payment> sendPayment({
     required String paymentId,
     required String emailTo,

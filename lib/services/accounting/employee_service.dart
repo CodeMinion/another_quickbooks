@@ -6,7 +6,35 @@ import 'package:http/http.dart' as http;
 import 'package:another_quickbooks/quickbook_models.dart';
 import 'package:another_quickbooks/services/authentication_service.dart';
 
+///
 /// URL: https://developer.intuit.com/app/developer/qbo/docs/api/accounting/most-commonly-used/employee
+/// An Employee object represents a person working for the company. If
+/// you are looking to create a Contractor via API, refer how to create
+/// a Vendor object, with Vendor1099 field set to true.
+///
+/// The DisplayName, Title, GivenName, MiddleName, FamilyName, Suffix,
+/// and PrintOnCheckName attributes must not contain colon (:),
+/// tab (\t), or newline (\n) characters.
+///
+/// The DisplayName attribute must be unique across all other customer,
+/// employee, and vendor objects.
+///
+/// The GivenName and FamilyName attributes are required.
+/// The PrimaryEmailAddress attribute must contain an at sign (@) and dot (.).
+/// The full complement of read, create, delete via deactivation
+/// (active=false), and update operations are available both with
+/// and without QuickBooks Payroll enabled. However, when Payroll
+/// is enabled, support for some attributes is limited:
+/// Title—Not supported when QuickBooks Payroll is enabled.
+/// Suffix—Not supported when QuickBooks Payroll is enabled.
+/// DisplayName —It’s read only when QuickBooks Payroll is enabled and a
+/// concatenation of GivenName MiddleName FamilyName.
+/// PrintOnCheckName—Not supported when QuickBooks Payroll is enabled.
+/// BillRate—Not supported when QuickBooks Payroll is enabled.
+/// SSN—Masked SSNs, as is returned in a response, cannot be passed
+/// in a request when QuickBooks Payroll is enabled. Code for this
+/// field must be removed before submitting.
+///
 class EmployeeService {
   final String baseUrl;
   final AuthenticationService authenticationService;
@@ -16,6 +44,9 @@ class EmployeeService {
       {required this.baseUrl, required this.authenticationService, this.minorVersion = 63});
 
 
+  ///
+  /// Returns the results of the query.
+  ///
   Future<List<Employee>> queryEmployee({
     required String query,
     String? realmId,
@@ -55,6 +86,10 @@ class EmployeeService {
     }
   }
 
+  ///
+  /// Retrieves the details of a Employee object that has
+  /// been previously created.
+  ///
   Future<Employee> readEmployee({
     required String employeeId,
     String? realmId,
@@ -93,6 +128,9 @@ class EmployeeService {
     }
   }
 
+  ///
+  /// Create an employee
+  ///
   Future<Employee> createEmployee({
     required Employee employee,
     String? realmId,

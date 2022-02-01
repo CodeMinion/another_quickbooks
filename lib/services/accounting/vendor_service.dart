@@ -6,7 +6,10 @@ import 'package:http/http.dart' as http;
 import 'package:another_quickbooks/quickbook_models.dart';
 import 'package:another_quickbooks/services/authentication_service.dart';
 
+///
 /// URL: https://developer.intuit.com/app/developer/qbo/docs/api/accounting/most-commonly-used/vendor
+/// The Vendor object represents the seller from whom your
+/// company purchases any service or product.
 ///
 class VendorService {
   final String baseUrl;
@@ -17,6 +20,9 @@ class VendorService {
       {required this.baseUrl, required this.authenticationService, this.minorVersion = 63});
 
 
+  ///
+  /// Returns the results of the query.
+  ///
   Future<List<Vendor>> queryVendor({
     required String query,
     String? realmId,
@@ -56,6 +62,9 @@ class VendorService {
     }
   }
 
+  ///
+  /// Retrieves the details of a Vendor object that has been previously created.
+  ///
   Future<Vendor> readVendor({
     required String vendorId,
     String? realmId,
@@ -94,6 +103,10 @@ class VendorService {
     }
   }
 
+  ///
+  /// Either the DisplayName attribute or at least one of Title, GivenName,
+  /// MiddleName, FamilyName, or Suffix attributes are required during create.
+  ///
   Future<Vendor> createVendor({
     required Vendor vendor,
     String? realmId,

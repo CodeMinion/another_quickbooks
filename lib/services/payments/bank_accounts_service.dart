@@ -4,7 +4,11 @@ import 'package:another_quickbooks/quickbook_models.dart';
 import 'package:another_quickbooks/services/authentication_service.dart';
 import 'package:http/http.dart' as http;
 
-// URL: https://developer.intuit.com/app/developer/qbpayments/docs/api/resources/all-entities/bankaccounts
+///
+/// URL: https://developer.intuit.com/app/developer/qbpayments/docs/api/resources/all-entities/bankaccounts
+/// Store bank accounts for processing future payments.
+/// Applicable for US only
+///
 class BankAccountsService {
   final String baseUrl;
   final AuthenticationService authenticationService;
@@ -12,7 +16,9 @@ class BankAccountsService {
   BankAccountsService(
       {required this.baseUrl, required this.authenticationService});
 
+  ///
   /// Creates a bank account
+  ///
   Future<BankAccount> createAccount({
     required String requestId,
     required String customerId,
@@ -49,6 +55,9 @@ class BankAccountsService {
     }
   }
 
+  ///
+  /// This operation allows you to store a new bank account object from a token.
+  ///
   Future<BankAccount> createAccountFromToken({
     required String requestId,
     required String customerId,
@@ -82,6 +91,11 @@ class BankAccountsService {
     }
   }
 
+  ///
+  /// Returns a list of up to ten bank accounts for the company specified
+  /// with the id parameter. The accounts are returned in
+  /// descending order with most recent accounts first.
+  ///
   Future<List<BankAccount>> readAllAccounts({
     required String requestId,
     required String customerId,
@@ -116,6 +130,9 @@ class BankAccountsService {
     }
   }
 
+  ///
+  /// Retrieves a specified BankAccount object.
+  ///
   Future<BankAccount> readAccount({
     required String bankAccountId,
     required String customerId,
@@ -147,6 +164,9 @@ class BankAccountsService {
     }
   }
 
+  ///
+  /// Deletes a specified BankAccount object.
+  ///
   Future<bool> deleteAccount({
     required String requestId,
     required String bankAccountId,

@@ -6,7 +6,11 @@ import 'package:http/http.dart' as http;
 import 'package:another_quickbooks/quickbook_models.dart';
 import 'package:another_quickbooks/services/authentication_service.dart';
 
+///
 /// URL: https://developer.intuit.com/app/developer/qbo/docs/api/accounting/most-commonly-used/taxagency
+/// A TaxAgency object is associated with a tax rate and
+/// identifies the agency to which that tax rate applies,
+/// that is, the entity that collects those taxes.
 ///
 class TaxAgencyService {
   final String baseUrl;
@@ -17,6 +21,9 @@ class TaxAgencyService {
       {required this.baseUrl, required this.authenticationService, this.minorVersion = 63});
 
 
+  ///
+  /// Returns the results of the query.
+  ///
   Future<List<TaxAgency>> queryTaxAgency({
     required String query,
     String? realmId,
@@ -56,6 +63,10 @@ class TaxAgencyService {
     }
   }
 
+  ///
+  /// Retrieves the details of a TaxAgency object that has
+  /// been previously created.
+  ///
   Future<TaxAgency> readTaxAgency({
     required String taxAgencyId,
     String? realmId,
@@ -94,6 +105,9 @@ class TaxAgencyService {
     }
   }
 
+  ///
+  /// A TaxAgency object must have a DisplayName attribute.
+  ///
   Future<TaxAgency> createTaxAgency({
     required TaxAgency agency,
     String? realmId,

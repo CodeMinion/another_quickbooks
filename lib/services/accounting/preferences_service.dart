@@ -6,7 +6,15 @@ import 'package:http/http.dart' as http;
 import 'package:another_quickbooks/quickbook_models.dart';
 import 'package:another_quickbooks/services/authentication_service.dart';
 
+///
 /// URL: https://developer.intuit.com/app/developer/qbo/docs/api/accounting/most-commonly-used/preferences
+/// The Preferences resource represents a set of company preferences
+/// that control application behavior in QuickBooks Online.
+/// They are mostly exposed as read-only through the Preferences
+/// endpoint with only a very small subset of them available as writable.
+/// Preferences are not necessarily honored when making requests via the
+/// QuickBooks API because a lot of them control UI behavior in the application
+/// and may not be applicable for apps
 ///
 class PreferencesService {
   final String baseUrl;
@@ -17,6 +25,9 @@ class PreferencesService {
       {required this.baseUrl, required this.authenticationService, this.minorVersion = 63});
 
 
+  ///
+  /// Returns the results of the query.
+  ///
   Future<List<Preferences>> queryPreferences({
     required String query,
     String? realmId,
@@ -56,6 +67,9 @@ class PreferencesService {
     }
   }
 
+  ///
+  /// Retrieves the Preferences details for the specified company.
+  ///
   Future<Preferences> readPreferences({
     String? realmId,
     String? authToken,

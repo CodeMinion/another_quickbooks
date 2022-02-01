@@ -1,5 +1,21 @@
 
-// URL: https://developer.intuit.com/app/developer/qbo/docs/api/accounting/most-commonly-used/account
+///
+/// URL: https://developer.intuit.com/app/developer/qbo/docs/api/accounting/most-commonly-used/account
+/// Accounts are what businesses use to track transactions.
+/// Accounts can track money coming in (income or revenue)
+/// and going out (expenses). They can also track the value
+/// of things (assets), like vehicles and equipment. There are
+/// five basic account types: asset, liability, income, expense,
+/// and equity. Accounts are part of the chart of accounts, the unique
+/// list of accounts each business puts together to do their accounting.
+/// Accountants often call accounts "ledgers". Learn more about accounts
+/// and the chart of accounts. The account object is what you'll use to
+/// do actions with the end-users accounts. Note: If you need to delete an
+/// account, set the Active attribute to false in an object update request.
+/// This makes it inactive. The account itself isn't permanently deleted,
+/// but is hidden for display purposes. References to inactive objects
+/// remain intact.
+///
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -16,6 +32,9 @@ class AccountService {
       {required this.baseUrl, required this.authenticationService, this.minorVersion = 63});
 
 
+  ///
+  /// Returns the results of the query.
+  ///
   Future<List<Account>> queryAccount({
     required String query,
     String? realmId,
@@ -55,6 +74,10 @@ class AccountService {
     }
   }
 
+  ///
+  /// Retrieves the details of an Account object that
+  /// has been previously created.
+  ///
   Future<Account> readAccount({
     required String accountId,
     String? realmId,
@@ -93,6 +116,12 @@ class AccountService {
     }
   }
 
+  ///
+  /// Creates an account
+  /// Name must be unique.
+  /// The Account.Name attribute must not contain double quotes (") or colon (:).
+  /// The Account.AcctNum attribute must not contain a colon (:).
+  ///
   Future<Account> createAccount({
     required Account account,
 

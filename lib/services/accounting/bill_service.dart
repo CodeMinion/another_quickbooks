@@ -5,7 +5,10 @@ import 'package:http/http.dart' as http;
 import 'package:another_quickbooks/quickbook_models.dart';
 import 'package:another_quickbooks/services/authentication_service.dart';
 
+///
 /// URL: https://developer.intuit.com/app/developer/qbo/docs/api/accounting/most-commonly-used/bill
+/// A Bill object is an AP transaction representing a request-for-payment
+/// from a third party for goods/services rendered, received, or both.
 ///
 class BillService {
   final String baseUrl;
@@ -16,6 +19,9 @@ class BillService {
       {required this.baseUrl, required this.authenticationService, this.minorVersion = 63});
 
 
+  ///
+  /// Returns the results of the query.
+  ///
   Future<List<Bill>> queryBill({
     required String query,
     String? realmId,
@@ -55,6 +61,9 @@ class BillService {
     }
   }
 
+  ///
+  /// Retrieves the details of a bill that has been previously created.
+  ///
   Future<Bill> readBill({
     required String billId,
     String? realmId,
@@ -93,6 +102,9 @@ class BillService {
     }
   }
 
+  ///
+  /// The minimum elements to create an bill are listed here.
+  ///
   Future<Bill> createBill({
     required Bill bill,
     String? realmId,
@@ -175,6 +187,12 @@ class BillService {
     }
   }
 
+  ///
+  /// This operation deletes the bill object specified in the request body.
+  /// Include a minimum of Bill.Id and Bill.SyncToken in the request body.
+  /// You must unlink any linked transactions associated with the bill
+  /// object before deleting it.
+  ///
   Future<DeleteResponse> deleteBill({
     required Bill bill,
     String? realmId,

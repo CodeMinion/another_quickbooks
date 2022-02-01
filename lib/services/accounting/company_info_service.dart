@@ -7,6 +7,14 @@ import 'package:another_quickbooks/services/authentication_service.dart';
 
 ///
 /// URL:https://developer.intuit.com/app/developer/qbo/docs/api/accounting/most-commonly-used/companyinfo
+/// The CompanyInfo object contains basic company information.
+/// In QuickBooks, company info and preferences are displayed in
+/// the same place under preferences, so it may be confusing to
+/// figure out from user interface which fields may belong to this object.
+/// But in general, properties such as company addresses or name are
+/// considered company information. Some attributes may exist in both
+/// CompanyInfo and Preferences objects.
+///
 class CompanyInfoService {
   final String baseUrl;
   final AuthenticationService authenticationService;
@@ -16,6 +24,9 @@ class CompanyInfoService {
       {required this.baseUrl, required this.authenticationService, this.minorVersion = 63});
 
 
+  ///
+  /// Returns the results of the query.
+  ///
   Future<List<CompanyInfo>> queryCompanyInfo({
     required String query,
     String? realmId,
@@ -55,6 +66,9 @@ class CompanyInfoService {
     }
   }
 
+  ///
+  /// Retrieves the details of the CompanyInfo object.
+  ///
   Future<CompanyInfo> readCompanyInfo({
     required String companyId,
     String? realmId,
