@@ -1,7 +1,7 @@
 name: another_quickbooks
 description: Flutter Quickbooks SDK
 version: 0.0.1
-homepage:
+homepage: https://github.com/CodeMinion/another_quickbooks
 
 environment:
   sdk: ">=2.15.1 <3.0.0"
