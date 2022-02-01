@@ -42,13 +42,13 @@ class PreferencesService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/query", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.get(endpoint, headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return QueryResponse.fromJson(jsonDecode(response.body)["QueryResponse"]).preferences!;
     }
     else {
@@ -79,13 +79,13 @@ class PreferencesService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/preferences", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.get(endpoint, headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return Preferences.fromJson(jsonDecode(response.body)["Preferences"]);
     }
     else {
@@ -126,13 +126,13 @@ class PreferencesService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/preferences", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.post(endpoint, body: jsonEncode(preferences.toJson()), headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return Preferences.fromJson(jsonDecode(response.body)["Preferences"]);
     }
     else {

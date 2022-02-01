@@ -578,7 +578,7 @@ DiscountLine _$DiscountLineFromJson(Map<String, dynamic> json) => DiscountLine(
       lineNum: json['LineNum'] as int?,
       description: json['Description'] as String?,
       id: json['Id'] as String?,
-      DetailType: json['DetailType'] as String?,
+      detailType: json['DetailType'] as String?,
       discountLineDetail: json['DiscountLineDetail'] == null
           ? null
           : DiscountLineDetail.fromJson(
@@ -596,7 +596,7 @@ Map<String, dynamic> _$DiscountLineToJson(DiscountLine instance) {
 
   writeNotNull('Id', instance.id);
   writeNotNull('DiscountLineDetail', instance.discountLineDetail);
-  writeNotNull('DetailType', instance.DetailType);
+  writeNotNull('DetailType', instance.detailType);
   writeNotNull('Amount', instance.amount);
   writeNotNull('Description', instance.description);
   writeNotNull('LineNum', instance.lineNum);
@@ -865,7 +865,7 @@ CompanyInfo _$CompanyInfoFromJson(Map<String, dynamic> json) => CompanyInfo(
           ? null
           : PhysicalAddress.fromJson(json['LegalAddr'] as Map<String, dynamic>),
       legalName: json['LegalName'] as String?,
-      MetaData: json['MetaData'] == null
+      metaData: json['MetaData'] == null
           ? null
           : ModificationMetaData.fromJson(
               json['MetaData'] as Map<String, dynamic>),
@@ -905,7 +905,7 @@ Map<String, dynamic> _$CompanyInfoToJson(CompanyInfo instance) {
   writeNotNull('CustomerCommunicationAddr', instance.customerCommunicationAddr);
   writeNotNull('PrimaryPhone', instance.primaryPhone);
   writeNotNull('LegalName', instance.legalName);
-  writeNotNull('MetaData', instance.MetaData);
+  writeNotNull('MetaData', instance.metaData);
   writeNotNull('CompanyStartDate', instance.companyStartDate);
   return val;
 }
@@ -1106,7 +1106,7 @@ Customer _$CustomerFromJson(Map<String, dynamic> json) => Customer(
       source: json['Source'] as String?,
       suffix: json['Suffix'] as String?,
       taxable: json['Taxable'] as bool?,
-      TaxExemptionReasonId: json['TaxExemptionReasonId'] as int?,
+      taxExemptionReasonId: json['TaxExemptionReasonId'] as int?,
       title: json['Title'] as String?,
     );
 
@@ -1164,7 +1164,7 @@ Map<String, dynamic> _$CustomerToJson(Customer instance) {
   writeNotNull('BillAddr', instance.billAddr);
   writeNotNull('FullyQualifiedName', instance.fullyQualifiedName);
   writeNotNull('Level', instance.level);
-  writeNotNull('TaxExemptionReasonId', instance.TaxExemptionReasonId);
+  writeNotNull('TaxExemptionReasonId', instance.taxExemptionReasonId);
   return val;
 }
 
@@ -1201,7 +1201,7 @@ Employee _$EmployeeFromJson(Map<String, dynamic> json) => Employee(
       employeeNumber: json['EmployeeNumber'] as String?,
       gender: json['Gender'] as String?,
       hiredDate: json['HiredDate'] as String?,
-      Organization: json['Organization'] as bool?,
+      organization: json['Organization'] as bool?,
       primaryAddr: json['PrimaryAddr'] == null
           ? null
           : PhysicalAddress.fromJson(
@@ -1240,7 +1240,7 @@ Map<String, dynamic> _$EmployeeToJson(Employee instance) {
   writeNotNull('Gender', instance.gender);
   writeNotNull('HiredDate', instance.hiredDate);
   writeNotNull('BillRate', instance.billRate);
-  writeNotNull('Organization', instance.Organization);
+  writeNotNull('Organization', instance.organization);
   writeNotNull('Suffix', instance.suffix);
   writeNotNull('FamilyName', instance.familyName);
   writeNotNull('PrintOnCheckName', instance.printOnCheckName);
@@ -1521,7 +1521,7 @@ Invoice _$InvoiceFromJson(Map<String, dynamic> json) => Invoice(
       allowOnlineCreditCardPayment:
           json['AllowOnlineCreditCardPayment'] as bool?,
       allowOnlinePayment: json['AllowOnlinePayment'] as bool?,
-      BillAddr: json['BillAddr'] == null
+      billAddr: json['BillAddr'] == null
           ? null
           : PhysicalAddress.fromJson(json['BillAddr'] as Map<String, dynamic>),
       billEmailBcc: json['BillEmailBcc'] == null
@@ -1539,7 +1539,7 @@ Invoice _$InvoiceFromJson(Map<String, dynamic> json) => Invoice(
           : ReferenceType.fromJson(
               json['DepositToAccountRef'] as Map<String, dynamic>),
       invoiceLink: json['InvoiceLink'] as String?,
-      TaxExemptionRef: json['TaxExemptionRef'] == null
+      taxExemptionRef: json['TaxExemptionRef'] == null
           ? null
           : ReferenceType.fromJson(
               json['TaxExemptionRef'] as Map<String, dynamic>),
@@ -1594,14 +1594,14 @@ Map<String, dynamic> _$InvoiceToJson(Invoice instance) {
   writeNotNull('DepartmentRef', instance.departmentRef);
   writeNotNull('BillEmailBcc', instance.billEmailBcc);
   writeNotNull('ShipMethodRef', instance.shipMethodRef);
-  writeNotNull('BillAddr', instance.BillAddr);
+  writeNotNull('BillAddr', instance.billAddr);
   writeNotNull('ApplyTaxAfterDiscount', instance.applyTaxAfterDiscount);
   writeNotNull('HomeBalance', instance.homeBalance);
   writeNotNull('DeliveryInfo', instance.deliveryInfo);
   writeNotNull('TotalAmt', instance.totalAmt);
   writeNotNull('InvoiceLink', instance.invoiceLink);
   writeNotNull('RecurDataRef', instance.recurDataRef);
-  writeNotNull('TaxExemptionRef', instance.TaxExemptionRef);
+  writeNotNull('TaxExemptionRef', instance.taxExemptionRef);
   writeNotNull('Balance', instance.balance);
   writeNotNull('HomeTotalAmt', instance.homeTotalAmt);
   writeNotNull('FreeFormAddress', instance.freeFormAddress);
@@ -1903,7 +1903,7 @@ CreditChargeInfo _$CreditChargeInfoFromJson(Map<String, dynamic> json) =>
       amount: (json['Amount'] as num?)?.toDouble(),
       postalCode: json['PostalCode'] as String?,
       billAddrStreet: json['BillAddrStreet'] as String?,
-      CcExpiryMonth: json['CcExpiryMonth'] as int?,
+      ccExpiryMonth: json['CcExpiryMonth'] as int?,
       ccExpiryYear: json['CcExpiryYear'] as int?,
       nameOnAcct: json['NameOnAcct'] as String?,
       processPayment: json['ProcessPayment'] as bool?,
@@ -1918,7 +1918,7 @@ Map<String, dynamic> _$CreditChargeInfoToJson(CreditChargeInfo instance) {
     }
   }
 
-  writeNotNull('CcExpiryMonth', instance.CcExpiryMonth);
+  writeNotNull('CcExpiryMonth', instance.ccExpiryMonth);
   writeNotNull('ProcessPayment', instance.processPayment);
   writeNotNull('PostalCode', instance.postalCode);
   writeNotNull('Amount', instance.amount);

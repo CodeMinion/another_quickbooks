@@ -32,7 +32,7 @@ class CardService {
     Uri endpoint = Uri.https(
         baseUrl, "/quickbooks/v4/customers/$customerId/cards");
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
         http.post(endpoint, headers: headers, body: jsonEncode(card.toJson()));
@@ -66,7 +66,7 @@ class CardService {
     Uri endpoint = Uri.https(
         baseUrl, "/quickbooks/v4/customers/$customerId/cards/createFromToken");
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
     var response = await
     http.post(endpoint, headers: headers, body: jsonEncode({"value": cardToken}));
 
@@ -98,7 +98,7 @@ class CardService {
     Uri endpoint = Uri.https(
         baseUrl, "/quickbooks/v4/customers/$customerId/cards");
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.get(endpoint, headers: headers,);
@@ -129,7 +129,7 @@ class CardService {
     Uri endpoint = Uri.https(
         baseUrl, "/quickbooks/v4/customers/$customerId/cards/$cardId");
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.get(endpoint, headers: headers,);
@@ -162,7 +162,7 @@ class CardService {
     Uri endpoint = Uri.https(
         baseUrl, "/quickbooks/v4/customers/$customerId/cards/$cardId");
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.delete(endpoint, headers: headers,);

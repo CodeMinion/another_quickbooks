@@ -1,6 +1,5 @@
 
 import 'dart:convert';
-import 'dart:ffi';
 import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 
@@ -44,13 +43,13 @@ class InvoiceService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/query", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.get(endpoint, headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return QueryResponse.fromJson(jsonDecode(response.body)["QueryResponse"]).invoice!;
     }
     else {
@@ -82,13 +81,13 @@ class InvoiceService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/invoice/$invoiceId", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.get(endpoint, headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return Invoice.fromJson(jsonDecode(response.body)["Invoice"]);
     }
     else {
@@ -120,13 +119,13 @@ class InvoiceService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/invoice", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.post(endpoint, body: jsonEncode(invoice.toJson()), headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return Invoice.fromJson(jsonDecode(response.body)["Invoice"]);
     }
     else {
@@ -165,13 +164,13 @@ class InvoiceService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/invoice", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.post(endpoint, body: jsonEncode(invoice.toJson()), headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return Invoice.fromJson(jsonDecode(response.body)["Invoice"]);
     }
     else {
@@ -203,13 +202,13 @@ class InvoiceService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/invoice", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.post(endpoint, body: jsonEncode(invoice.toJson()), headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return DeleteResponse.fromJson(jsonDecode(response.body)["Invoice"]);
     }
     else {
@@ -241,13 +240,13 @@ class InvoiceService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/invoice", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.post(endpoint, body: jsonEncode(invoice.toJson()), headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return Invoice.fromJson(jsonDecode(response.body)["Invoice"]);
     }
     else {
@@ -279,7 +278,7 @@ class InvoiceService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/invoice/$invoiceId/pdf", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.get(endpoint, headers: headers);
@@ -317,13 +316,13 @@ class InvoiceService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/invoice/$invoiceId/send", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.post(endpoint, headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return Invoice.fromJson(jsonDecode(response.body)["Invoice"]);
     }
     else {

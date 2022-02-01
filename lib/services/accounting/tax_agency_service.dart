@@ -42,13 +42,13 @@ class TaxAgencyService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/query", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.get(endpoint, headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return QueryResponse.fromJson(jsonDecode(response.body)["QueryResponse"]).taxAgency!;
     }
     else {
@@ -80,13 +80,13 @@ class TaxAgencyService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/taxagency/$taxAgencyId", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.get(endpoint, headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return TaxAgency.fromJson(jsonDecode(response.body)["TaxAgency"]);
     }
     else {
@@ -118,13 +118,13 @@ class TaxAgencyService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/taxagency", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.post(endpoint, body: jsonEncode(agency.toJson()), headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return TaxAgency.fromJson(jsonDecode(response.body)["TaxAgency"]);
     }
     else {

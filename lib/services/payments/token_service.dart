@@ -29,7 +29,7 @@ class TokenService {
 
     Uri endpoint = Uri.https(baseUrl, "/quickbooks/v4/payments/tokens");
 
-    print(endpoint.toString());
+    //print(endpoint.toString());
 
     var response = await http.post(endpoint,
         headers: headers, body: jsonEncode({
@@ -37,7 +37,7 @@ class TokenService {
         }));
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print(response.body);
+      //print(response.body);
       return jsonDecode(response.body)["value"];
     } else {
       throw TokenException(
@@ -63,7 +63,7 @@ class TokenService {
 
     Uri endpoint = Uri.https(baseUrl, "/quickbooks/v4/payments/tokens");
 
-    print(endpoint.toString());
+    //print(endpoint.toString());
 
     var response = await http.post(endpoint,
         headers: headers, body: jsonEncode({
@@ -71,7 +71,7 @@ class TokenService {
         }));
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print(response.body);
+      //print(response.body);
       return jsonDecode(response.body)["value"];
     } else {
       throw TokenException(

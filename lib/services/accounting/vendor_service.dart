@@ -42,13 +42,13 @@ class VendorService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/query", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.get(endpoint, headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return QueryResponse.fromJson(jsonDecode(response.body)["QueryResponse"]).vendor!;
     }
     else {
@@ -80,13 +80,13 @@ class VendorService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/vendor/$vendorId", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.get(endpoint, headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return Vendor.fromJson(jsonDecode(response.body)["Vendor"]);
     }
     else {
@@ -118,13 +118,13 @@ class VendorService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/vendor", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.post(endpoint, body: jsonEncode(vendor.toJson()), headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return Vendor.fromJson(jsonDecode(response.body)["Vendor"]);
     }
     else {
@@ -168,13 +168,13 @@ class VendorService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/vendor", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.post(endpoint, body: jsonEncode(vendor.toJson()), headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return Vendor.fromJson(jsonDecode(response.body)["Vendor"]);
     }
     else {

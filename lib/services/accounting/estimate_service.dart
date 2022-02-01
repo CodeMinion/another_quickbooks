@@ -1,6 +1,5 @@
 
 import 'dart:convert';
-import 'dart:ffi';
 import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 
@@ -44,13 +43,13 @@ class EstimateService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/query", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.get(endpoint, headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return QueryResponse.fromJson(jsonDecode(response.body)["QueryResponse"]).estimate!;
     }
     else {
@@ -82,13 +81,13 @@ class EstimateService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/estimate/$estimateId", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.get(endpoint, headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return Estimate.fromJson(jsonDecode(response.body)["Estimate"]);
     }
     else {
@@ -120,13 +119,13 @@ class EstimateService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/estimate", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.post(endpoint, body: jsonEncode(estimate.toJson()), headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return Estimate.fromJson(jsonDecode(response.body)["Estimate"]);
     }
     else {
@@ -165,13 +164,13 @@ class EstimateService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/estimate", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.post(endpoint, body: jsonEncode(estimate.toJson()), headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return Estimate.fromJson(jsonDecode(response.body)["Estimate"]);
     }
     else {
@@ -203,13 +202,13 @@ class EstimateService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/estimate", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.post(endpoint, body: jsonEncode(estimate.toJson()), headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return DeleteResponse.fromJson(jsonDecode(response.body)["Estimate"]);
     }
     else {
@@ -241,7 +240,7 @@ class EstimateService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/estimate/$estimateId/pdf", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.get(endpoint, headers: headers);
@@ -279,13 +278,13 @@ class EstimateService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/estimate/$estimateId/send", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.post(endpoint, headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return Estimate.fromJson(jsonDecode(response.body)["Estimate"]);
     }
     else {

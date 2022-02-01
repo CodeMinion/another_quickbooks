@@ -42,13 +42,13 @@ class CustomerService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/query", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.get(endpoint, headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return QueryResponse.fromJson(jsonDecode(response.body)["QueryResponse"]).customer!;
     }
     else {
@@ -80,13 +80,13 @@ class CustomerService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/customer/$customerId", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.get(endpoint, headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return Customer.fromJson(jsonDecode(response.body)["Customer"]);
     }
     else {
@@ -118,13 +118,13 @@ class CustomerService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/customer", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.post(endpoint, body: jsonEncode(customer.toJson()), headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return Customer.fromJson(jsonDecode(response.body)["Customer"]);
     }
     else {
@@ -161,13 +161,13 @@ class CustomerService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/customer", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.post(endpoint, body: jsonEncode(customer.toJson()), headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return Customer.fromJson(jsonDecode(response.body)["Customer"]);
     }
     else {

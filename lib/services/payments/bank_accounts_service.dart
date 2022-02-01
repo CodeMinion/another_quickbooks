@@ -35,9 +35,9 @@ class BankAccountsService {
     Uri endpoint = Uri.https(
         baseUrl, "/quickbooks/v4/customers/$customerId/bank-accounts");
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
-    print (jsonEncode(account.toJson()));
+    //print (jsonEncode(account.toJson()));
     var response = await
         http.post(endpoint, headers: headers, body: jsonEncode(account.toJson()));
 
@@ -70,7 +70,7 @@ class BankAccountsService {
     Uri endpoint = Uri.https(
         baseUrl, "/quickbooks/v4/customers/$customerId/bank-accounts/createFromToken");
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
     var response = await
     http.post(endpoint, headers: headers, body: jsonEncode({"value": accountToken}));
 
@@ -103,7 +103,7 @@ class BankAccountsService {
     Uri endpoint = Uri.https(
         baseUrl, "/quickbooks/v4/customers/$customerId/bank-accounts");
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.get(endpoint, headers: headers,);
@@ -134,7 +134,7 @@ class BankAccountsService {
     Uri endpoint = Uri.https(
         baseUrl, "/quickbooks/v4/customers/$customerId/bank-accounts/$bankAccountId");
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.get(endpoint, headers: headers,);
@@ -167,7 +167,7 @@ class BankAccountsService {
     Uri endpoint = Uri.https(
         baseUrl, "/quickbooks/v4/customers/$customerId/bank-accounts/$bankAccountId");
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.delete(endpoint, headers: headers,);

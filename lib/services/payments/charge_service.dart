@@ -29,13 +29,13 @@ class ChargeService {
 
     Uri endpoint = Uri.https(baseUrl, "/quickbooks/v4/payments/charges");
 
-    print(endpoint.toString());
+    //print(endpoint.toString());
 
     var response = await http.post(endpoint,
         headers: headers, body: jsonEncode(charge.toJson()));
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print(response.body);
+      //print(response.body);
       return Charge.fromJson(jsonDecode(response.body));
     } else {
       throw ChargeException(
@@ -60,7 +60,7 @@ class ChargeService {
     Uri endpoint =
         Uri.https(baseUrl, "/quickbooks/v4/payments/charges/$chargeId");
 
-    print(endpoint.toString());
+    //print(endpoint.toString());
 
     var response = await http.get(
       endpoint,
@@ -93,7 +93,7 @@ class ChargeService {
     Uri endpoint = Uri.https(
         baseUrl, "/quickbooks/v4/payments/charges/$chargeId/refunds/$refundId");
 
-    print(endpoint.toString());
+    //print(endpoint.toString());
 
     var response = await http.get(
       endpoint,
@@ -130,7 +130,7 @@ class ChargeService {
     Uri endpoint =
         Uri.https(baseUrl, "/quickbooks/v4/payments/charges/$chargeId/refunds");
 
-    print(endpoint.toString());
+    //print(endpoint.toString());
 
     var charge = Charge(
         id: chargeId,
@@ -171,7 +171,7 @@ class ChargeService {
     Uri endpoint =
         Uri.https(baseUrl, "/quickbooks/v4/payments/charges/$chargeId/capture");
 
-    print(endpoint.toString());
+    //print(endpoint.toString());
 
     var charge = Charge(
         amount: amount,
@@ -182,7 +182,7 @@ class ChargeService {
         headers: headers, body: jsonEncode(charge.toJson()));
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print (response.body);
+      //print (response.body);
       return Charge.fromJson(jsonDecode(response.body));
     } else {
       throw ChargeException(
@@ -209,7 +209,7 @@ class ChargeService {
     Uri endpoint = Uri.https(
         baseUrl, "/quickbooks/v4/payments/txn-requests/$chargeRequestId/void");
 
-    print(endpoint.toString());
+    //print(endpoint.toString());
 
     var response = await http.post(endpoint, headers: headers);
 

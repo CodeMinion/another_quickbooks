@@ -66,17 +66,17 @@ class AuthenticationService {
 
     Uri tokenUri = Uri.parse(tokenEndpoint);
 
-    print("tokenUri $tokenUri}");
+    //print("tokenUri $tokenUri}");
     final response = await http.post(tokenUri, body: body,
         headers:  headers);
 
     if(response.statusCode == 200) {
-      print (response.body);
+      //print (response.body);
       _lastTokenResponse = TokenResponse.fromJson(jsonDecode(response.body));
       return _lastTokenResponse!;
     }
     else {
-      print(response.body);
+      //print(response.body);
       throw TokenRequestFailedException(response.statusCode, response.body);
     }
   }
@@ -107,17 +107,17 @@ class AuthenticationService {
 
     Uri tokenUri = Uri.parse(tokenEndpoint);
 
-    print("tokenUri $tokenUri}");
+    //print("tokenUri $tokenUri}");
     final response = await http.post(tokenUri, body: body,
         headers:  headers);
 
     if(response.statusCode == 200) {
-      print (response.body);
+      //print (response.body);
       _lastTokenResponse = TokenResponse.fromJson(jsonDecode(response.body));
       return _lastTokenResponse!;
     }
     else {
-      print(response.body);
+      //print(response.body);
       throw TokenRequestFailedException(response.statusCode, response.body);
     }
   }

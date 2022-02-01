@@ -29,13 +29,13 @@ class ECheckService {
 
     Uri endpoint = Uri.https(baseUrl, "/quickbooks/v4/payments/echecks");
 
-    print(endpoint.toString());
+    //print(endpoint.toString());
 
     var response = await http.post(endpoint,
         headers: headers, body: jsonEncode(echeck.toJson()));
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print(response.body);
+      //print(response.body);
       return ECheck.fromJson(jsonDecode(response.body));
     } else {
       throw ECheckException(
@@ -61,7 +61,7 @@ class ECheckService {
     Uri endpoint =
         Uri.https(baseUrl, "/quickbooks/v4/payments/echecks/$echeckId/refunds/$refundId");
 
-    print(endpoint.toString());
+    //print(endpoint.toString());
 
     var response = await http.get(
       endpoint,
@@ -93,7 +93,7 @@ class ECheckService {
     Uri endpoint =
     Uri.https(baseUrl, "/quickbooks/v4/payments/echecks/$echeckId");
 
-    print(endpoint.toString());
+    //print(endpoint.toString());
 
     var response = await http.get(
       endpoint,
@@ -127,7 +127,7 @@ class ECheckService {
     Uri endpoint = Uri.https(
         baseUrl, "/quickbooks/v4/payments/echecks/$echeckId/refunds");
 
-    print(endpoint.toString());
+    //print(endpoint.toString());
 
     var response = await http.post(endpoint, headers: headers);
 

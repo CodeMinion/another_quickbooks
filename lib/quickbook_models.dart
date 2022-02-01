@@ -1,5 +1,3 @@
-import 'package:flutter/animation.dart';
-import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'quickbook_models.g.dart';
@@ -287,11 +285,11 @@ class _LineConverter implements JsonConverter<Line, Object?> {
         return SubTotalLine.fromJson(json);
       }
 
-      print ("Unable to parse $json - ${json["DetailType"] }");
+      //print ("Unable to parse $json - ${json["DetailType"] }");
     }
 
 
-    print ("Unable to parse $json }");
+    //print ("Unable to parse $json }");
     // This will only work if `json` is a native JSON type:
     //   num, String, bool, null, etc
     // *and* is assignable to `T`.
@@ -324,7 +322,7 @@ class _LineConverter implements JsonConverter<Line, Object?> {
     else if (object is SubTotalLine) {
       return object.toJson();
     }
-    print ("Unable to convert $object");
+    //print ("Unable to convert $object");
     return null;
   }
 }
@@ -645,7 +643,7 @@ class DiscountLine implements Line {
   final DiscountLineDetail? discountLineDetail;
 
   @JsonKey(name: "DetailType")
-  final String? DetailType; // DiscountLineDetail
+  final String? detailType; // DiscountLineDetail
 
   @JsonKey(name: "Amount")
   final double? amount;
@@ -658,7 +656,7 @@ class DiscountLine implements Line {
 
   DiscountLine({
     this.amount, this.lineNum, this.description, this.id,
-    this.DetailType, this.discountLineDetail
+    this.detailType, this.discountLineDetail
   });
 
   factory DiscountLine.fromJson(Map<String, dynamic> json) => _$DiscountLineFromJson(json);
@@ -937,7 +935,7 @@ class CompanyInfo {
   final String? legalName;
 
   @JsonKey(name: "MetaData")
-  final ModificationMetaData? MetaData;
+  final ModificationMetaData? metaData;
 
   @JsonKey(name: "CompanyStartDate")
   final String? companyStartDate;
@@ -946,7 +944,7 @@ class CompanyInfo {
     this.id, this.syncToken, this.companyAddr, this.companyName,
     this.companyStartDate, this.country, this.customerCommunicationAddr,
     this.email, this.fiscalYearStartMonth, this.legalAddr, this.legalName,
-    this.MetaData, this.pairs, this.primaryPhone, this.supportedLanguages,
+    this.metaData, this.pairs, this.primaryPhone, this.supportedLanguages,
     this.webAddr
   });
 
@@ -1240,7 +1238,7 @@ class Customer {
   final int? level;
 
   @JsonKey(name: "TaxExemptionReasonId")
-  final int? TaxExemptionReasonId;
+  final int? taxExemptionReasonId;
 
   Customer({
     this.id, this.webAddr, this.primaryPhone, this.companyName,
@@ -1255,7 +1253,7 @@ class Customer {
     this.notes, this.openBalanceDate, this.paymentMethodRef,
     this.preferredDeliveryMethod, this.primaryEmailAddr, this.primaryTaxIdentifier,
     this.printOnCheckName, this.resaleNum, this.secondaryTaxIdentifier,
-    this.shipAddr, this.source, this.suffix, this.taxable, this.TaxExemptionReasonId,
+    this.shipAddr, this.source, this.suffix, this.taxable, this.taxExemptionReasonId,
     this.title
   });
 
@@ -1333,7 +1331,7 @@ class Employee {
   final double? billRate;
 
   @JsonKey(name: "Organization")
-  final bool? Organization;
+  final bool? organization;
 
   @JsonKey(name: "Suffix")
   final String? suffix;
@@ -1356,7 +1354,7 @@ class Employee {
     this.displayName, this.active, this.metaData, this.syncToken,
     this.primaryPhone, this.id, this.billableTime, this.billRate,
     this.birthDate, this.costRate, this.employeeNumber, this.gender,
-    this.hiredDate, this.Organization, this.primaryAddr, this.releasedDate,
+    this.hiredDate, this.organization, this.primaryAddr, this.releasedDate,
     this.ssn, this.v4IDPseudonym
   });
 
@@ -1682,7 +1680,7 @@ class Invoice {
   final ReferenceType? shipMethodRef;
 
   @JsonKey(name: "BillAddr")
-  final PhysicalAddress? BillAddr;
+  final PhysicalAddress? billAddr;
 
   @JsonKey(name: "ApplyTaxAfterDiscount")
   final bool? applyTaxAfterDiscount;
@@ -1703,7 +1701,7 @@ class Invoice {
   final ReferenceType? recurDataRef;
 
   @JsonKey(name: "TaxExemptionRef")
-  final ReferenceType? TaxExemptionRef;
+  final ReferenceType? taxExemptionRef;
 
   @JsonKey(name: "Balance")
   final double? balance;
@@ -1732,8 +1730,8 @@ class Invoice {
     this.currencyRef, this.shipAddr, this.metaData, this.syncToken,
     this.balance, this.homeBalance, this.allowIPNPayment, this.allowOnlineACHPayment,
     this.allowOnlineCreditCardPayment, this.allowOnlinePayment,
-    this.BillAddr, this.billEmailBcc, this.billEmailCc, this.deliveryInfo,
-    this.deposit, this.depositToAccountRef, this.invoiceLink, this.TaxExemptionRef,
+    this.billAddr, this.billEmailBcc, this.billEmailCc, this.deliveryInfo,
+    this.deposit, this.depositToAccountRef, this.invoiceLink, this.taxExemptionRef,
     this.trackingNum, this.txnSource
   });
 
@@ -2069,7 +2067,7 @@ class CreditChargeResponse {
 class CreditChargeInfo {
 
   @JsonKey(name: "CcExpiryMonth")
-  final int? CcExpiryMonth;
+  final int? ccExpiryMonth;
 
   @JsonKey(name: "ProcessPayment")
   final bool? processPayment;
@@ -2093,7 +2091,7 @@ class CreditChargeInfo {
   final String? billAddrStreet;
 
   CreditChargeInfo({
-    this.type, this.amount, this.postalCode, this.billAddrStreet, this.CcExpiryMonth,
+    this.type, this.amount, this.postalCode, this.billAddrStreet, this.ccExpiryMonth,
     this.ccExpiryYear, this.nameOnAcct, this.processPayment
   });
   factory CreditChargeInfo.fromJson(Map<String, dynamic> json) => _$CreditChargeInfoFromJson(json);

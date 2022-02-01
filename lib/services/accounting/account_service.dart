@@ -41,13 +41,13 @@ class AccountService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/query", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.get(endpoint, headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return QueryResponse.fromJson(jsonDecode(response.body)["QueryResponse"]).account!;
     }
     else {
@@ -79,13 +79,13 @@ class AccountService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/account/$accountId", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.get(endpoint, headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return Account.fromJson(jsonDecode(response.body)["Account"]);
     }
     else {
@@ -125,13 +125,13 @@ class AccountService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/account", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.post(endpoint, body: jsonEncode(account.toJson()), headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return Account.fromJson(jsonDecode(response.body)["Account"]);
     }
     else {
@@ -170,13 +170,13 @@ class AccountService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/account", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.post(endpoint, body: jsonEncode(account.toJson()), headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return Account.fromJson(jsonDecode(response.body)["Account"]);
     }
     else {

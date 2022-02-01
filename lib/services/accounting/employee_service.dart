@@ -41,13 +41,13 @@ class EmployeeService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/query", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.get(endpoint, headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return QueryResponse.fromJson(jsonDecode(response.body)["QueryResponse"]).employee!;
     }
     else {
@@ -79,13 +79,13 @@ class EmployeeService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/employee/$employeeId", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.get(endpoint, headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return Employee.fromJson(jsonDecode(response.body)["Employee"]);
     }
     else {
@@ -117,13 +117,13 @@ class EmployeeService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/employee", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.post(endpoint, body: jsonEncode(employee.toJson()), headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return Employee.fromJson(jsonDecode(response.body)["Employee"]);
     }
     else {
@@ -161,13 +161,13 @@ class EmployeeService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/employee", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.post(endpoint, body: jsonEncode(employee.toJson()), headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return Employee.fromJson(jsonDecode(response.body)["Employee"]);
     }
     else {

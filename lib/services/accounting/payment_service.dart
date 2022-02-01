@@ -1,6 +1,5 @@
 
 import 'dart:convert';
-import 'dart:ffi';
 import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 
@@ -44,13 +43,13 @@ class PaymentService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/query", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.get(endpoint, headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return QueryResponse.fromJson(jsonDecode(response.body)["QueryResponse"]).payment!;
     }
     else {
@@ -82,13 +81,13 @@ class PaymentService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/payment/$paymentId", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.get(endpoint, headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return Payment.fromJson(jsonDecode(response.body)["Payment"]);
     }
     else {
@@ -120,13 +119,13 @@ class PaymentService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/payment", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.post(endpoint, body: jsonEncode(payment.toJson()), headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return Payment.fromJson(jsonDecode(response.body)["Payment"]);
     }
     else {
@@ -165,13 +164,13 @@ class PaymentService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/payment", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.post(endpoint, body: jsonEncode(payment.toJson()), headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return Payment.fromJson(jsonDecode(response.body)["Payment"]);
     }
     else {
@@ -203,13 +202,13 @@ class PaymentService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/payment", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.post(endpoint, body: jsonEncode(payment.toJson()), headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return DeleteResponse.fromJson(jsonDecode(response.body)["Payment"]);
     }
     else {
@@ -241,13 +240,13 @@ class PaymentService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/payment", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.post(endpoint, body: jsonEncode(payment.toJson()), headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return Payment.fromJson(jsonDecode(response.body)["Payment"]);
     }
     else {
@@ -279,7 +278,7 @@ class PaymentService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/payment/$paymentId/pdf", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.get(endpoint, headers: headers);
@@ -317,13 +316,13 @@ class PaymentService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/payment/$paymentId/send", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.post(endpoint, headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return Payment.fromJson(jsonDecode(response.body)["Payment"]);
     }
     else {

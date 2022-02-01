@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:another_quickbooks/quickbook_models.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -7,11 +6,11 @@ import 'package:another_quickbooks/another_quickbooks.dart';
 
 void main() {
 
-  final String applicationId = "b790c7c7-28bb-4614-898d-d4587";
-  final String clientId = "ABNIuyQM0oAR68j9E4qFlXa1wECY4TDah7H7w3urknpWDlgYKA";
-  final String clientSecret = "iZU1Dyqh2TNz0Rp01z83SJ4n6XggN2nTGZNHU3AC";
-  final String refreshToken = "AB11652210098Wbv587q2tebOcKFcsPRplbRtoqobsvEmI2vVr";
-  final String realmId = "4620816365213534410";
+  const String applicationId = "b790c7c7-28bb-4614-898d-d4587";
+  const String clientId = "ABNIuyQM0oAR68j9E4qFlXa1wECY4TDah7H7w3urknpWDlgYKA";
+  const String clientSecret = "iZU1Dyqh2TNz0Rp01z83SJ4n6XggN2nTGZNHU3AC";
+  const String refreshToken = "AB11652210098Wbv587q2tebOcKFcsPRplbRtoqobsvEmI2vVr";
+  const String realmId = "4620816365213534410";
 
   test('adds one to input values', () async {
     final quickClient = QuickbooksClient(
@@ -20,15 +19,15 @@ void main() {
         clientSecret: clientSecret);
     await quickClient.initialize();
 
-    /*
+
     String authUrl = quickClient.getAuthorizationPageUrl(
         scopes: [Scope.Payments],
         redirectUrl: "https://developer.intuit.com/v2/OAuth2Playground/RedirectUrl",
         state: "Hello World");
 
-    print (authUrl);
+    //print (authUrl);
     expect(authUrl.length, isNot(0));
-    */
+
 
     /*
     String token = (await quickClient.getAuthToken(
@@ -44,7 +43,7 @@ void main() {
       refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     expect(quickClient.isInitialized(), true);
@@ -63,7 +62,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var accountsFound = await quickClient.getAccountingClient().queryAccount(
@@ -71,7 +70,7 @@ void main() {
       query: "select * from Account where Metadata.CreateTime > '2014-12-31'"
     );
 
-    print(accountsFound);
+    //print(accountsFound);
     expect(accountsFound, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -88,7 +87,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var accountsFound = await quickClient.getAccountingClient().readAccount(
@@ -96,7 +95,7 @@ void main() {
         accountId: "33"
     );
 
-    print(accountsFound);
+    //print(accountsFound);
     expect(accountsFound, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -112,7 +111,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var accountsFound = await quickClient.getAccountingClient().createAccount(
@@ -123,7 +122,7 @@ void main() {
         })
     );
 
-    print(accountsFound);
+    //print(accountsFound);
     expect(accountsFound, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -139,7 +138,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     //92
@@ -153,7 +152,7 @@ void main() {
         )
     );
 
-    print(accountsFound);
+    //print(accountsFound);
     expect(accountsFound, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -170,7 +169,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var resultsFound = await quickClient.getAccountingClient().queryCompanyInfo(
@@ -178,7 +177,7 @@ void main() {
         query: "select * from CompanyInfo where Metadata.CreateTime > '2014-12-31'"
     );
 
-    print(resultsFound);
+    //print(resultsFound);
     expect(resultsFound, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -194,7 +193,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var found = await quickClient.getAccountingClient().readCompanyInfo(
@@ -202,7 +201,7 @@ void main() {
         companyId: "1",
     );
 
-    print(found);
+    //print(found);
     expect(found, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -218,7 +217,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     //Id:1
@@ -241,7 +240,7 @@ void main() {
         )
     );
 
-    print(updated);
+    //print(updated);
     expect(updated, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -258,7 +257,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var resultsFound = await quickClient.getAccountingClient().queryBill(
@@ -266,7 +265,7 @@ void main() {
         query: "select * from Bill where Metadata.CreateTime > '2014-12-31'"
     );
 
-    print(resultsFound);
+    //print(resultsFound);
     expect(resultsFound, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -282,7 +281,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var found = await quickClient.getAccountingClient().readBill(
@@ -290,7 +289,7 @@ void main() {
       billId: "25",
     );
 
-    print(found);
+    //print(found);
     expect(found, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -306,7 +305,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     //
@@ -374,7 +373,7 @@ void main() {
         })
     );
 
-    print(updated);
+    //print(updated);
     expect(updated, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -390,7 +389,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     //
@@ -415,7 +414,7 @@ void main() {
         })
     );
 
-    print(updated);
+    //print(updated);
     expect(updated, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -431,7 +430,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var found = await quickClient.getAccountingClient().deleteBill(
@@ -439,7 +438,7 @@ void main() {
       bill: Bill(id: "108", syncToken: "0"),
     );
 
-    print(found);
+    //print(found);
     expect(found, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -456,7 +455,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var resultsFound = await quickClient.getAccountingClient().queryCustomer(
@@ -464,7 +463,7 @@ void main() {
         query: "select * from Customer where Metadata.CreateTime > '2014-12-31'"
     );
 
-    print(resultsFound);
+    //print(resultsFound);
     expect(resultsFound, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -480,7 +479,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var found = await quickClient.getAccountingClient().readCustomer(
@@ -488,7 +487,7 @@ void main() {
       customerId: "2",
     );
 
-    print(found);
+    //print(found);
     expect(found, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -504,7 +503,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     //
@@ -518,7 +517,7 @@ void main() {
         })
     );
 
-    print(updated);
+    //print(updated);
     expect(updated, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -534,7 +533,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     //
@@ -566,7 +565,7 @@ void main() {
         })
     );
 
-    print(updated);
+    //print(updated);
     expect(updated, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -583,7 +582,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var resultsFound = await quickClient.getAccountingClient().queryEmployee(
@@ -591,7 +590,7 @@ void main() {
         query: "select * from Employee where Metadata.CreateTime > '2014-12-31'"
     );
 
-    print(resultsFound);
+    //print(resultsFound);
     expect(resultsFound, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -607,7 +606,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var found = await quickClient.getAccountingClient().readEmployee(
@@ -615,7 +614,7 @@ void main() {
       employeeId: "55",
     );
 
-    print(found);
+    //print(found);
     expect(found, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -631,7 +630,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     //
@@ -666,7 +665,7 @@ void main() {
         })
     );
 
-    print(updated);
+    //print(updated);
     expect(updated, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -682,7 +681,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     //
@@ -705,7 +704,7 @@ void main() {
         })
     );
 
-    print(updated);
+    //print(updated);
     expect(updated, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -722,7 +721,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var resultsFound = await quickClient.getAccountingClient().queryEstimate(
@@ -730,7 +729,7 @@ void main() {
         query: "select * from Estimate where Metadata.CreateTime > '2014-12-31'"
     );
 
-    print(resultsFound);
+    //print(resultsFound);
     expect(resultsFound, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -746,7 +745,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var found = await quickClient.getAccountingClient().readEstimate(
@@ -754,7 +753,7 @@ void main() {
       estimateId: "41",
     );
 
-    print(found);
+    //print(found);
     expect(found, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -770,7 +769,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
 
@@ -895,7 +894,7 @@ void main() {
         })
     );
 
-    print(updated);
+    //print(updated);
     expect(updated, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -911,7 +910,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     //
@@ -993,7 +992,7 @@ void main() {
         })
     );
 
-    print(updated);
+    //print(updated);
     expect(updated, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -1009,7 +1008,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var found = await quickClient.getAccountingClient().deleteEstimate(
@@ -1020,7 +1019,7 @@ void main() {
       })
     );
 
-    print(found);
+    //print(found);
     expect(found, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -1036,7 +1035,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var found = await quickClient.getAccountingClient().getEstimatePdf(
@@ -1044,7 +1043,7 @@ void main() {
         estimateId: "41"
     );
 
-    print(found);
+    //print(found);
     expect(found, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -1060,7 +1059,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var found = await quickClient.getAccountingClient().sendEstimate(
@@ -1069,7 +1068,7 @@ void main() {
         emailTo: "hernandez.frank@gmail.com"
     );
 
-    print(found);
+    //print(found);
     expect(found, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -1086,7 +1085,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var resultsFound = await quickClient.getAccountingClient().queryInvoice(
@@ -1094,7 +1093,7 @@ void main() {
         query: "select * from Invoice where Metadata.CreateTime > '2014-12-31'"
     );
 
-    print(resultsFound);
+    //print(resultsFound);
     expect(resultsFound, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -1110,7 +1109,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var found = await quickClient.getAccountingClient().readInvoice(
@@ -1118,7 +1117,7 @@ void main() {
       invoiceId: "130",
     );
 
-    print(found);
+    //print(found);
     expect(found, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -1134,7 +1133,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
 
@@ -1218,7 +1217,7 @@ void main() {
         })
     );
 
-    print(updated);
+    //print(updated);
     expect(updated, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -1234,7 +1233,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     //
@@ -1259,7 +1258,7 @@ void main() {
         })
     );
 
-    print(updated);
+    //print(updated);
     expect(updated, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -1275,7 +1274,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var found = await quickClient.getAccountingClient().deleteInvoice(
@@ -1286,7 +1285,7 @@ void main() {
         })
     );
 
-    print(found);
+    //print(found);
     expect(found, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -1302,7 +1301,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var found = await quickClient.getAccountingClient().getInvoicePdf(
@@ -1310,7 +1309,7 @@ void main() {
         invoiceId: "130"
     );
 
-    print(found);
+    //print(found);
     expect(found, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -1326,7 +1325,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var found = await quickClient.getAccountingClient().sendInvoice(
@@ -1335,7 +1334,7 @@ void main() {
         emailTo: "hernandez.frank@gmail.com"
     );
 
-    print(found);
+    //print(found);
     expect(found, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -1351,7 +1350,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var found = await quickClient.getAccountingClient().voidInvoice(
@@ -1362,7 +1361,7 @@ void main() {
         })
     );
 
-    print(found);
+    //print(found);
     expect(found, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -1379,7 +1378,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var resultsFound = await quickClient.getAccountingClient().queryItem(
@@ -1387,7 +1386,7 @@ void main() {
         query: "select * from Item where Metadata.CreateTime > '2014-12-31'"
     );
 
-    print(resultsFound);
+    //print(resultsFound);
     expect(resultsFound, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -1403,7 +1402,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var found = await quickClient.getAccountingClient().readItem(
@@ -1411,7 +1410,7 @@ void main() {
       itemId: "14",
     );
 
-    print(found);
+    //print(found);
     expect(found, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -1427,7 +1426,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
 
@@ -1469,7 +1468,7 @@ void main() {
         })
     );
 
-    print(updated);
+    //print(updated);
     expect(updated, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -1485,7 +1484,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var updated = await quickClient.getAccountingClient().createItem(
@@ -1511,7 +1510,7 @@ void main() {
         })
     );
 
-    print(updated);
+    //print(updated);
     expect(updated, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -1528,7 +1527,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var resultsFound = await quickClient.getAccountingClient().queryPayment(
@@ -1536,7 +1535,7 @@ void main() {
         query: "select * from Payment where Metadata.CreateTime > '2014-12-31'"
     );
 
-    print(resultsFound);
+    //print(resultsFound);
     expect(resultsFound, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -1552,7 +1551,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var found = await quickClient.getAccountingClient().readPayment(
@@ -1560,7 +1559,7 @@ void main() {
       paymentId: "128",
     );
 
-    print(found);
+    //print(found);
     expect(found, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -1576,7 +1575,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
 
@@ -1620,7 +1619,7 @@ void main() {
         })
     );
 
-    print(updated);
+    //print(updated);
     expect(updated, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -1636,7 +1635,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     //
@@ -1650,7 +1649,7 @@ void main() {
         })
     );
 
-    print(updated);
+    //print(updated);
     expect(updated, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -1666,7 +1665,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var found = await quickClient.getAccountingClient().deletePayment(
@@ -1677,7 +1676,7 @@ void main() {
         })
     );
 
-    print(found);
+    //print(found);
     expect(found, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -1693,7 +1692,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var found = await quickClient.getAccountingClient().getPaymentPdf(
@@ -1701,7 +1700,7 @@ void main() {
         paymentId: "128"
     );
 
-    print(found);
+    //print(found);
     expect(found, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -1717,7 +1716,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var found = await quickClient.getAccountingClient().sendPayment(
@@ -1726,7 +1725,7 @@ void main() {
         emailTo: "hernandez.frank@gmail.com"
     );
 
-    print(found);
+    //print(found);
     expect(found, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -1742,7 +1741,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var found = await quickClient.getAccountingClient().voidPayment(
@@ -1754,7 +1753,7 @@ void main() {
         })
     );
 
-    print(found);
+    //print(found);
     expect(found, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -1771,7 +1770,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var resultsFound = await quickClient.getAccountingClient().queryPreferences(
@@ -1779,7 +1778,7 @@ void main() {
         query: "select * from Preferences"
     );
 
-    print(resultsFound);
+    //print(resultsFound);
     expect(resultsFound, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -1795,14 +1794,14 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var found = await quickClient.getAccountingClient().readPreferences(
       realmId: realmId
     );
 
-    print(found);
+    //print(found);
     expect(found, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -1818,7 +1817,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     //
@@ -1838,7 +1837,7 @@ void main() {
         })
     );
 
-    print(updated);
+    //print(updated);
     expect(updated, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -1855,7 +1854,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var resultsFound = await quickClient.getAccountingClient().queryReport(
@@ -1867,7 +1866,7 @@ void main() {
         )
     );
 
-    print(resultsFound);
+    //print(resultsFound);
     expect(resultsFound, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -1884,7 +1883,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var resultsFound = await quickClient.getAccountingClient().queryTaxAgency(
@@ -1892,7 +1891,7 @@ void main() {
         query: "select * from TaxAgency"
     );
 
-    print(resultsFound);
+    //print(resultsFound);
     expect(resultsFound, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -1908,7 +1907,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var found = await quickClient.getAccountingClient().readTaxAgency(
@@ -1916,7 +1915,7 @@ void main() {
       taxAgencyId: "1"
     );
 
-    print(found);
+    //print(found);
     expect(found, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -1932,7 +1931,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var found = await quickClient.getAccountingClient().createTaxAgency(
@@ -1942,7 +1941,7 @@ void main() {
         })
     );
 
-    print(found);
+    //print(found);
     expect(found, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -1959,7 +1958,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var resultsFound = await quickClient.getAccountingClient().queryVendor(
@@ -1967,7 +1966,7 @@ void main() {
         query: "select * from Vendor"
     );
 
-    print(resultsFound);
+    //print(resultsFound);
     expect(resultsFound, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -1983,7 +1982,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var found = await quickClient.getAccountingClient().readVendor(
@@ -1991,7 +1990,7 @@ void main() {
         vendorId: "56"
     );
 
-    print(found);
+    //print(found);
     expect(found, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -2007,7 +2006,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var found = await quickClient.getAccountingClient().createVendor(
@@ -2046,7 +2045,7 @@ void main() {
         })
     );
 
-    print(found);
+    //print(found);
     expect(found, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -2062,7 +2061,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var found = await quickClient.getAccountingClient().updateVendor(
@@ -2106,7 +2105,7 @@ void main() {
         })
     );
 
-    print(found);
+    //print(found);
     expect(found, isNotNull);
     expect(quickClient.isInitialized(), true);
   });

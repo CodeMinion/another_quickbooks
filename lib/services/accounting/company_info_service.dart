@@ -41,13 +41,13 @@ class CompanyInfoService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/query", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.get(endpoint, headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return QueryResponse.fromJson(jsonDecode(response.body)["QueryResponse"]).companyInfo!;
     }
     else {
@@ -79,13 +79,13 @@ class CompanyInfoService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/companyinfo/$companyId", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.get(endpoint, headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return CompanyInfo.fromJson(jsonDecode(response.body)["CompanyInfo"]);
     }
     else {
@@ -124,13 +124,13 @@ class CompanyInfoService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/companyinfo", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.post(endpoint, body: jsonEncode(companyInfo.toJson()), headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return CompanyInfo.fromJson(jsonDecode(response.body)["CompanyInfo"]);
     }
     else {

@@ -1,6 +1,4 @@
 
-import 'dart:convert';
-
 import 'package:another_quickbooks/quickbook_models.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -8,11 +6,11 @@ import 'package:another_quickbooks/another_quickbooks.dart';
 
 void main() {
 
-  final String applicationId = "b790c7c7-28bb-4614-898d-d4587";
-  final String clientId = "ABNIuyQM0oAR68j9E4qFlXa1wECY4TDah7H7w3urknpWDlgYKA";
-  final String clientSecret = "iZU1Dyqh2TNz0Rp01z83SJ4n6XggN2nTGZNHU3AC";
-  final String refreshToken = "AB11652296788mUqtDdp2TUwNA5qS7VNGMoYqvw9vbNTxDZIel";//"AB11652210098Wbv587q2tebOcKFcsPRplbRtoqobsvEmI2vVr";
-  final String realmId = "4620816365213534410";
+  const String applicationId = "b790c7c7-28bb-4614-898d-d4587";
+  const String clientId = "ABNIuyQM0oAR68j9E4qFlXa1wECY4TDah7H7w3urknpWDlgYKA";
+  const String clientSecret = "iZU1Dyqh2TNz0Rp01z83SJ4n6XggN2nTGZNHU3AC";
+  const String refreshToken = "AB11652296788mUqtDdp2TUwNA5qS7VNGMoYqvw9vbNTxDZIel";//"AB11652210098Wbv587q2tebOcKFcsPRplbRtoqobsvEmI2vVr";
+  const String realmId = "4620816365213534410";
 
 
   test('test bank account create ', () async {
@@ -26,7 +24,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var accountCreated = await quickClient.getPaymentClient().createBankAccount(
@@ -41,7 +39,7 @@ void main() {
           "accountNumber": "12334534"
         }));
 
-    print(accountCreated);
+    //print(accountCreated);
     expect(accountCreated, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -57,7 +55,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var accountCreated = await quickClient.getPaymentClient().createBankAccountFromToken(
@@ -66,7 +64,7 @@ void main() {
         customerId: "2",
         accountToken: "F+hgXXynTwwTi3B70MFysfj/s7o=");
 
-    print(accountCreated);
+    //print(accountCreated);
     expect(accountCreated, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -82,7 +80,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var response = await quickClient.getPaymentClient().readAllBankAccounts(
@@ -91,7 +89,7 @@ void main() {
         customerId: "2"
       );
 
-    print(response);
+    //print(response);
     expect(response, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -107,7 +105,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var response = await quickClient.getPaymentClient().readBankAccount(
@@ -116,7 +114,7 @@ void main() {
         customerId: "2"
     );
 
-    print(response);
+    //print(response);
     expect(response, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -132,7 +130,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var response = await quickClient.getPaymentClient().deleteBankAccount(
@@ -142,7 +140,7 @@ void main() {
         customerId: "2"
     );
 
-    print(response);
+    //print(response);
     expect(response, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -159,7 +157,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var accountCreated = await quickClient.getPaymentClient().createCard(
@@ -180,7 +178,7 @@ void main() {
           "expYear": "2026"
         }));
 
-    print(accountCreated);
+    //print(accountCreated);
     expect(accountCreated, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -196,7 +194,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var accountCreated = await quickClient.getPaymentClient().createCardFromToken(
@@ -205,7 +203,7 @@ void main() {
         customerId: "2",
         cardToken: "F+hgXXynTwwTi3B70MFysfj/s7o=");
 
-    print(accountCreated);
+    //print(accountCreated);
     expect(accountCreated, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -221,7 +219,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var response = await quickClient.getPaymentClient().readAllCards(
@@ -230,7 +228,7 @@ void main() {
         customerId: "2"
     );
 
-    print(response);
+    //print(response);
     expect(response, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -246,7 +244,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var response = await quickClient.getPaymentClient().readCard(
@@ -255,7 +253,7 @@ void main() {
         customerId: "2"
     );
 
-    print(response);
+    //print(response);
     expect(response, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -271,7 +269,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var response = await quickClient.getPaymentClient().deleteCard(
@@ -281,7 +279,7 @@ void main() {
         customerId: "2"
     );
 
-    print(response);
+    //print(response);
     expect(response, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -298,7 +296,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var response = await quickClient.getPaymentClient().createCharge(
@@ -329,7 +327,7 @@ void main() {
       })
     );
 
-    print(response);
+    //print(response);
     expect(response, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -345,7 +343,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var response = await quickClient.getPaymentClient().readRefund(
@@ -354,7 +352,7 @@ void main() {
         refundId: "EMU891209421"
     );
 
-    print(response);
+    //print(response);
     expect(response, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -370,7 +368,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var response = await quickClient.getPaymentClient().readCharge(
@@ -379,7 +377,7 @@ void main() {
 
     );
 
-    print(response);
+    //print(response);
     expect(response, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -395,7 +393,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var response = await quickClient.getPaymentClient().refundCharge(
@@ -405,7 +403,7 @@ void main() {
       requestId: "123AAA4",
     );
 
-    print(response);
+    //print(response);
     expect(response, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -421,7 +419,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var response = await quickClient.getPaymentClient().captureCharge(
@@ -431,7 +429,7 @@ void main() {
       requestId: "12VVXVVVDV34",
     );
 
-    print(response);
+    //print(response);
     expect(response, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -447,7 +445,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var response = await quickClient.getPaymentClient().voidTransaction(
@@ -456,7 +454,7 @@ void main() {
       chargeRequestId: "12VVXDV34"
     );
 
-    print(response);
+    //print(response);
     expect(response, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -473,7 +471,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var response = await quickClient.getPaymentClient().createDebit(
@@ -505,7 +503,7 @@ void main() {
         })
     );
 
-    print(response);
+    //print(response);
     expect(response, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -521,7 +519,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var response = await quickClient.getPaymentClient().readECheckRefund(
@@ -530,7 +528,7 @@ void main() {
       echeckId: "amyy7pzn"
     );
 
-    print(response);
+    //print(response);
     expect(response, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -546,7 +544,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var response = await quickClient.getPaymentClient().readECheck(
@@ -554,7 +552,7 @@ void main() {
         echeckId: "amyy7pzn"
     );
 
-    print(response);
+    //print(response);
     expect(response, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -570,7 +568,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var response = await quickClient.getPaymentClient().voidECheck(
@@ -579,7 +577,7 @@ void main() {
         echeckId: "amyy7pzn"
     );
 
-    print(response);
+    //print(response);
     expect(response, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -596,7 +594,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var response = await quickClient.getPaymentClient().createCardToken(
@@ -618,7 +616,7 @@ void main() {
         })
     );
 
-    print(response);
+    //print(response);
     expect(response, isNotNull);
     expect(quickClient.isInitialized(), true);
   });
@@ -634,7 +632,7 @@ void main() {
         refreshToken: refreshToken
     )).access_token ?? "";
 
-    print(token);
+    //print(token);
     expect(token.length, isNot(0));
 
     var response = await quickClient.getPaymentClient().createBankAccountToken(
@@ -649,7 +647,7 @@ void main() {
         })
     );
 
-    print(response);
+    //print(response);
     expect(response, isNotNull);
     expect(quickClient.isInitialized(), true);
   });

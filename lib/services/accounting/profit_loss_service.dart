@@ -41,13 +41,13 @@ class ProfitAndLossService {
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/reports/ProfitAndLoss", params);
 
-    print (endpoint.toString());
+    //print (endpoint.toString());
 
     var response = await
     http.get(endpoint, headers: headers);
 
     if (response.statusCode == 200) {
-      print (jsonDecode(response.body));
+      //print (jsonDecode(response.body));
       return ProfitAndLoss.fromJson(jsonDecode(response.body));
     }
     else {
