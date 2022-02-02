@@ -2,6 +2,22 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'quickbook_models.g.dart';
 
+///
+/// Accounts are what businesses use to track transactions.
+/// Accounts can track money coming in (income or revenue)
+/// and going out (expenses). They can also track the value
+/// of things (assets), like vehicles and equipment. There
+/// are five basic account types: asset, liability, income,
+/// expense, and equity. Accounts are part of the chart of accounts,
+/// the unique list of accounts each business puts together to do their
+/// accounting. Accountants often call accounts "ledgers". Learn more
+/// about accounts and the chart of accounts. The account object is
+/// what you'll use to do actions with the end-users accounts. Note:
+/// If you need to delete an account, set the Active attribute to false
+/// in an object update request. This makes it inactive. The account itself
+/// isn't permanently deleted, but is hidden for display purposes. References
+/// to inactive objects remain intact.
+///
 @JsonSerializable(includeIfNull: false)
 class Account {
 
@@ -164,6 +180,10 @@ enum AccountTypeEnum {
 
  */
 
+///
+/// A Bill object is an AP transaction representing a request-for-payment
+/// from a third party for goods/services rendered, received, or both.
+///
 @JsonSerializable(includeIfNull: false)
 class Bill {
 
@@ -256,6 +276,9 @@ class Bill {
   }
 }
 
+///
+/// Json converter for line objects.
+///
 class _LineConverter implements JsonConverter<Line, Object?> {
   const _LineConverter();
 
@@ -890,6 +913,14 @@ class TaxLineDetail {
   Map<String, dynamic> toJson() => _$TaxLineDetailToJson(this);
 }
 
+///
+/// The CompanyInfo object contains basic company information.
+/// In QuickBooks, company info and preferences are displayed
+/// in the same place under preferences, so it may be confusing
+/// to figure out from user interface which fields may belong to
+/// this object. But in general, properties such as company addresses or
+/// name are considered company information. Some attributes may exist
+/// in both CompanyInfo and Preferences objects.
 @JsonSerializable(includeIfNull: false)
 class CompanyInfo {
 
@@ -1099,6 +1130,12 @@ class TelephoneNumber {
 
 }
 
+///
+/// A customer is a consumer of the service or product that your business
+/// offers. An individual customer can have an underlying nested
+/// structure, with a parent customer (the top-level object)
+/// having zero or more sub-customers and jobs associated with it.
+///
 @JsonSerializable(includeIfNull: false)
 class Customer {
 
@@ -1267,6 +1304,11 @@ class Customer {
   }
 }
 
+///
+/// An Employee object represents a person working for the company.
+/// If you are looking to create a Contractor via API, refer how to
+/// create a Vendor object, with Vendor1099 field set to true.
+///
 @JsonSerializable(includeIfNull: false)
 class Employee {
 
@@ -2548,6 +2590,11 @@ class CurrencyPrefs {
   }
 }
 
+///
+/// The information below provides a reference on how to access
+/// the Profit and Loss Summary report from the QuickBooks Online
+/// Report Service.
+///
 @JsonSerializable(includeIfNull: false)
 class ProfitAndLoss {
 
@@ -3021,6 +3068,9 @@ class VendorPaymentBankDetail {
 }
 
 /// Quickbooks - Payments
+/// Store bank accounts for processing future payments.
+/// Applicable for US only
+///
 @JsonSerializable(includeIfNull: false)
 class BankAccount {
 
@@ -3069,7 +3119,12 @@ class BankAccount {
   }
 }
 
-
+///
+/// Store credit cards and debit cards for processing future payments.
+/// Note that storing cards for swiped transactions is not currently
+/// supported by the payments API.
+/// Applicable for US and Canada only
+///
 @JsonSerializable(includeIfNull: false)
 class Card {
 
@@ -3173,6 +3228,10 @@ class ZeroDollarVerification {
   }
 }
 
+///
+/// Send and receive payments using credit cards and debit cards.
+/// Applicable for US and Canada only
+///
 @JsonSerializable(includeIfNull: false)
 class Charge {
 
@@ -3375,6 +3434,10 @@ class Lodging {
   }
 }
 
+///
+/// Send and receive payments using EChecks.
+/// Applicable for US only
+///
 @JsonSerializable(includeIfNull:  false)
 class ECheck {
 
@@ -3418,6 +3481,11 @@ class ECheck {
   }
 }
 
+///
+/// Response from the URL discovery.
+/// URL discover allows for fetching the up to date URLs
+/// for things like tokens.
+///
 @JsonSerializable(includeIfNull: false)
 class UrlDiscovery {
 
@@ -3504,6 +3572,9 @@ class Scope {
   }
 }
 
+///
+/// Response from oAth tokens.
+///
 @JsonSerializable(includeIfNull: false)
 class TokenResponse {
 
@@ -3527,6 +3598,9 @@ class TokenResponse {
   }
 }
 
+///
+/// Response type for query executions.
+///
 @JsonSerializable(includeIfNull: false)
 class QueryResponse {
   

@@ -24,9 +24,13 @@ import 'package:another_quickbooks/services/payments/charge_service.dart';
 import 'package:another_quickbooks/services/payments/echeck_service.dart';
 import 'package:another_quickbooks/services/payments/token_service.dart';
 
-/// A Calculator.
+///
+/// The QuickBooks client is the main entry point to the Quickbooks API.
+/// The client exposes additional APIs grouped in individual clients
+/// like the Payments Client and Accounting Client for the Payments
+/// and Accounting APIs respectively.
+///
 class QuickbooksClient {
-  //ABNIuyQM0oAR68j9E4qFlXa1wECY4TDah7H7w3urknpWDlgYKA
   final EnvironmentType environmentType;
   final String? applicationId;
   final String clientId;
