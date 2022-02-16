@@ -65,3 +65,11 @@ String token = (await quickClient.refreshToken(
 
 ## Quickbooks Developer Docs
 https://developer.intuit.com/app/developer/qbo/docs/develop
+
+
+# Bother Hackathon
+Feel free to use any of my GitHub repositories in your apps. You should also consider
+attending the free Brother Hackathon happening this year. You get a free Brother QL-1110NWB,
+a PT-P910BT, and possibly an awesome DS-940DW mobile scanner. Visit brotherhackathon.com for
+more information. I will be teaching workshops, and they are free. You can ask me any questions.
+Thank you.
