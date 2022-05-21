@@ -13,3 +13,7 @@
 ## 0.0.4 
 
 * Added helper function setCachedRealmId to set the realmId used in the client.
+
+## 0.0.5 
+
+* Exposes missing authorization service APIs through the client. 

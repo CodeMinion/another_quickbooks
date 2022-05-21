@@ -128,6 +128,44 @@ class QuickbooksClient {
   }
 
   ///
+  /// Returns the cached token if available
+  ///
+  TokenResponse? getCachedToken() {
+    if (_authenticationService == null) {
+      throw ClientNotInitializedException(message: "Auth Not Ready");
+    } else {
+      _authenticationService!.getCachedToken();
+    }
+  }
+
+  ///
+  /// Returns the realm ID that was last
+  /// used for a token.
+  String? getCachedRealmId() {
+    if (_authenticationService == null) {
+      throw ClientNotInitializedException(message: "Auth Not Ready");
+    } else {
+        _authenticationService!.getCachedRealmId();
+    }
+
+  }
+
+  ///
+  /// Sets the cached realmId useful. When refreshing a token
+  /// this can be used to also load the realmId
+  ///
+  /// The cached realmId is used withing another_brother so
+  /// we don't constantly have to pass it into the calls.
+  ///
+  void setCachedRealmId({String? realmId}) {
+    if (_authenticationService == null) {
+      throw ClientNotInitializedException(message: "Auth Not Ready");
+    } else {
+      return _authenticationService!.setCachedRealmId(realmId: realmId);;
+    }
+  }
+
+  ///
   /// Returns the payment client.
   /// The payments client is used to gain access to all the APIs
   /// from QuickBooks Payments
