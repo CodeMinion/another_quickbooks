@@ -150,6 +150,17 @@ class AuthenticationService {
   String? getCachedRealmId() {
     return _lastRealmId;
   }
+
+  ///
+  /// Sets the cached realmId useful. When refreshing a token
+  /// this can be used to also load the realmId
+  ///
+  /// The cached realmId is used withing another_brother so
+  /// we don't constantly have to pass it into the calls.
+  ///
+  void setCachedRealmId({String? realmId}) {
+    _lastRealmId = realmId;
+  }
 }
 
 class TokenRequestFailedException implements Exception {

@@ -33,6 +33,7 @@ class ItemService {
     realmId ??= authenticationService.getCachedRealmId();
 
     Map<String, String> headers = {
+      "Access-Control-Allow-Origin": "*",
       "Authorization": "Bearer ${authToken ?? ""}",
       //'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
@@ -44,10 +45,8 @@ class ItemService {
       "minorversion": minorVersion.toString()
     };
 
-
     Uri endpoint = Uri.https(
         baseUrl, "/v3/company/$realmId/query", params);
-
     //print (endpoint.toString());
 
     var response = await

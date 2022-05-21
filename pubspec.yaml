@@ -1,6 +1,6 @@
 name: another_quickbooks
 description: Flutter Quickbooks SDK. Exposes the Quickbooks Payment and Accounting APIs in flutter including app authorization.
-version: 0.0.2
+version: 0.0.4
 homepage: https://github.com/CodeMinion/another_quickbooks
 
 environment:
