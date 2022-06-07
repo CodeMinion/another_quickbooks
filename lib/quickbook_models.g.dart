@@ -2594,6 +2594,116 @@ Map<String, dynamic> _$TaxAgencyToJson(TaxAgency instance) {
   return val;
 }
 
+PurchaseOrder _$PurchaseOrderFromJson(Map<String, dynamic> json) =>
+    PurchaseOrder(
+      id: json['Id'] as String?,
+      aPAccountRef: json['APAccountRef'] == null
+          ? null
+          : ReferenceType.fromJson(
+              json['APAccountRef'] as Map<String, dynamic>),
+      classRef: json['ClassRef'] == null
+          ? null
+          : ReferenceType.fromJson(json['ClassRef'] as Map<String, dynamic>),
+      currencyRef: json['CurrencyRef'] == null
+          ? null
+          : CurrencyRefType.fromJson(
+              json['CurrencyRef'] as Map<String, dynamic>),
+      docNumber: json['DocNumber'] as String?,
+      line: (json['Line'] as List<dynamic>?)
+          ?.map(const _LineConverter().fromJson)
+          .toList(),
+      vendorRef: json['VendorRef'] == null
+          ? null
+          : ReferenceType.fromJson(json['VendorRef'] as Map<String, dynamic>),
+      syncToken: json['SyncToken'] as String?,
+      txnDate: json['TxnDate'] as String?,
+      pOEmail: json['POEmail'] as String?,
+      salesTermRef: json['SalesTermRef'] == null
+          ? null
+          : ReferenceType.fromJson(
+              json['SalesTermRef'] as Map<String, dynamic>),
+      linkedTxn: (json['LinkedTxn'] as List<dynamic>?)
+          ?.map((e) => LinkedTxn.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      globalTaxCalculation: $enumDecodeNullable(
+          _$GlobalTaxCalculationEnumEnumMap, json['GlobalTaxCalculation']),
+      memo: json['Memo'] as String?,
+      pOStatus: json['POStatus'] as String?,
+      transactionLocationType: json['TransactionLocationType'] as String?,
+      dueDate: json['DueDate'] as String?,
+      metaData: json['MetaData'] == null
+          ? null
+          : ModificationMetaData.fromJson(
+              json['MetaData'] as Map<String, dynamic>),
+      privateNote: json['PrivateNote'] as String?,
+      shipMethodRef: json['ShipMethodRef'] == null
+          ? null
+          : ReferenceType.fromJson(
+              json['ShipMethodRef'] as Map<String, dynamic>),
+      txnTaxDetail: json['TxnTaxDetail'] == null
+          ? null
+          : TxnTaxDetail.fromJson(json['TxnTaxDetail'] as Map<String, dynamic>),
+      shipTo: json['ShipTo'] == null
+          ? null
+          : ReferenceType.fromJson(json['ShipTo'] as Map<String, dynamic>),
+      exchangeRate: (json['ExchangeRate'] as num?)?.toDouble(),
+      shipAddr: json['ShipAddr'] == null
+          ? null
+          : PhysicalAddress.fromJson(json['ShipAddr'] as Map<String, dynamic>),
+      vendorAddr: json['VendorAddr'] == null
+          ? null
+          : PhysicalAddress.fromJson(
+              json['VendorAddr'] as Map<String, dynamic>),
+      emailStatus: json['EmailStatus'] as String?,
+      totalAmt: (json['TotalAmt'] as num?)?.toDouble(),
+      recurDataRef: json['RecurDataRef'] == null
+          ? null
+          : ReferenceType.fromJson(
+              json['RecurDataRef'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$PurchaseOrderToJson(PurchaseOrder instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('Id', instance.id);
+  writeNotNull('APAccountRef', instance.aPAccountRef);
+  writeNotNull('VendorRef', instance.vendorRef);
+  writeNotNull(
+      'Line', instance.line?.map(const _LineConverter().toJson).toList());
+  writeNotNull('SyncToken', instance.syncToken);
+  writeNotNull('CurrencyRef', instance.currencyRef);
+  writeNotNull('TxnDate', instance.txnDate);
+  writeNotNull('POEmail', instance.pOEmail);
+  writeNotNull('ClassRef', instance.classRef);
+  writeNotNull('SalesTermRef', instance.salesTermRef);
+  writeNotNull('LinkedTxn', instance.linkedTxn);
+  writeNotNull('GlobalTaxCalculation',
+      _$GlobalTaxCalculationEnumEnumMap[instance.globalTaxCalculation]);
+  writeNotNull('Memo', instance.memo);
+  writeNotNull('POStatus', instance.pOStatus);
+  writeNotNull('TransactionLocationType', instance.transactionLocationType);
+  writeNotNull('DueDate', instance.dueDate);
+  writeNotNull('MetaData', instance.metaData);
+  writeNotNull('DocNumber', instance.docNumber);
+  writeNotNull('PrivateNote', instance.privateNote);
+  writeNotNull('ShipMethodRef', instance.shipMethodRef);
+  writeNotNull('TxnTaxDetail', instance.txnTaxDetail);
+  writeNotNull('ShipTo', instance.shipTo);
+  writeNotNull('ExchangeRate', instance.exchangeRate);
+  writeNotNull('ShipAddr', instance.shipAddr);
+  writeNotNull('VendorAddr', instance.vendorAddr);
+  writeNotNull('EmailStatus', instance.emailStatus);
+  writeNotNull('TotalAmt', instance.totalAmt);
+  writeNotNull('RecurDataRef', instance.recurDataRef);
+  return val;
+}
+
 Vendor _$VendorFromJson(Map<String, dynamic> json) => Vendor(
       displayName: json['DisplayName'] as String?,
       syncToken: json['SyncToken'] as String?,
@@ -3335,6 +3445,9 @@ QueryResponse _$QueryResponseFromJson(Map<String, dynamic> json) =>
       preferences: (json['Preferences'] as List<dynamic>?)
           ?.map((e) => Preferences.fromJson(e as Map<String, dynamic>))
           .toList(),
+      purchaseOrder: (json['PurchaseOrder'] as List<dynamic>?)
+          ?.map((e) => PurchaseOrder.fromJson(e as Map<String, dynamic>))
+          .toList(),
       taxAgency: (json['TaxAgency'] as List<dynamic>?)
           ?.map((e) => TaxAgency.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -3364,6 +3477,7 @@ Map<String, dynamic> _$QueryResponseToJson(QueryResponse instance) {
   writeNotNull('Item', instance.item);
   writeNotNull('Payment', instance.payment);
   writeNotNull('Preferences', instance.preferences);
+  writeNotNull('PurchaseOrder', instance.purchaseOrder);
   writeNotNull('TaxAgency', instance.taxAgency);
   writeNotNull('Vendor', instance.vendor);
   writeNotNull('startPosition', instance.startPosition);

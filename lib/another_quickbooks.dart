@@ -14,6 +14,7 @@ import 'package:another_quickbooks/services/accounting/item_service.dart';
 import 'package:another_quickbooks/services/accounting/payment_service.dart';
 import 'package:another_quickbooks/services/accounting/preferences_service.dart';
 import 'package:another_quickbooks/services/accounting/profit_loss_service.dart';
+import 'package:another_quickbooks/services/accounting/purchase_order_service.dart';
 import 'package:another_quickbooks/services/accounting/tax_agency_service.dart';
 import 'package:another_quickbooks/services/accounting/vendor_service.dart';
 import 'package:another_quickbooks/services/authentication_service.dart';
@@ -45,8 +46,7 @@ class QuickbooksClient {
   AccountingClient? _accountingClient;
 
   QuickbooksClient(
-      {
-        required this.applicationId,
+      {required this.applicationId,
       required this.clientId,
       required this.clientSecret,
       this.environmentType = EnvironmentType.Sandbox}) {
@@ -145,9 +145,8 @@ class QuickbooksClient {
     if (_authenticationService == null) {
       throw ClientNotInitializedException(message: "Auth Not Ready");
     } else {
-        _authenticationService!.getCachedRealmId();
+      _authenticationService!.getCachedRealmId();
     }
-
   }
 
   ///
@@ -161,7 +160,8 @@ class QuickbooksClient {
     if (_authenticationService == null) {
       throw ClientNotInitializedException(message: "Auth Not Ready");
     } else {
-      return _authenticationService!.setCachedRealmId(realmId: realmId);;
+      return _authenticationService!.setCachedRealmId(realmId: realmId);
+      ;
     }
   }
 
@@ -211,7 +211,6 @@ class PaymentClient {
 
   PaymentClient._(
       {required this.baseUrl, required this.authenticationService}) {
-
     _accountsService = BankAccountsService(
         baseUrl: baseUrl, authenticationService: authenticationService);
 
@@ -240,12 +239,11 @@ class PaymentClient {
     String? authToken,
   }) async {
     return _accountsService.createAccount(
-        requestId: requestId,
-        customerId: customerId,
-        account: account,
+      requestId: requestId,
+      customerId: customerId,
+      account: account,
       realmId: realmId,
       authToken: authToken,
-
     );
   }
 
@@ -259,8 +257,12 @@ class PaymentClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _accountsService.createAccountFromToken(requestId: requestId,
-        customerId: customerId, accountToken: accountToken, realmId: realmId, authToken: authToken);
+    return _accountsService.createAccountFromToken(
+        requestId: requestId,
+        customerId: customerId,
+        accountToken: accountToken,
+        realmId: realmId,
+        authToken: authToken);
   }
 
   ///
@@ -274,7 +276,11 @@ class PaymentClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _accountsService.readAllAccounts(requestId: requestId, customerId: customerId, realmId: realmId, authToken: authToken);
+    return _accountsService.readAllAccounts(
+        requestId: requestId,
+        customerId: customerId,
+        realmId: realmId,
+        authToken: authToken);
   }
 
   ///
@@ -286,8 +292,11 @@ class PaymentClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _accountsService.readAccount(bankAccountId: bankAccountId,
-        customerId: customerId, realmId: realmId, authToken: authToken);
+    return _accountsService.readAccount(
+        bankAccountId: bankAccountId,
+        customerId: customerId,
+        realmId: realmId,
+        authToken: authToken);
   }
 
   ///
@@ -303,7 +312,9 @@ class PaymentClient {
     return _accountsService.deleteAccount(
         requestId: requestId,
         bankAccountId: bankAccountId,
-        customerId: customerId, realmId: realmId, authToken: authToken);
+        customerId: customerId,
+        realmId: realmId,
+        authToken: authToken);
   }
 
   // Start: Card
@@ -319,8 +330,12 @@ class PaymentClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _cardService.createCard(requestId: requestId,
-        customerId: customerId, card: card, realmId: requestId, authToken: authToken);
+    return _cardService.createCard(
+        requestId: requestId,
+        customerId: customerId,
+        card: card,
+        realmId: requestId,
+        authToken: authToken);
   }
 
   ///
@@ -333,9 +348,12 @@ class PaymentClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _cardService.createCardFromToken(requestId: requestId,
-        customerId: customerId, cardToken: cardToken,
-    realmId: requestId, authToken: authToken);
+    return _cardService.createCardFromToken(
+        requestId: requestId,
+        customerId: customerId,
+        cardToken: cardToken,
+        realmId: requestId,
+        authToken: authToken);
   }
 
   ///
@@ -353,9 +371,11 @@ class PaymentClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _cardService.readAllCards(requestId: requestId,
+    return _cardService.readAllCards(
+        requestId: requestId,
         customerId: customerId,
-    realmId: requestId, authToken: authToken);
+        realmId: requestId,
+        authToken: authToken);
   }
 
   ///
@@ -369,8 +389,11 @@ class PaymentClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _cardService.readCard(cardId: cardId, customerId: customerId,
-    realmId: realmId, authToken: authToken);
+    return _cardService.readCard(
+        cardId: cardId,
+        customerId: customerId,
+        realmId: realmId,
+        authToken: authToken);
   }
 
   ///
@@ -383,9 +406,12 @@ class PaymentClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _cardService.deleteCard(requestId: requestId,
-        cardId: cardId, customerId: customerId,
-    realmId: realmId, authToken: authToken);
+    return _cardService.deleteCard(
+        requestId: requestId,
+        cardId: cardId,
+        customerId: customerId,
+        realmId: realmId,
+        authToken: authToken);
   }
 
   // Start: Charge
@@ -401,8 +427,11 @@ class PaymentClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _chargeService.createCharge(requestId: requestId, charge: charge,
-    realmId: realmId, authToken: authToken);
+    return _chargeService.createCharge(
+        requestId: requestId,
+        charge: charge,
+        realmId: realmId,
+        authToken: authToken);
   }
 
   ///
@@ -415,8 +444,8 @@ class PaymentClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _chargeService.readCharge(chargeId: chargeId, realmId: realmId,
-    authToken: authToken);
+    return _chargeService.readCharge(
+        chargeId: chargeId, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -428,8 +457,11 @@ class PaymentClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _chargeService.readRefund(chargeId: chargeId, refundId: refundId,
-    realmId: realmId, authToken: authToken);
+    return _chargeService.readRefund(
+        chargeId: chargeId,
+        refundId: refundId,
+        realmId: realmId,
+        authToken: authToken);
   }
 
   ///
@@ -444,10 +476,14 @@ class PaymentClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _chargeService.refundCharge(requestId: requestId,
-        chargeId: chargeId, amount: amount,
-    description: description, context: context, realmId: realmId,
-    authToken: authToken);
+    return _chargeService.refundCharge(
+        requestId: requestId,
+        chargeId: chargeId,
+        amount: amount,
+        description: description,
+        context: context,
+        realmId: realmId,
+        authToken: authToken);
   }
 
   ///
@@ -462,10 +498,14 @@ class PaymentClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _chargeService.captureCharge(requestId: requestId,
+    return _chargeService.captureCharge(
+        requestId: requestId,
         chargeId: chargeId,
-        amount: amount, description: description, context: context,
-    realmId: realmId, authToken: authToken);
+        amount: amount,
+        description: description,
+        context: context,
+        realmId: realmId,
+        authToken: authToken);
   }
 
   ///
@@ -479,9 +519,11 @@ class PaymentClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _chargeService.voidTransaction(requestId: requestId,
+    return _chargeService.voidTransaction(
+        requestId: requestId,
         chargeRequestId: chargeRequestId,
-    realmId: realmId, authToken: authToken);
+        realmId: realmId,
+        authToken: authToken);
   }
 
   // Start: EChecks
@@ -494,8 +536,11 @@ class PaymentClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _eCheckService.createDebit(requestId: requestId, echeck: echeck,
-    authToken: authToken, realmId: realmId);
+    return _eCheckService.createDebit(
+        requestId: requestId,
+        echeck: echeck,
+        authToken: authToken,
+        realmId: realmId);
   }
 
   ///
@@ -509,8 +554,11 @@ class PaymentClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _eCheckService.readRefund(echeckId: echeckId, refundId: refundId,
-    realmId: realmId, authToken: authToken);
+    return _eCheckService.readRefund(
+        echeckId: echeckId,
+        refundId: refundId,
+        realmId: realmId,
+        authToken: authToken);
   }
 
   ///
@@ -523,8 +571,8 @@ class PaymentClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _eCheckService.readECheck(echeckId: echeckId,
-    authToken: authToken, realmId: realmId);
+    return _eCheckService.readECheck(
+        echeckId: echeckId, authToken: authToken, realmId: realmId);
   }
 
   ///
@@ -540,8 +588,11 @@ class PaymentClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _eCheckService.voidECheck(requestId: requestId, echeckId: echeckId,
-    realmId: realmId, authToken: authToken);
+    return _eCheckService.voidECheck(
+        requestId: requestId,
+        echeckId: echeckId,
+        realmId: realmId,
+        authToken: authToken);
   }
 
   // Start: Tokens
@@ -554,8 +605,11 @@ class PaymentClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _tokenService.createCardToken(requestId: requestId, card: card,
-    authToken: authToken, realmId: realmId);
+    return _tokenService.createCardToken(
+        requestId: requestId,
+        card: card,
+        authToken: authToken,
+        realmId: realmId);
   }
 
   ///
@@ -567,8 +621,11 @@ class PaymentClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _tokenService.createBankAccountToken(requestId: requestId,
-        bankAccount: bankAccount, realmId: realmId, authToken: authToken);
+    return _tokenService.createBankAccountToken(
+        requestId: requestId,
+        bankAccount: bankAccount,
+        realmId: realmId,
+        authToken: authToken);
   }
 }
 
@@ -591,51 +648,83 @@ class AccountingClient {
   late PaymentService _paymentService;
   late PreferencesService _preferencesService;
   late ProfitAndLossService _profitAndLossService;
+  late PurchaseOrderService _purchaseOrderService;
   late TaxAgencyService _taxAgencyService;
   late VendorService _vendorService;
 
   AccountingClient._(
-      {required this.baseUrl, required this.authenticationService, this.minorVersion = 63}) {
+      {required this.baseUrl,
+      required this.authenticationService,
+      this.minorVersion = 63}) {
     _accountsService = AccountService(
-        baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
+        baseUrl: baseUrl,
+        authenticationService: authenticationService,
+        minorVersion: minorVersion);
 
     _companyInfoService = CompanyInfoService(
-        baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
+        baseUrl: baseUrl,
+        authenticationService: authenticationService,
+        minorVersion: minorVersion);
 
     _billService = BillService(
-        baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
+        baseUrl: baseUrl,
+        authenticationService: authenticationService,
+        minorVersion: minorVersion);
 
     _customerService = CustomerService(
-        baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
+        baseUrl: baseUrl,
+        authenticationService: authenticationService,
+        minorVersion: minorVersion);
 
     _employeeService = EmployeeService(
-        baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
+        baseUrl: baseUrl,
+        authenticationService: authenticationService,
+        minorVersion: minorVersion);
 
     _estimateService = EstimateService(
-        baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
+        baseUrl: baseUrl,
+        authenticationService: authenticationService,
+        minorVersion: minorVersion);
 
     _invoiceService = InvoiceService(
-        baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
+        baseUrl: baseUrl,
+        authenticationService: authenticationService,
+        minorVersion: minorVersion);
 
     _itemService = ItemService(
-        baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
+        baseUrl: baseUrl,
+        authenticationService: authenticationService,
+        minorVersion: minorVersion);
 
     _paymentService = PaymentService(
-        baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
+        baseUrl: baseUrl,
+        authenticationService: authenticationService,
+        minorVersion: minorVersion);
 
     _preferencesService = PreferencesService(
-        baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
+        baseUrl: baseUrl,
+        authenticationService: authenticationService,
+        minorVersion: minorVersion);
 
     _profitAndLossService = ProfitAndLossService(
-        baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
+        baseUrl: baseUrl,
+        authenticationService: authenticationService,
+        minorVersion: minorVersion);
+
+    _purchaseOrderService = PurchaseOrderService(
+        baseUrl: baseUrl,
+        authenticationService: authenticationService,
+        minorVersion: minorVersion);
 
     _taxAgencyService = TaxAgencyService(
-        baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
+        baseUrl: baseUrl,
+        authenticationService: authenticationService,
+        minorVersion: minorVersion);
 
     _vendorService = VendorService(
-        baseUrl: baseUrl, authenticationService: authenticationService, minorVersion: minorVersion);
-
-
+        baseUrl: baseUrl,
+        authenticationService: authenticationService,
+        minorVersion: minorVersion);
   }
 
   // Start: Account Service
@@ -647,7 +736,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-      return _accountsService.queryAccount(query: query, realmId: realmId, authToken: authToken);
+    return _accountsService.queryAccount(
+        query: query, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -659,7 +749,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _accountsService.readAccount(accountId: accountId, realmId: realmId, authToken: authToken);
+    return _accountsService.readAccount(
+        accountId: accountId, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -670,11 +761,11 @@ class AccountingClient {
   ///
   Future<Account> createAccount({
     required Account account,
-
     String? realmId,
     String? authToken,
   }) async {
-    return _accountsService.createAccount(account: account, authToken: authToken, realmId: realmId);
+    return _accountsService.createAccount(
+        account: account, authToken: authToken, realmId: realmId);
   }
 
   ///
@@ -690,7 +781,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _accountsService.updateAccount(account: account, realmId: realmId, authToken: authToken);
+    return _accountsService.updateAccount(
+        account: account, realmId: realmId, authToken: authToken);
   }
 
   // Start CompanyInfo
@@ -702,7 +794,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _companyInfoService.queryCompanyInfo(query: query, realmId: realmId, authToken: authToken);
+    return _companyInfoService.queryCompanyInfo(
+        query: query, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -713,8 +806,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _companyInfoService.readCompanyInfo(companyId: companyId,
-        realmId: realmId, authToken: authToken);
+    return _companyInfoService.readCompanyInfo(
+        companyId: companyId, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -729,8 +822,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _companyInfoService.updateCompanyInfo(companyInfo: companyInfo,
-        realmId: realmId, authToken: authToken);
+    return _companyInfoService.updateCompanyInfo(
+        companyInfo: companyInfo, realmId: realmId, authToken: authToken);
   }
 
   // Start: Bill Service
@@ -742,7 +835,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _billService.queryBill(query: query, realmId: realmId, authToken: authToken);
+    return _billService.queryBill(
+        query: query, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -753,7 +847,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _billService.readBill(billId: billId, realmId: realmId, authToken: authToken);
+    return _billService.readBill(
+        billId: billId, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -764,8 +859,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _billService.createBill(bill: bill,
-        realmId: realmId, authToken: authToken);
+    return _billService.createBill(
+        bill: bill, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -780,7 +875,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _billService.updateBill(bill: bill, realmId: realmId, authToken: authToken);
+    return _billService.updateBill(
+        bill: bill, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -794,7 +890,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _billService.deleteBill(bill: bill, realmId: realmId, authToken: authToken);
+    return _billService.deleteBill(
+        bill: bill, realmId: realmId, authToken: authToken);
   }
 
   // Start: Customer Service
@@ -806,7 +903,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _customerService.queryCustomer(query: query, realmId: realmId, authToken: authToken);
+    return _customerService.queryCustomer(
+        query: query, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -818,7 +916,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _customerService.readCustomer(customerId: customerId, realmId: realmId, authToken: authToken);
+    return _customerService.readCustomer(
+        customerId: customerId, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -831,7 +930,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _customerService.createCustomer(customer: customer, realmId: realmId, authToken: authToken);
+    return _customerService.createCustomer(
+        customer: customer, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -845,7 +945,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _customerService.updateCustomer(customer: customer, realmId: realmId, authToken: authToken);
+    return _customerService.updateCustomer(
+        customer: customer, realmId: realmId, authToken: authToken);
   }
 
   // Start: Employee
@@ -857,7 +958,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _employeeService.queryEmployee(query: query, realmId: realmId, authToken: authToken);
+    return _employeeService.queryEmployee(
+        query: query, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -869,7 +971,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _employeeService.readEmployee(employeeId: employeeId, realmId: realmId, authToken: authToken);
+    return _employeeService.readEmployee(
+        employeeId: employeeId, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -880,7 +983,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _employeeService.createEmployee(employee: employee, realmId: realmId, authToken: authToken);
+    return _employeeService.createEmployee(
+        employee: employee, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -895,7 +999,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _employeeService.updateEmployee(employee: employee, realmId: realmId, authToken: authToken);
+    return _employeeService.updateEmployee(
+        employee: employee, realmId: realmId, authToken: authToken);
   }
 
   // Start: Estimate
@@ -907,7 +1012,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _estimateService.queryEstimate(query: query, realmId: realmId, authToken: authToken);
+    return _estimateService.queryEstimate(
+        query: query, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -918,7 +1024,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _estimateService.readEstimate(estimateId: estimateId, realmId: realmId, authToken: authToken);
+    return _estimateService.readEstimate(
+        estimateId: estimateId, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -932,7 +1039,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _estimateService.createEstimate(estimate: estimate, realmId: realmId, authToken: authToken);
+    return _estimateService.createEstimate(
+        estimate: estimate, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -948,7 +1056,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _estimateService.updateEstimate(estimate: estimate, realmId: realmId, authToken: authToken);
+    return _estimateService.updateEstimate(
+        estimate: estimate, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -961,7 +1070,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _estimateService.deleteEstimate(estimate: estimate, realmId: realmId, authToken: authToken);
+    return _estimateService.deleteEstimate(
+        estimate: estimate, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -975,7 +1085,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _estimateService.getEstimatePdf(estimateId: estimateId, realmId: realmId, authToken: authToken);
+    return _estimateService.getEstimatePdf(
+        estimateId: estimateId, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -991,7 +1102,11 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _estimateService.sendEstimate(estimateId: estimateId, emailTo: emailTo, realmId: realmId, authToken: authToken);
+    return _estimateService.sendEstimate(
+        estimateId: estimateId,
+        emailTo: emailTo,
+        realmId: realmId,
+        authToken: authToken);
   }
 
   // Start: Invoice
@@ -1003,7 +1118,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _invoiceService.queryInvoice(query: query, realmId: realmId, authToken: authToken);
+    return _invoiceService.queryInvoice(
+        query: query, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -1014,7 +1130,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _invoiceService.readInvoice(invoiceId: invoiceId, realmId: realmId, authToken: authToken);
+    return _invoiceService.readInvoice(
+        invoiceId: invoiceId, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -1026,7 +1143,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _invoiceService.createInvoice(invoice: invoice, realmId: realmId, authToken: authToken);
+    return _invoiceService.createInvoice(
+        invoice: invoice, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -1042,7 +1160,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _invoiceService.updateInvoice(invoice: invoice, realmId: realmId, authToken: authToken);
+    return _invoiceService.updateInvoice(
+        invoice: invoice, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -1056,7 +1175,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _invoiceService.deleteInvoice(invoice: invoice, realmId: realmId, authToken: authToken);
+    return _invoiceService.deleteInvoice(
+        invoice: invoice, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -1071,7 +1191,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _invoiceService.voidInvoice(invoice: invoice, realmId: realmId, authToken: authToken);
+    return _invoiceService.voidInvoice(
+        invoice: invoice, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -1085,7 +1206,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _invoiceService.getInvoicePdf(invoiceId: invoiceId, realmId: realmId, authToken: authToken);
+    return _invoiceService.getInvoicePdf(
+        invoiceId: invoiceId, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -1101,7 +1223,11 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _invoiceService.sendInvoice(invoiceId: invoiceId, emailTo: emailTo, realmId: realmId, authToken: authToken);
+    return _invoiceService.sendInvoice(
+        invoiceId: invoiceId,
+        emailTo: emailTo,
+        realmId: realmId,
+        authToken: authToken);
   }
 
   // Start: Item
@@ -1113,7 +1239,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _itemService.queryItem(query: query, realmId: realmId, authToken: authToken);
+    return _itemService.queryItem(
+        query: query, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -1124,7 +1251,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _itemService.readItem(itemId: itemId, realmId: realmId, authToken: authToken);
+    return _itemService.readItem(
+        itemId: itemId, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -1135,7 +1263,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _itemService.createItem(item: item, realmId: realmId, authToken: authToken);
+    return _itemService.createItem(
+        item: item, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -1148,7 +1277,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _itemService.updateItem(item: item, realmId: realmId, authToken: authToken);
+    return _itemService.updateItem(
+        item: item, realmId: realmId, authToken: authToken);
   }
 
   // Start: Payment
@@ -1160,7 +1290,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _paymentService.queryPayment(query: query, realmId: realmId, authToken: authToken);
+    return _paymentService.queryPayment(
+        query: query, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -1172,7 +1303,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _paymentService.readPayment(paymentId: paymentId, realmId: realmId, authToken: authToken);
+    return _paymentService.readPayment(
+        paymentId: paymentId, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -1183,7 +1315,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _paymentService.createPayment(payment: payment, realmId: realmId, authToken: authToken);
+    return _paymentService.createPayment(
+        payment: payment, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -1199,7 +1332,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _paymentService.updatePayment(payment: payment, realmId: realmId, authToken: authToken);
+    return _paymentService.updatePayment(
+        payment: payment, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -1211,7 +1345,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _paymentService.deletePayment(payment: payment, realmId: realmId, authToken: authToken);
+    return _paymentService.deletePayment(
+        payment: payment, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -1229,7 +1364,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _paymentService.voidPayment(payment: payment, realmId: realmId, authToken: authToken);
+    return _paymentService.voidPayment(
+        payment: payment, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -1243,7 +1379,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _paymentService.getPaymentPdf(paymentId: paymentId, realmId: realmId, authToken: authToken);
+    return _paymentService.getPaymentPdf(
+        paymentId: paymentId, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -1255,7 +1392,11 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _paymentService.sendPayment(paymentId: paymentId, emailTo: emailTo, realmId: realmId, authToken: authToken);
+    return _paymentService.sendPayment(
+        paymentId: paymentId,
+        emailTo: emailTo,
+        realmId: realmId,
+        authToken: authToken);
   }
 
   // Preferences
@@ -1267,7 +1408,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _preferencesService.queryPreferences(query: query, realmId: realmId, authToken: authToken);
+    return _preferencesService.queryPreferences(
+        query: query, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -1277,7 +1419,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _preferencesService.readPreferences(realmId: realmId, authToken: authToken);
+    return _preferencesService.readPreferences(
+        realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -1293,7 +1436,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _preferencesService.updatePreferences(preferences: preferences, realmId: realmId, authToken: authToken);
+    return _preferencesService.updatePreferences(
+        preferences: preferences, realmId: realmId, authToken: authToken);
   }
 
   // Profit And Loss
@@ -1305,7 +1449,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _profitAndLossService.queryReport(query: query, realmId: realmId, authToken: authToken);
+    return _profitAndLossService.queryReport(
+        query: query, realmId: realmId, authToken: authToken);
   }
 
   // Start: Tax Agency
@@ -1317,7 +1462,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _taxAgencyService.queryTaxAgency(query: query, realmId: realmId, authToken: authToken);
+    return _taxAgencyService.queryTaxAgency(
+        query: query, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -1329,7 +1475,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _taxAgencyService.readTaxAgency(taxAgencyId: taxAgencyId, realmId: realmId, authToken: authToken);
+    return _taxAgencyService.readTaxAgency(
+        taxAgencyId: taxAgencyId, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -1340,7 +1487,78 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _taxAgencyService.createTaxAgency(agency: agency, realmId: realmId, authToken: authToken);
+    return _taxAgencyService.createTaxAgency(
+        agency: agency, realmId: realmId, authToken: authToken);
+  }
+
+  // Start: Purchase Order Service
+  ///
+  /// Returns the results of the query.
+  ///
+  Future<List<PurchaseOrder>> queryPurchaseOrder({
+    required String query,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _purchaseOrderService.queryPurchaseOrder(
+        query: query, realmId: realmId, authToken: authToken);
+  }
+
+  ///
+  /// Retrieves the details of a purchaseOrder that has been previously created.
+  ///
+  Future<PurchaseOrder> readPurchaseOrder({
+    required String purchaseOrderId,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _purchaseOrderService.readPurchaseOrder(
+        purchaseOrderId: purchaseOrderId,
+        realmId: realmId,
+        authToken: authToken);
+  }
+
+  ///
+  /// The minimum elements to create an purchaseOrder are listed here.
+  ///
+  Future<PurchaseOrder> createPurchaseOrder({
+    required PurchaseOrder purchaseOrder,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _purchaseOrderService.createPurchaseOrder(
+        purchaseOrder: purchaseOrder, realmId: realmId, authToken: authToken);
+  }
+
+  ///
+  /// Use this operation to update any of the writable fields of
+  /// an existing purchaseOrder object. The request body must include all
+  /// writable fields of the existing object as returned in a read
+  /// response. Writable fields omitted from the request body are set
+  /// to NULL. The ID of the object to update is specified in the request body.
+  ///
+  Future<PurchaseOrder> updatePurchaseOrder({
+    required PurchaseOrder purchaseOrder,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _purchaseOrderService.updatePurchaseOrder(
+        purchaseOrder: purchaseOrder, realmId: realmId, authToken: authToken);
+  }
+
+  ///
+  /// This operation deletes the purchaseOrder object specified in the request body.
+  /// Include a minimum of PurchaseOrder.Id and PurchaseOrder.SyncToken in the request body.
+  /// You must unlink any linked transactions associated with the purchaseOrder
+  /// object before deleting it.
+  ///
+  Future<DeleteResponse> deletePurchaseOrder({
+    required PurchaseOrder purchaseOrder,
+    String? realmId,
+    String? authToken,
+  }) async {
+    return _purchaseOrderService.deletePurchaseOrder(
+        purchaseOrder: purchaseOrder, realmId: realmId, authToken: authToken);
   }
 
   // Start: Vendor
@@ -1352,7 +1570,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _vendorService.queryVendor(query: query, realmId: realmId, authToken: authToken);
+    return _vendorService.queryVendor(
+        query: query, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -1363,7 +1582,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _vendorService.readVendor(vendorId: vendorId, realmId: realmId, authToken: authToken);
+    return _vendorService.readVendor(
+        vendorId: vendorId, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -1375,7 +1595,8 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _vendorService.createVendor(vendor: vendor, realmId: realmId, authToken: authToken);
+    return _vendorService.createVendor(
+        vendor: vendor, realmId: realmId, authToken: authToken);
   }
 
   ///
@@ -1396,12 +1617,11 @@ class AccountingClient {
     String? realmId,
     String? authToken,
   }) async {
-    return _vendorService.updateVendor(vendor: vendor, realmId: realmId, authToken: authToken);
+    return _vendorService.updateVendor(
+        vendor: vendor, realmId: realmId, authToken: authToken);
   }
-
-
-
 }
+
 enum EnvironmentType {
   Sandbox,
   Production,
